@@ -1,732 +1,586 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Mahdi's Favorite Song</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            margin: 0;
-            width: 100%;
-            min-height: 100%;
-        }
-
-        body {
-            min-height: 100vh;
-            overflow: hidden;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            font-family: "Courier New", monospace;
-            color: white;
-
-            background:
-                radial-gradient(
-                    ellipse at 50% 25%,
-                    rgba(48, 48, 120, 0.35) 0%,
-                    transparent 45%
-                ),
-                radial-gradient(
-                    ellipse at 80% 80%,
-                    rgba(72, 35, 120, 0.25) 0%,
-                    transparent 45%
-                ),
-                linear-gradient(
-                    180deg,
-                    #02030f 0%,
-                    #05071c 35%,
-                    #0a0b2b 70%,
-                    #11113a 100%
-                );
-        }
-
-        /* =========================================
-           STAR FIELD
-        ========================================= */
-
-        .stars,
-        .stars2,
-        .stars3,
-        .stars4 {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-        }
-
-        /* Tiny stars */
-
-        .stars {
-            opacity: 0.8;
-
-            background-image:
-                radial-gradient(circle, #ffffff 0.8px, transparent 1px),
-                radial-gradient(circle, #cfd7ff 0.7px, transparent 1px),
-                radial-gradient(circle, #ffffff 0.6px, transparent 1px);
-
-            background-size:
-                45px 45px,
-                63px 63px,
-                87px 87px;
-
-            background-position:
-                0 0,
-                20px 15px,
-                40px 30px;
-        }
-
-        /* Medium stars */
-
-        .stars2 {
-            opacity: 0.75;
-
-            background-image:
-                radial-gradient(circle, #ffffff 1.2px, transparent 1.8px),
-                radial-gradient(circle, #aebcff 1px, transparent 1.7px),
-                radial-gradient(circle, #ffffff 1.4px, transparent 2px);
-
-            background-size:
-                110px 110px,
-                145px 145px,
-                190px 190px;
-
-            background-position:
-                25px 60px,
-                80px 20px,
-                130px 100px;
-
-            animation:
-                starsMove 18s linear infinite;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mahdi's Night</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #25245f 0%,
+            #11143c 30%,
+            #070a24 62%,
+            #02030d 100%
+        );
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* =========================
+   STARS
+========================= */
+
+.sky {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* Small stars */
+
+.sky::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        radial-gradient(circle, white 1px, transparent 1.5px),
+        radial-gradient(circle, #d9ddff 1px, transparent 1.5px),
+        radial-gradient(circle, white 0.7px, transparent 1.2px);
+
+    background-size:
+        37px 41px,
+        61px 73px,
+        89px 97px;
+
+    background-position:
+        3px 8px,
+        17px 31px,
+        43px 12px;
+
+    opacity: 0.75;
+}
+
+/* Glowing stars */
+
+.star {
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
 
-        /* Big glowing stars */
+    background: white;
 
-        .stars3 {
-            opacity: 0.9;
+    border-radius: 50%;
 
-            background-image:
-                radial-gradient(
-                    circle,
-                    #ffffff 0px,
-                    #ffffff 1.5px,
-                    rgba(180, 190, 255, 0.8) 2.5px,
-                    transparent 5px
-                );
+    box-shadow:
+        0 0 5px white,
+        0 0 12px #9da7ff;
 
-            background-size: 230px 230px;
-            background-position: 70px 120px;
+    animation: sparkle 3s ease-in-out infinite;
+}
 
-            animation:
-                twinkle 3s ease-in-out infinite alternate;
-        }
+.star:nth-child(1) { top: 12%; left: 18%; animation-delay: .3s; }
+.star:nth-child(2) { top: 23%; left: 35%; animation-delay: 1.2s; }
+.star:nth-child(3) { top: 15%; left: 63%; animation-delay: 2s; }
+.star:nth-child(4) { top: 31%; left: 77%; animation-delay: .8s; }
+.star:nth-child(5) { top: 42%; left: 12%; animation-delay: 1.8s; }
+.star:nth-child(6) { top: 52%; left: 25%; animation-delay: .4s; }
+.star:nth-child(7) { top: 61%; left: 70%; animation-delay: 2.2s; }
+.star:nth-child(8) { top: 73%; left: 83%; animation-delay: 1s; }
+.star:nth-child(9) { top: 82%; left: 18%; animation-delay: 2.5s; }
+.star:nth-child(10) { top: 67%; left: 48%; animation-delay: 1.5s; }
+.star:nth-child(11) { top: 35%; left: 54%; animation-delay: .7s; }
+.star:nth-child(12) { top: 18%; left: 88%; animation-delay: 1.7s; }
 
-        /* Extra random-looking star layer */
+@keyframes sparkle {
+    0%, 100% {
+        transform: scale(.6);
+        opacity: .3;
+    }
 
-        .stars4 {
-            opacity: 0.45;
-
-            background-image:
-                radial-gradient(circle, #8e9cff 1px, transparent 2px);
-
-            background-size: 73px 91px;
-            background-position: 17px 38px;
-
-            animation:
-                twinkleSlow 5s ease-in-out infinite alternate;
-        }
-
-        @keyframes twinkle {
-            0% {
-                opacity: 0.25;
-            }
+    50% {
+        transform: scale(1.7);
+        opacity: 1;
+    }
+}
 
-            50% {
-                opacity: 0.9;
-            }
+/* =========================
+   MOON
+========================= */
 
-            100% {
-                opacity: 0.45;
-            }
-        }
+.moon {
+    position: absolute;
 
-        @keyframes twinkleSlow {
-            from {
-                opacity: 0.2;
-            }
+    top: 8%;
+    right: 10%;
 
-            to {
-                opacity: 0.65;
-            }
-        }
-
-        @keyframes starsMove {
-            from {
-                transform: translateY(0);
-            }
+    width: 120px;
+    height: 120px;
 
-            to {
-                transform: translateY(25px);
-            }
-        }
+    border-radius: 50%;
 
-        /* =========================================
-           SHOOTING STAR
-        ========================================= */
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #fffde8,
+            #fff5bd 55%,
+            #e7d889
+        );
 
-        .shooting-star {
-            position: fixed;
+    box-shadow:
+        0 0 20px rgba(255, 247, 190, .9),
+        0 0 55px rgba(255, 242, 170, .4),
+        0 0 100px rgba(160, 170, 255, .15);
 
-            top: 18%;
-            left: -120px;
+    z-index: 1;
+}
 
-            width: 100px;
-            height: 2px;
+/* Moon craters */
 
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255,255,255,0.9),
-                white
-            );
+.moon::before {
+    content: "";
 
-            transform: rotate(-25deg);
+    position: absolute;
 
-            filter:
-                drop-shadow(0 0 6px white)
-                drop-shadow(0 0 12px #7e8cff);
+    width: 18px;
+    height: 18px;
 
-            animation: shooting 9s linear infinite;
+    border-radius: 50%;
 
-            opacity: 0;
-        }
+    background: rgba(170, 160, 110, .18);
 
-        @keyframes shooting {
+    top: 28px;
+    left: 25px;
 
-            0% {
-                left: -150px;
-                top: 15%;
-                opacity: 0;
-            }
+    box-shadow:
+        38px 10px 0 rgba(170,160,110,.13),
+        22px 43px 0 rgba(170,160,110,.15),
+        53px 52px 0 rgba(170,160,110,.1);
+}
 
-            8% {
-                opacity: 1;
-            }
+/* Crescent cutout */
 
-            18% {
-                left: 105%;
-                top: 42%;
-                opacity: 0;
-            }
+.moon::after {
+    content: "";
 
-            100% {
-                left: 105%;
-                top: 42%;
-                opacity: 0;
-            }
-        }
+    position: absolute;
 
-        /* =========================================
-           MOON
-        ========================================= */
+    width: 120px;
+    height: 120px;
 
-        .moon {
-            position: fixed;
+    border-radius: 50%;
 
-            top: 7%;
-            right: 10%;
+    top: -13px;
+    left: 34px;
 
-            width: 105px;
-            height: 105px;
+    background: #070a24;
+}
 
-            border-radius: 50%;
+/* =========================
+   SHOOTING STAR
+========================= */
 
-            background:
-                radial-gradient(
-                    circle at 35% 35%,
-                    #fffef0 0%,
-                    #fff7c7 55%,
-                    #e7d98f 100%
-                );
+.shooting-star {
+    position: absolute;
 
-            box-shadow:
-                0 0 15px rgba(255, 248, 196, 0.9),
-                0 0 40px rgba(255, 240, 170, 0.45),
-                0 0 80px rgba(180, 190, 255, 0.15);
+    width: 130px;
+    height: 2px;
 
-            z-index: 1;
-        }
+    top: 18%;
+    left: -150px;
 
-        .moon::before {
-            content: "";
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.8),
+            white
+        );
 
-            position: absolute;
+    transform: rotate(-25deg);
 
-            width: 18px;
-            height: 18px;
+    filter:
+        drop-shadow(0 0 5px white)
+        drop-shadow(0 0 12px #8e9cff);
 
-            top: 25px;
-            left: 27px;
+    animation: shoot 8s linear infinite;
 
-            border-radius: 50%;
+    z-index: 2;
+}
 
-            background: rgba(190, 178, 120, 0.18);
+@keyframes shoot {
 
-            box-shadow:
-                35px 28px 0 rgba(190, 178, 120, 0.13),
-                20px 55px 0 rgba(190, 178, 120, 0.12),
-                52px 12px 0 rgba(190, 178, 120, 0.1);
-        }
+    0% {
+        left: -150px;
+        top: 15%;
+        opacity: 0;
+    }
 
-        .moon::after {
-            content: "";
+    10% {
+        opacity: 1;
+    }
 
-            position: absolute;
+    22% {
+        left: 110%;
+        top: 48%;
+        opacity: 0;
+    }
 
-            width: 105px;
-            height: 105px;
+    100% {
+        opacity: 0;
+    }
+}
 
-            top: -12px;
-            left: 32px;
+/* =========================
+   ATMOSPHERIC GLOW
+========================= */
 
-            border-radius: 50%;
+.glow {
+    position: fixed;
+    width: 600px;
+    height: 600px;
 
-            background: #030513;
-        }
+    border-radius: 50%;
 
-        /* =========================================
-           NEBULA / NIGHT GLOW
-        ========================================= */
+    background:
+        radial-gradient(
+            circle,
+            rgba(87, 93, 210, .16),
+            transparent 70%
+        );
 
-        .night-glow {
-            position: fixed;
-            inset: 0;
+    filter: blur(40px);
 
-            pointer-events: none;
+    pointer-events: none;
+}
 
-            background:
-                radial-gradient(
-                    ellipse at 20% 30%,
-                    rgba(68, 73, 160, 0.12),
-                    transparent 35%
-                ),
-                radial-gradient(
-                    ellipse at 80% 55%,
-                    rgba(116, 67, 180, 0.12),
-                    transparent 35%
-                );
+/* =========================
+   MUSIC CARD
+========================= */
 
-            filter: blur(20px);
-        }
+.card {
+    position: relative;
 
-        /* =========================================
-           PIXEL GROUND
-        ========================================= */
+    z-index: 10;
 
-        .pixel-ground {
-            position: fixed;
+    width: min(420px, 90%);
 
-            bottom: 0;
-            left: 0;
+    padding: 28px;
 
-            width: 100%;
-            height: 85px;
+    text-align: center;
 
-            background:
-                linear-gradient(
-                    180deg,
-                    rgba(22, 23, 68, 0.9),
-                    #060716
-                );
+    border-radius: 24px;
 
-            border-top: 3px solid #292b70;
+    background:
+        rgba(8, 11, 38, .72);
 
-            box-shadow:
-                0 -8px 25px rgba(50, 55, 140, 0.15);
+    border:
+        1px solid rgba(170,180,255,.3);
 
-            z-index: 2;
-        }
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.5),
+        inset 0 1px 1px rgba(255,255,255,.08),
+        0 0 50px rgba(91,101,220,.12);
 
-        .pixel-ground::before {
-            content: "";
+    backdrop-filter: blur(18px);
+}
 
-            position: absolute;
+/* =========================
+   ALBUM
+========================= */
 
-            top: 12px;
-            left: 0;
+.album {
+    position: relative;
 
-            width: 100%;
-            height: 2px;
+    width: 240px;
+    height: 240px;
 
-            background:
-                repeating-linear-gradient(
-                    90deg,
-                    transparent 0px,
-                    transparent 12px,
-                    rgba(100, 105, 190, 0.25) 12px,
-                    rgba(100, 105, 190, 0.25) 24px
-                );
-        }
+    margin: 0 auto 25px;
 
-        /* =========================================
-           MUSIC PLAYER
-        ========================================= */
+    overflow: hidden;
 
-        .player {
-            position: relative;
+    border-radius: 18px;
 
-            z-index: 5;
+    background:
+        radial-gradient(
+            circle at 70% 25%,
+            rgba(100,110,220,.5),
+            transparent 25%
+        ),
+        linear-gradient(
+            145deg,
+            #1c2059,
+            #090c2b
+        );
 
-            width: 90%;
-            max-width: 420px;
+    border:
+        1px solid rgba(190,195,255,.4);
 
-            padding: 30px;
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.45);
+}
 
-            text-align: center;
+/* Album stars */
 
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(13, 15, 50, 0.96),
-                    rgba(7, 8, 29, 0.96)
-                );
+.album::before {
+    content:
+        "✦   ·      ✧      ·   ✦"
+        "    ·       ✦      ·"
+        "✧      ·     ✦      ·";
 
-            border: 2px solid #676bd2;
+    position: absolute;
 
-            border-radius: 8px;
+    inset: 18px;
 
-            box-shadow:
-                8px 8px 0 #02030d,
-                0 0 25px rgba(92, 101, 220, 0.2),
-                inset 0 0 25px rgba(100, 110, 255, 0.04);
+    color: rgba(255,255,255,.65);
 
-            backdrop-filter: blur(8px);
-        }
+    font-size: 15px;
 
-        /* Pixel corner decorations */
+    line-height: 42px;
 
-        .player::before,
-        .player::after {
-            content: "";
+    letter-spacing: 4px;
+}
 
-            position: absolute;
+/* Album moon */
 
-            width: 10px;
-            height: 10px;
+.album-moon {
+    position: absolute;
 
-            border: 2px solid #9ca1ff;
-        }
+    width: 65px;
+    height: 65px;
 
-        .player::before {
-            top: 8px;
-            left: 8px;
+    right: 28px;
+    top: 28px;
 
-            border-right: none;
-            border-bottom: none;
-        }
+    border-radius: 50%;
 
-        .player::after {
-            right: 8px;
-            bottom: 8px;
+    background: #fff5bd;
 
-            border-left: none;
-            border-top: none;
-        }
+    box-shadow:
+        0 0 18px #fff3b0;
+}
 
-        /* =========================================
-           COVER
-        ========================================= */
+.album-moon::after {
+    content: "";
 
-        .cover {
-            width: 230px;
-            height: 230px;
+    position: absolute;
 
-            margin: 0 auto 24px;
+    width: 65px;
+    height: 65px;
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+    border-radius: 50%;
 
-            position: relative;
-            overflow: hidden;
+    top: -8px;
+    left: 20px;
 
-            background:
-                radial-gradient(
-                    circle at 70% 25%,
-                    rgba(112, 119, 220, 0.35),
-                    transparent 25%
-                ),
-                linear-gradient(
-                    145deg,
-                    #12163f,
-                    #20235c 55%,
-                    #111331
-                );
+    background: #11143c;
+}
 
-            border: 3px solid #7d82e8;
+/* Music symbol */
 
-            box-shadow:
-                6px 6px 0 #03040e,
-                0 0 25px rgba(95, 105, 220, 0.2);
-        }
+.music {
+    position: absolute;
 
-        /* Tiny cover stars */
+    left: 50%;
+    top: 52%;
 
-        .cover::before {
-            content: "✦  ·   ˚   ✧     ·   ✦    ˚     ·    ✧";
+    transform: translate(-50%, -50%);
 
-            position: absolute;
+    font-size: 100px;
 
-            top: 25px;
-            left: 10px;
-            right: 10px;
+    color: white;
 
-            color: rgba(255,255,255,0.65);
+    text-shadow:
+        0 0 12px white,
+        0 0 30px #8994ff,
+        5px 5px 0 #454b9e;
 
-            font-size: 13px;
+    animation: musicFloat 3s ease-in-out infinite;
+}
 
-            letter-spacing: 7px;
+@keyframes musicFloat {
 
-            line-height: 28px;
-        }
+    0%, 100% {
+        transform: translate(-50%, -50%);
+    }
 
-        /* Cover moon */
+    50% {
+        transform: translate(-50%, calc(-50% - 8px));
+    }
+}
 
-        .cover-moon {
-            position: absolute;
+/* =========================
+   TITLE
+========================= */
 
-            top: 32px;
-            right: 35px;
+h1 {
+    font-size: 24px;
 
-            width: 58px;
-            height: 58px;
+    margin-bottom: 8px;
 
-            border-radius: 50%;
+    letter-spacing: .5px;
 
-            background:
-                radial-gradient(
-                    circle at 35% 35%,
-                    #fffde5,
-                    #fff1ae
-                );
+    text-shadow:
+        0 0 15px rgba(180,185,255,.25);
+}
 
-            box-shadow:
-                0 0 12px #fff3b5,
-                0 0 25px rgba(255, 239, 150, 0.35);
-        }
+.subtitle {
+    color: #aeb4df;
 
-        .cover-moon::after {
-            content: "";
+    font-size: 13px;
 
-            position: absolute;
+    margin-bottom: 22px;
+}
 
-            width: 58px;
-            height: 58px;
+/* =========================
+   AUDIO
+========================= */
 
-            top: -7px;
-            left: 18px;
+audio {
+    width: 100%;
+    height: 42px;
+}
 
-            border-radius: 50%;
+/* =========================
+   FOOTER
+========================= */
 
-            background: #171946;
-        }
+.footer {
+    margin-top: 18px;
 
-        /* =========================================
-           MUSIC NOTE
-        ========================================= */
+    font-size: 11px;
 
-        .note {
-            position: relative;
-            z-index: 2;
+    color: #777fbd;
 
-            margin-top: 30px;
+    letter-spacing: 1px;
+}
 
-            font-size: 88px;
+/* =========================
+   GROUND
+========================= */
 
-            color: #ffffff;
+.ground {
+    position: fixed;
 
-            text-shadow:
-                4px 4px 0 #555bc4,
-                0 0 15px rgba(255,255,255,0.65),
-                0 0 35px rgba(110,120,255,0.45);
+    bottom: 0;
+    left: 0;
 
-            animation: float 3s ease-in-out infinite;
-        }
+    width: 100%;
+    height: 55px;
 
-        @keyframes float {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(13,16,52,.7),
+            #03040f
+        );
 
-            0%,
-            100% {
-                transform: translateY(0);
-            }
+    border-top:
+        1px solid rgba(110,120,210,.2);
 
-            50% {
-                transform: translateY(-8px);
-            }
-        }
+    z-index: 3;
+}
 
-        /* =========================================
-           TEXT
-        ========================================= */
+/* =========================
+   MOBILE
+========================= */
 
-        h1 {
-            margin: 8px 0 10px;
+@media(max-width:600px) {
 
-            font-size: 25px;
+    .moon {
+        width: 80px;
+        height: 80px;
+        right: 7%;
+    }
 
-            letter-spacing: 1px;
+    .moon::after {
+        width: 80px;
+        height: 80px;
+    }
 
-            color: #ffffff;
+    .card {
+        padding: 22px;
+    }
 
-            text-shadow:
-                3px 3px 0 #17194e,
-                0 0 12px rgba(150,155,255,0.2);
-        }
+    .album {
+        width: 200px;
+        height: 200px;
+    }
 
-        .subtitle {
-            margin-bottom: 22px;
-
-            color: #aeb2e8;
-
-            font-size: 13px;
-
-            letter-spacing: 0.5px;
-        }
-
-        /* =========================================
-           AUDIO
-        ========================================= */
-
-        audio {
-            width: 100%;
-
-            height: 42px;
-
-            filter:
-                sepia(15%)
-                saturate(80%)
-                hue-rotate(190deg)
-                brightness(85%);
-        }
-
-        /* =========================================
-           FOOTER
-        ========================================= */
-
-        .footer {
-            margin-top: 18px;
-
-            color: #777cc0;
-
-            font-size: 11px;
-
-            letter-spacing: 1px;
-
-            text-shadow:
-                0 0 8px rgba(100,110,220,0.3);
-        }
-
-        /* =========================================
-           MOBILE
-        ========================================= */
-
-        @media (max-width: 600px) {
-
-            .player {
-                width: 92%;
-                padding: 23px;
-            }
-
-            .cover {
-                width: 200px;
-                height: 200px;
-            }
-
-            .moon {
-                width: 75px;
-                height: 75px;
-
-                right: 7%;
-            }
-
-            .moon::after {
-                width: 75px;
-                height: 75px;
-            }
-
-            .note {
-                font-size: 75px;
-            }
-
-            h1 {
-                font-size: 21px;
-            }
-        }
-    </style>
+    .music {
+        font-size: 80px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <!-- STAR LAYERS -->
+<div class="sky">
 
-    <div class="stars"></div>
-    <div class="stars2"></div>
-    <div class="stars3"></div>
-    <div class="stars4"></div>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
 
-    <!-- NIGHT ATMOSPHERE -->
+</div>
 
-    <div class="night-glow"></div>
+<div class="glow"></div>
 
-    <!-- SHOOTING STAR -->
+<div class="moon"></div>
 
-    <div class="shooting-star"></div>
+<div class="shooting-star"></div>
 
-    <!-- MOON -->
+<div class="card">
 
-    <div class="moon"></div>
+    <div class="album">
 
-    <!-- MUSIC PLAYER -->
+        <div class="album-moon"></div>
 
-    <div class="player">
-
-        <div class="cover">
-
-            <div class="cover-moon"></div>
-
-            <div class="note">
-                ♪
-            </div>
-
-        </div>
-
-        <h1>Mahdi's Favorite Song</h1>
-
-        <div class="subtitle">
-            A song under the moonlight
-        </div>
-
-        <audio controls>
-            <source src="./song.mp3" type="audio/mpeg">
-            Your browser does not support audio.
-        </audio>
-
-        <div class="footer">
-            ✦ Enjoy the music ✦
+        <div class="music">
+            ♪
         </div>
 
     </div>
 
-    <!-- PIXEL GROUND -->
+    <h1>Mahdi's Favorite Song</h1>
 
-    <div class="pixel-ground"></div>
+    <div class="subtitle">
+        A song under the moonlight 🌙
+    </div>
+
+    <audio controls>
+        <source src="./song.mp3" type="audio/mpeg">
+        Your browser does not support audio.
+    </audio>
+
+    <div class="footer">
+        ✦ Enjoy the music ✦
+    </div>
+
+</div>
+
+<div class="ground"></div>
 
 </body>
 </html>
+```
