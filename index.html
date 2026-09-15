@@ -5,10 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mahdi — Night Drive</title>
+<title>Mahdi's Night</title>
 
 <style>
-
 * {
     margin: 0;
     padding: 0;
@@ -18,680 +17,569 @@
 body {
     min-height: 100vh;
     overflow: hidden;
-
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
     color: white;
 
-    background: #050509;
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #25245f 0%,
+            #11143c 30%,
+            #070a24 62%,
+            #02030d 100%
+        );
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* =========================
+   STARS
+========================= */
 
-/* =====================================================
-   BACKGROUND
-===================================================== */
-
-.scene {
+.sky {
     position: fixed;
     inset: 0;
     overflow: hidden;
-
-    background:
-        linear-gradient(
-            180deg,
-            #050509 0%,
-            #090817 48%,
-            #130d25 100%
-        );
+    pointer-events: none;
 }
 
+/* Small stars */
 
-/* Huge blurred city lights */
+.sky::before {
+    content: "";
 
-.light {
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        radial-gradient(circle, white 1px, transparent 1.5px),
+        radial-gradient(circle, #d9ddff 1px, transparent 1.5px),
+        radial-gradient(circle, white 0.7px, transparent 1.2px);
+
+    background-size:
+        37px 41px,
+        61px 73px,
+        89px 97px;
+
+    background-position:
+        3px 8px,
+        17px 31px,
+        43px 12px;
+
+    opacity: 0.75;
+}
+
+/* Glowing stars */
+
+.star {
     position: absolute;
 
-    width: 220px;
-    height: 220px;
+    width: 4px;
+    height: 4px;
+
+    background: white;
 
     border-radius: 50%;
 
-    filter: blur(80px);
+    box-shadow:
+        0 0 5px white,
+        0 0 12px #9da7ff;
 
-    opacity: .35;
+    animation: sparkle 3s ease-in-out infinite;
 }
 
-.light.one {
-    background: #624cff;
+.star:nth-child(1) { top: 12%; left: 18%; animation-delay: .3s; }
+.star:nth-child(2) { top: 23%; left: 35%; animation-delay: 1.2s; }
+.star:nth-child(3) { top: 15%; left: 63%; animation-delay: 2s; }
+.star:nth-child(4) { top: 31%; left: 77%; animation-delay: .8s; }
+.star:nth-child(5) { top: 42%; left: 12%; animation-delay: 1.8s; }
+.star:nth-child(6) { top: 52%; left: 25%; animation-delay: .4s; }
+.star:nth-child(7) { top: 61%; left: 70%; animation-delay: 2.2s; }
+.star:nth-child(8) { top: 73%; left: 83%; animation-delay: 1s; }
+.star:nth-child(9) { top: 82%; left: 18%; animation-delay: 2.5s; }
+.star:nth-child(10) { top: 67%; left: 48%; animation-delay: 1.5s; }
+.star:nth-child(11) { top: 35%; left: 54%; animation-delay: .7s; }
+.star:nth-child(12) { top: 18%; left: 88%; animation-delay: 1.7s; }
 
-    left: -60px;
-    top: 20%;
+@keyframes sparkle {
+    0%, 100% {
+        transform: scale(.6);
+        opacity: .3;
+    }
+
+    50% {
+        transform: scale(1.7);
+        opacity: 1;
+    }
 }
 
-.light.two {
-    background: #ff3f9f;
+/* =========================
+   MOON
+========================= */
 
-    right: -80px;
-    top: 45%;
-}
-
-.light.three {
-    background: #2677ff;
-
-    left: 45%;
-    bottom: -100px;
-}
-
-
-/* =====================================================
-   CITY
-===================================================== */
-
-.city {
+.moon {
     position: absolute;
 
-    bottom: 0;
-    left: 0;
+    top: 8%;
+    right: 10%;
 
-    width: 100%;
-    height: 38%;
+    width: 120px;
+    height: 120px;
 
-    display: flex;
-    align-items: flex-end;
-
-    gap: 8px;
-
-    opacity: .65;
-}
-
-.building {
-    position: relative;
-
-    width: 8%;
-    min-width: 45px;
+    border-radius: 50%;
 
     background:
-        linear-gradient(
-            90deg,
-            #080810,
-            #10101d
+        radial-gradient(
+            circle at 35% 30%,
+            #fffde8,
+            #fff5bd 55%,
+            #e7d889
         );
 
     box-shadow:
-        inset -5px 0 rgba(255,255,255,.02);
+        0 0 20px rgba(255, 247, 190, .9),
+        0 0 55px rgba(255, 242, 170, .4),
+        0 0 100px rgba(160, 170, 255, .15);
+
+    z-index: 1;
 }
 
-.building:nth-child(1) { height: 55%; }
-.building:nth-child(2) { height: 75%; }
-.building:nth-child(3) { height: 45%; }
-.building:nth-child(4) { height: 90%; }
-.building:nth-child(5) { height: 65%; }
-.building:nth-child(6) { height: 82%; }
-.building:nth-child(7) { height: 48%; }
-.building:nth-child(8) { height: 72%; }
-.building:nth-child(9) { height: 58%; }
-.building:nth-child(10) { height: 88%; }
-.building:nth-child(11) { height: 62%; }
-.building:nth-child(12) { height: 76%; }
+/* Moon craters */
 
-
-/* Windows */
-
-.building::before {
+.moon::before {
     content: "";
 
     position: absolute;
 
-    inset: 15px 10px;
+    width: 18px;
+    height: 18px;
 
-    background:
-        repeating-linear-gradient(
-            180deg,
-            rgba(255,205,100,.55) 0 4px,
-            transparent 4px 17px
-        ),
-        repeating-linear-gradient(
-            90deg,
-            transparent 0 12px,
-            rgba(255,205,100,.4) 12px 16px,
-            transparent 16px 27px
-        );
+    border-radius: 50%;
 
-    opacity: .45;
+    background: rgba(170, 160, 110, .18);
+
+    top: 28px;
+    left: 25px;
+
+    box-shadow:
+        38px 10px 0 rgba(170,160,110,.13),
+        22px 43px 0 rgba(170,160,110,.15),
+        53px 52px 0 rgba(170,160,110,.1);
 }
 
+/* Crescent cutout */
 
-/* =====================================================
-   HORIZON
-===================================================== */
+.moon::after {
+    content: "";
 
-.horizon {
     position: absolute;
 
-    bottom: 31%;
+    width: 120px;
+    height: 120px;
 
-    width: 100%;
-    height: 1px;
+    border-radius: 50%;
+
+    top: -13px;
+    left: 34px;
+
+    background: #070a24;
+}
+
+/* =========================
+   SHOOTING STAR
+========================= */
+
+.shooting-star {
+    position: absolute;
+
+    width: 130px;
+    height: 2px;
+
+    top: 18%;
+    left: -150px;
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            #ff3f9f,
-            #7b6cff,
-            transparent
+            rgba(255,255,255,.8),
+            white
         );
 
-    box-shadow:
-        0 0 20px #8b6cff;
-}
-
-
-/* =====================================================
-   ROAD
-===================================================== */
-
-.road {
-    position: absolute;
-
-    bottom: 0;
-
-    width: 100%;
-    height: 31%;
-
-    background:
-        linear-gradient(
-            170deg,
-            transparent 48%,
-            rgba(255,255,255,.04) 49%,
-            transparent 50%
-        ),
-        #05050a;
-
-    transform: perspective(300px) rotateX(8deg);
-}
-
-
-/* Road center lights */
-
-.road::before {
-    content: "";
-
-    position: absolute;
-
-    left: 50%;
-    bottom: -10px;
-
-    width: 5px;
-    height: 100%;
-
-    background:
-        repeating-linear-gradient(
-            180deg,
-            transparent 0 30px,
-            rgba(255,255,255,.65) 30px 60px
-        );
-
-    transform:
-        translateX(-50%)
-        perspective(200px)
-        rotateX(20deg);
+    transform: rotate(-25deg);
 
     filter:
-        drop-shadow(0 0 8px white);
+        drop-shadow(0 0 5px white)
+        drop-shadow(0 0 12px #8e9cff);
+
+    animation: shoot 8s linear infinite;
+
+    z-index: 2;
 }
 
+@keyframes shoot {
 
-/* =====================================================
-   NEON SIGNS
-===================================================== */
+    0% {
+        left: -150px;
+        top: 15%;
+        opacity: 0;
+    }
 
-.sign {
-    position: absolute;
+    10% {
+        opacity: 1;
+    }
 
-    padding: 8px 13px;
+    22% {
+        left: 110%;
+        top: 48%;
+        opacity: 0;
+    }
 
-    border: 1px solid rgba(255,70,170,.7);
-
-    color: #ff62b2;
-
-    font-size: 10px;
-
-    letter-spacing: 3px;
-
-    text-transform: uppercase;
-
-    box-shadow:
-        0 0 10px rgba(255,50,170,.5),
-        inset 0 0 10px rgba(255,50,170,.12);
-
-    transform: rotate(-4deg);
-
-    opacity: .55;
+    100% {
+        opacity: 0;
+    }
 }
 
-.sign.one {
-    left: 7%;
-    bottom: 35%;
+/* =========================
+   ATMOSPHERIC GLOW
+========================= */
+
+.glow {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(87, 93, 210, .16),
+            transparent 70%
+        );
+
+    filter: blur(40px);
+
+    pointer-events: none;
 }
 
-.sign.two {
-    right: 8%;
-    bottom: 42%;
+/* =========================
+   MUSIC CARD
+========================= */
 
-    color: #7e8dff;
-
-    border-color: #6978ff;
-
-    box-shadow:
-        0 0 10px rgba(80,100,255,.5);
-}
-
-
-/* =====================================================
-   MAIN CONTENT
-===================================================== */
-
-.content {
+.card {
     position: relative;
 
     z-index: 10;
 
-    min-height: 100vh;
+    width: min(420px, 90%);
 
-    display: flex;
-    flex-direction: column;
-
-    justify-content: center;
-    align-items: center;
+    padding: 28px;
 
     text-align: center;
 
-    padding-bottom: 10vh;
+    border-radius: 24px;
+
+    background:
+        rgba(8, 11, 38, .72);
+
+    border:
+        1px solid rgba(170,180,255,.3);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.5),
+        inset 0 1px 1px rgba(255,255,255,.08),
+        0 0 50px rgba(91,101,220,.12);
+
+    backdrop-filter: blur(18px);
 }
 
+/* =========================
+   ALBUM
+========================= */
 
-/* Small label */
+.album {
+    position: relative;
 
-.label {
-    margin-bottom: 18px;
+    width: 240px;
+    height: 240px;
 
-    font-size: 10px;
+    margin: 0 auto 25px;
 
-    letter-spacing: 7px;
+    overflow: hidden;
 
-    color: #8f8da5;
+    border-radius: 18px;
 
-    text-transform: uppercase;
+    background:
+        radial-gradient(
+            circle at 70% 25%,
+            rgba(100,110,220,.5),
+            transparent 25%
+        ),
+        linear-gradient(
+            145deg,
+            #1c2059,
+            #090c2b
+        );
+
+    border:
+        1px solid rgba(190,195,255,.4);
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.45);
 }
 
+/* Album stars */
 
-/* =====================================================
+.album::before {
+    content:
+        "✦   ·      ✧      ·   ✦"
+        "    ·       ✦      ·"
+        "✧      ·     ✦      ·";
+
+    position: absolute;
+
+    inset: 18px;
+
+    color: rgba(255,255,255,.65);
+
+    font-size: 15px;
+
+    line-height: 42px;
+
+    letter-spacing: 4px;
+}
+
+/* Album moon */
+
+.album-moon {
+    position: absolute;
+
+    width: 65px;
+    height: 65px;
+
+    right: 28px;
+    top: 28px;
+
+    border-radius: 50%;
+
+    background: #fff5bd;
+
+    box-shadow:
+        0 0 18px #fff3b0;
+}
+
+.album-moon::after {
+    content: "";
+
+    position: absolute;
+
+    width: 65px;
+    height: 65px;
+
+    border-radius: 50%;
+
+    top: -8px;
+    left: 20px;
+
+    background: #11143c;
+}
+
+/* Music symbol */
+
+.music {
+    position: absolute;
+
+    left: 50%;
+    top: 52%;
+
+    transform: translate(-50%, -50%);
+
+    font-size: 100px;
+
+    color: white;
+
+    text-shadow:
+        0 0 12px white,
+        0 0 30px #8994ff,
+        5px 5px 0 #454b9e;
+
+    animation: musicFloat 3s ease-in-out infinite;
+}
+
+@keyframes musicFloat {
+
+    0%, 100% {
+        transform: translate(-50%, -50%);
+    }
+
+    50% {
+        transform: translate(-50%, calc(-50% - 8px));
+    }
+}
+
+/* =========================
    TITLE
-===================================================== */
+========================= */
 
-.title {
-    font-size: clamp(48px, 8vw, 88px);
+h1 {
+    font-size: 24px;
 
-    font-weight: 800;
+    margin-bottom: 8px;
 
-    letter-spacing: -4px;
-
-    line-height: .9;
-
-    color: #fff;
+    letter-spacing: .5px;
 
     text-shadow:
-        0 0 25px rgba(255,255,255,.15);
-
-    margin-bottom: 14px;
+        0 0 15px rgba(180,185,255,.25);
 }
-
-.title span {
-    color: #ff4fa8;
-
-    text-shadow:
-        0 0 15px rgba(255,50,160,.7),
-        0 0 50px rgba(255,50,160,.25);
-}
-
-
-/* Subtitle */
 
 .subtitle {
-    color: #8e8ca0;
+    color: #aeb4df;
 
     font-size: 13px;
 
-    letter-spacing: 3px;
-
-    margin-bottom: 45px;
+    margin-bottom: 22px;
 }
 
-
-/* =====================================================
-   PLAYER
-===================================================== */
-
-.player {
-    width: min(570px, 88vw);
-
-    padding: 22px 25px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 20px;
-
-    background:
-        rgba(10,10,17,.82);
-
-    border:
-        1px solid rgba(255,255,255,.1);
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.55);
-
-    backdrop-filter: blur(15px);
-}
-
-
-/* Album mini */
-
-.album {
-    flex-shrink: 0;
-
-    width: 68px;
-    height: 68px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ff3f9f,
-            #604cff
-        );
-
-    font-size: 27px;
-
-    box-shadow:
-        0 0 25px rgba(255,60,160,.25);
-}
-
-
-/* Player info */
-
-.info {
-    flex: 1;
-
-    text-align: left;
-}
-
-.song {
-    font-size: 14px;
-
-    font-weight: bold;
-
-    margin-bottom: 7px;
-}
-
-.artist {
-    color: #777589;
-
-    font-size: 11px;
-
-    margin-bottom: 14px;
-}
-
-
-/* Audio */
+/* =========================
+   AUDIO
+========================= */
 
 audio {
     width: 100%;
-
-    height: 32px;
+    height: 42px;
 }
 
-
-/* =====================================================
-   EQUALIZER
-===================================================== */
-
-.equalizer {
-    position: absolute;
-
-    bottom: 8%;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    display: flex;
-
-    align-items: flex-end;
-
-    gap: 5px;
-
-    height: 35px;
-
-    opacity: .25;
-}
-
-.equalizer span {
-    width: 3px;
-
-    height: 10px;
-
-    background: white;
-
-    animation: equalize 1s ease-in-out infinite alternate;
-}
-
-.equalizer span:nth-child(2) { animation-delay: .1s; }
-.equalizer span:nth-child(3) { animation-delay: .25s; }
-.equalizer span:nth-child(4) { animation-delay: .4s; }
-.equalizer span:nth-child(5) { animation-delay: .15s; }
-.equalizer span:nth-child(6) { animation-delay: .35s; }
-.equalizer span:nth-child(7) { animation-delay: .5s; }
-.equalizer span:nth-child(8) { animation-delay: .2s; }
-
-@keyframes equalize {
-
-    from {
-        height: 5px;
-    }
-
-    to {
-        height: 32px;
-    }
-}
-
-
-/* =====================================================
+/* =========================
    FOOTER
-===================================================== */
+========================= */
 
 .footer {
-    position: absolute;
+    margin-top: 18px;
 
-    bottom: 4%;
+    font-size: 11px;
 
-    left: 50%;
+    color: #777fbd;
 
-    transform: translateX(-50%);
-
-    color: #555361;
-
-    font-size: 9px;
-
-    letter-spacing: 4px;
-
-    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
+/* =========================
+   GROUND
+========================= */
 
-/* =====================================================
+.ground {
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 55px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(13,16,52,.7),
+            #03040f
+        );
+
+    border-top:
+        1px solid rgba(110,120,210,.2);
+
+    z-index: 3;
+}
+
+/* =========================
    MOBILE
-===================================================== */
+========================= */
 
 @media(max-width:600px) {
 
-    .city {
-        height: 32%;
+    .moon {
+        width: 80px;
+        height: 80px;
+        right: 7%;
     }
 
-    .horizon {
-        bottom: 28%;
+    .moon::after {
+        width: 80px;
+        height: 80px;
     }
 
-    .road {
-        height: 28%;
-    }
-
-    .title {
-        letter-spacing: -3px;
-    }
-
-    .subtitle {
-        margin-bottom: 30px;
-    }
-
-    .player {
-        padding: 16px;
-
-        gap: 14px;
+    .card {
+        padding: 22px;
     }
 
     .album {
-        width: 55px;
-        height: 55px;
-
-        font-size: 21px;
+        width: 200px;
+        height: 200px;
     }
 
-    .sign {
-        display: none;
+    .music {
+        font-size: 80px;
     }
 }
-
 </style>
 </head>
 
-
 <body>
 
-<div class="scene">
+<div class="sky">
 
-    <div class="light one"></div>
-    <div class="light two"></div>
-    <div class="light three"></div>
-
-
-    <!-- CITY -->
-
-    <div class="city">
-
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-
-    </div>
-
-
-    <div class="horizon"></div>
-
-    <div class="road"></div>
-
-
-    <div class="sign one">
-        MUSIC
-    </div>
-
-    <div class="sign two">
-        NIGHT
-    </div>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
 
 </div>
 
+<div class="glow"></div>
 
-<!-- MAIN -->
+<div class="moon"></div>
 
-<div class="content">
+<div class="shooting-star"></div>
 
-    <div class="label">
-        after midnight
-    </div>
+<div class="card">
 
-    <div class="title">
-        Mahdi's <span>Song</span>
-    </div>
+    <div class="album">
 
-    <div class="subtitle">
-        HEADPHONES · LIGHTS · NIGHT
-    </div>
+        <div class="album-moon"></div>
 
-
-    <!-- MUSIC PLAYER -->
-
-    <div class="player">
-
-        <div class="album">
+        <div class="music">
             ♪
         </div>
 
-        <div class="info">
+    </div>
 
-            <div class="song">
-                My Favorite Song
-            </div>
+    <h1>Mahdi's Favorite Song</h1>
 
-            <div class="artist">
-                Mahdi's playlist
-            </div>
+    <div class="subtitle">
+        A song under the moonlight 🌙
+    </div>
 
-            <audio controls>
-                <source src="./song.mp3" type="audio/mpeg">
-                Your browser does not support audio.
-            </audio>
+    <audio controls>
+        <source src="./song.mp3" type="audio/mpeg">
+        Your browser does not support audio.
+    </audio>
 
-        </div>
-
+    <div class="footer">
+        ✦ Enjoy the music ✦
     </div>
 
 </div>
 
-
-<!-- EQUALIZER -->
-
-<div class="equalizer">
-
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-
-</div>
-
-
-<div class="footer">
-    lost in the music
-</div>
+<div class="ground"></div>
 
 </body>
 </html>
