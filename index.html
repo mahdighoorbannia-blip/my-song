@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +11,14 @@
             box-sizing: border-box;
         }
 
+        html,
         body {
             margin: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
             min-height: 100vh;
             overflow: hidden;
 
@@ -22,83 +27,262 @@
             align-items: center;
 
             font-family: "Courier New", monospace;
+            color: white;
 
             background:
+                radial-gradient(
+                    ellipse at 50% 25%,
+                    rgba(48, 48, 120, 0.35) 0%,
+                    transparent 45%
+                ),
+                radial-gradient(
+                    ellipse at 80% 80%,
+                    rgba(72, 35, 120, 0.25) 0%,
+                    transparent 45%
+                ),
                 linear-gradient(
                     180deg,
-                    #05051a 0%,
-                    #0b0b2e 55%,
-                    #15104a 100%
+                    #02030f 0%,
+                    #05071c 35%,
+                    #0a0b2b 70%,
+                    #11113a 100%
                 );
-
-            color: white;
         }
 
-        /* STARS */
+        /* =========================================
+           STAR FIELD
+        ========================================= */
 
         .stars,
         .stars2,
-        .stars3 {
+        .stars3,
+        .stars4 {
             position: fixed;
             inset: 0;
             pointer-events: none;
         }
 
+        /* Tiny stars */
+
         .stars {
+            opacity: 0.8;
+
             background-image:
-                radial-gradient(circle, white 1px, transparent 1px);
-            background-size: 70px 70px;
-            opacity: 0.75;
+                radial-gradient(circle, #ffffff 0.8px, transparent 1px),
+                radial-gradient(circle, #cfd7ff 0.7px, transparent 1px),
+                radial-gradient(circle, #ffffff 0.6px, transparent 1px);
+
+            background-size:
+                45px 45px,
+                63px 63px,
+                87px 87px;
+
+            background-position:
+                0 0,
+                20px 15px,
+                40px 30px;
         }
+
+        /* Medium stars */
 
         .stars2 {
+            opacity: 0.75;
+
             background-image:
-                radial-gradient(circle, #ffffff 1.5px, transparent 1.5px);
-            background-size: 130px 130px;
-            background-position: 30px 40px;
-            opacity: 0.6;
-            animation: twinkle 3s ease-in-out infinite alternate;
+                radial-gradient(circle, #ffffff 1.2px, transparent 1.8px),
+                radial-gradient(circle, #aebcff 1px, transparent 1.7px),
+                radial-gradient(circle, #ffffff 1.4px, transparent 2px);
+
+            background-size:
+                110px 110px,
+                145px 145px,
+                190px 190px;
+
+            background-position:
+                25px 60px,
+                80px 20px,
+                130px 100px;
+
+            animation:
+                starsMove 18s linear infinite;
         }
 
+        /* Big glowing stars */
+
         .stars3 {
+            opacity: 0.9;
+
             background-image:
-                radial-gradient(circle, #ffffff 2px, transparent 2px);
-            background-size: 210px 210px;
-            background-position: 80px 100px;
-            opacity: 0.8;
-            animation: twinkle 2s ease-in-out infinite alternate;
+                radial-gradient(
+                    circle,
+                    #ffffff 0px,
+                    #ffffff 1.5px,
+                    rgba(180, 190, 255, 0.8) 2.5px,
+                    transparent 5px
+                );
+
+            background-size: 230px 230px;
+            background-position: 70px 120px;
+
+            animation:
+                twinkle 3s ease-in-out infinite alternate;
+        }
+
+        /* Extra random-looking star layer */
+
+        .stars4 {
+            opacity: 0.45;
+
+            background-image:
+                radial-gradient(circle, #8e9cff 1px, transparent 2px);
+
+            background-size: 73px 91px;
+            background-position: 17px 38px;
+
+            animation:
+                twinkleSlow 5s ease-in-out infinite alternate;
         }
 
         @keyframes twinkle {
-            from {
+            0% {
                 opacity: 0.25;
             }
 
-            to {
-                opacity: 0.95;
+            50% {
+                opacity: 0.9;
+            }
+
+            100% {
+                opacity: 0.45;
             }
         }
 
-        /* MOON */
+        @keyframes twinkleSlow {
+            from {
+                opacity: 0.2;
+            }
+
+            to {
+                opacity: 0.65;
+            }
+        }
+
+        @keyframes starsMove {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(25px);
+            }
+        }
+
+        /* =========================================
+           SHOOTING STAR
+        ========================================= */
+
+        .shooting-star {
+            position: fixed;
+
+            top: 18%;
+            left: -120px;
+
+            width: 100px;
+            height: 2px;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.9),
+                white
+            );
+
+            transform: rotate(-25deg);
+
+            filter:
+                drop-shadow(0 0 6px white)
+                drop-shadow(0 0 12px #7e8cff);
+
+            animation: shooting 9s linear infinite;
+
+            opacity: 0;
+        }
+
+        @keyframes shooting {
+
+            0% {
+                left: -150px;
+                top: 15%;
+                opacity: 0;
+            }
+
+            8% {
+                opacity: 1;
+            }
+
+            18% {
+                left: 105%;
+                top: 42%;
+                opacity: 0;
+            }
+
+            100% {
+                left: 105%;
+                top: 42%;
+                opacity: 0;
+            }
+        }
+
+        /* =========================================
+           MOON
+        ========================================= */
 
         .moon {
             position: fixed;
 
-            top: 8%;
-            right: 12%;
+            top: 7%;
+            right: 10%;
 
-            width: 95px;
-            height: 95px;
+            width: 105px;
+            height: 105px;
 
             border-radius: 50%;
 
-            background: #fff4b8;
+            background:
+                radial-gradient(
+                    circle at 35% 35%,
+                    #fffef0 0%,
+                    #fff7c7 55%,
+                    #e7d98f 100%
+                );
 
             box-shadow:
-                0 0 15px #fff4b8,
-                0 0 35px rgba(255, 244, 184, 0.45);
+                0 0 15px rgba(255, 248, 196, 0.9),
+                0 0 40px rgba(255, 240, 170, 0.45),
+                0 0 80px rgba(180, 190, 255, 0.15);
 
             z-index: 1;
+        }
+
+        .moon::before {
+            content: "";
+
+            position: absolute;
+
+            width: 18px;
+            height: 18px;
+
+            top: 25px;
+            left: 27px;
+
+            border-radius: 50%;
+
+            background: rgba(190, 178, 120, 0.18);
+
+            box-shadow:
+                35px 28px 0 rgba(190, 178, 120, 0.13),
+                20px 55px 0 rgba(190, 178, 120, 0.12),
+                52px 12px 0 rgba(190, 178, 120, 0.1);
         }
 
         .moon::after {
@@ -106,18 +290,45 @@
 
             position: absolute;
 
-            width: 95px;
-            height: 95px;
+            width: 105px;
+            height: 105px;
 
-            top: -10px;
-            left: 28px;
+            top: -12px;
+            left: 32px;
 
             border-radius: 50%;
 
-            background: #070722;
+            background: #030513;
         }
 
-        /* PIXEL DECORATION */
+        /* =========================================
+           NEBULA / NIGHT GLOW
+        ========================================= */
+
+        .night-glow {
+            position: fixed;
+            inset: 0;
+
+            pointer-events: none;
+
+            background:
+                radial-gradient(
+                    ellipse at 20% 30%,
+                    rgba(68, 73, 160, 0.12),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    ellipse at 80% 55%,
+                    rgba(116, 67, 180, 0.12),
+                    transparent 35%
+                );
+
+            filter: blur(20px);
+        }
+
+        /* =========================================
+           PIXEL GROUND
+        ========================================= */
 
         .pixel-ground {
             position: fixed;
@@ -126,73 +337,167 @@
             left: 0;
 
             width: 100%;
-            height: 90px;
+            height: 85px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(22, 23, 68, 0.9),
+                    #060716
+                );
+
+            border-top: 3px solid #292b70;
+
+            box-shadow:
+                0 -8px 25px rgba(50, 55, 140, 0.15);
+
+            z-index: 2;
+        }
+
+        .pixel-ground::before {
+            content: "";
+
+            position: absolute;
+
+            top: 12px;
+            left: 0;
+
+            width: 100%;
+            height: 2px;
 
             background:
                 repeating-linear-gradient(
                     90deg,
-                    #08081f 0px,
-                    #08081f 12px,
-                    #0d0d2c 12px,
-                    #0d0d2c 24px
+                    transparent 0px,
+                    transparent 12px,
+                    rgba(100, 105, 190, 0.25) 12px,
+                    rgba(100, 105, 190, 0.25) 24px
                 );
-
-            border-top: 4px solid #1d1d55;
         }
 
-        /* MUSIC PLAYER */
+        /* =========================================
+           MUSIC PLAYER
+        ========================================= */
 
         .player {
             position: relative;
+
             z-index: 5;
 
             width: 90%;
-            max-width: 390px;
+            max-width: 420px;
 
-            padding: 28px;
+            padding: 30px;
 
             text-align: center;
 
-            background: rgba(8, 8, 35, 0.88);
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(13, 15, 50, 0.96),
+                    rgba(7, 8, 29, 0.96)
+                );
 
-            border: 4px solid #4d4da8;
+            border: 2px solid #676bd2;
+
+            border-radius: 8px;
 
             box-shadow:
-                8px 8px 0 #08081f,
-                0 0 35px rgba(90, 90, 255, 0.25);
+                8px 8px 0 #02030d,
+                0 0 25px rgba(92, 101, 220, 0.2),
+                inset 0 0 25px rgba(100, 110, 255, 0.04);
 
-            border-radius: 4px;
+            backdrop-filter: blur(8px);
         }
 
-        /* PIXEL COVER */
+        /* Pixel corner decorations */
+
+        .player::before,
+        .player::after {
+            content: "";
+
+            position: absolute;
+
+            width: 10px;
+            height: 10px;
+
+            border: 2px solid #9ca1ff;
+        }
+
+        .player::before {
+            top: 8px;
+            left: 8px;
+
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .player::after {
+            right: 8px;
+            bottom: 8px;
+
+            border-left: none;
+            border-top: none;
+        }
+
+        /* =========================================
+           COVER
+        ========================================= */
 
         .cover {
-            width: 220px;
-            height: 220px;
+            width: 230px;
+            height: 230px;
 
-            margin: 0 auto 25px;
+            margin: 0 auto 24px;
 
             display: flex;
             justify-content: center;
             align-items: center;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #15154d,
-                    #292978
-                );
-
-            border: 4px solid #7777d9;
-
-            box-shadow:
-                6px 6px 0 #08081f;
-
             position: relative;
             overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 70% 25%,
+                    rgba(112, 119, 220, 0.35),
+                    transparent 25%
+                ),
+                linear-gradient(
+                    145deg,
+                    #12163f,
+                    #20235c 55%,
+                    #111331
+                );
+
+            border: 3px solid #7d82e8;
+
+            box-shadow:
+                6px 6px 0 #03040e,
+                0 0 25px rgba(95, 105, 220, 0.2);
         }
 
-        /* MINI MOON ON COVER */
+        /* Tiny cover stars */
+
+        .cover::before {
+            content: "✦  ·   ˚   ✧     ·   ✦    ˚     ·    ✧";
+
+            position: absolute;
+
+            top: 25px;
+            left: 10px;
+            right: 10px;
+
+            color: rgba(255,255,255,0.65);
+
+            font-size: 13px;
+
+            letter-spacing: 7px;
+
+            line-height: 28px;
+        }
+
+        /* Cover moon */
 
         .cover-moon {
             position: absolute;
@@ -200,15 +505,21 @@
             top: 32px;
             right: 35px;
 
-            width: 55px;
-            height: 55px;
+            width: 58px;
+            height: 58px;
 
             border-radius: 50%;
 
-            background: #fff4b8;
+            background:
+                radial-gradient(
+                    circle at 35% 35%,
+                    #fffde5,
+                    #fff1ae
+                );
 
             box-shadow:
-                0 0 12px #fff4b8;
+                0 0 12px #fff3b5,
+                0 0 25px rgba(255, 239, 150, 0.35);
         }
 
         .cover-moon::after {
@@ -216,40 +527,54 @@
 
             position: absolute;
 
-            width: 55px;
-            height: 55px;
+            width: 58px;
+            height: 58px;
 
-            top: -6px;
-            left: 17px;
+            top: -7px;
+            left: 18px;
 
             border-radius: 50%;
 
-            background: #1b1b55;
+            background: #171946;
         }
 
-        /* PIXEL MUSIC NOTE */
+        /* =========================================
+           MUSIC NOTE
+        ========================================= */
 
         .note {
-            font-size: 80px;
+            position: relative;
+            z-index: 2;
+
+            margin-top: 30px;
+
+            font-size: 88px;
 
             color: #ffffff;
 
             text-shadow:
-                4px 4px 0 #5555b8,
-                0 0 20px rgba(255,255,255,0.5);
+                4px 4px 0 #555bc4,
+                0 0 15px rgba(255,255,255,0.65),
+                0 0 35px rgba(110,120,255,0.45);
 
             animation: float 3s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0);
             }
 
             50% {
-                transform: translateY(-7px);
+                transform: translateY(-8px);
             }
         }
+
+        /* =========================================
+           TEXT
+        ========================================= */
 
         h1 {
             margin: 8px 0 10px;
@@ -258,39 +583,117 @@
 
             letter-spacing: 1px;
 
+            color: #ffffff;
+
             text-shadow:
-                3px 3px 0 #15154d;
+                3px 3px 0 #17194e,
+                0 0 12px rgba(150,155,255,0.2);
         }
 
         .subtitle {
             margin-bottom: 22px;
 
-            color: #aaaadd;
+            color: #aeb2e8;
 
             font-size: 13px;
+
+            letter-spacing: 0.5px;
         }
+
+        /* =========================================
+           AUDIO
+        ========================================= */
 
         audio {
             width: 100%;
+
+            height: 42px;
+
+            filter:
+                sepia(15%)
+                saturate(80%)
+                hue-rotate(190deg)
+                brightness(85%);
         }
+
+        /* =========================================
+           FOOTER
+        ========================================= */
 
         .footer {
             margin-top: 18px;
 
-            color: #7777aa;
+            color: #777cc0;
 
             font-size: 11px;
+
+            letter-spacing: 1px;
+
+            text-shadow:
+                0 0 8px rgba(100,110,220,0.3);
+        }
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            .player {
+                width: 92%;
+                padding: 23px;
+            }
+
+            .cover {
+                width: 200px;
+                height: 200px;
+            }
+
+            .moon {
+                width: 75px;
+                height: 75px;
+
+                right: 7%;
+            }
+
+            .moon::after {
+                width: 75px;
+                height: 75px;
+            }
+
+            .note {
+                font-size: 75px;
+            }
+
+            h1 {
+                font-size: 21px;
+            }
         }
     </style>
 </head>
 
 <body>
 
+    <!-- STAR LAYERS -->
+
     <div class="stars"></div>
     <div class="stars2"></div>
     <div class="stars3"></div>
+    <div class="stars4"></div>
+
+    <!-- NIGHT ATMOSPHERE -->
+
+    <div class="night-glow"></div>
+
+    <!-- SHOOTING STAR -->
+
+    <div class="shooting-star"></div>
+
+    <!-- MOON -->
 
     <div class="moon"></div>
+
+    <!-- MUSIC PLAYER -->
 
     <div class="player">
 
@@ -321,8 +724,9 @@
 
     </div>
 
+    <!-- PIXEL GROUND -->
+
     <div class="pixel-ground"></div>
 
 </body>
 </html>
-```
