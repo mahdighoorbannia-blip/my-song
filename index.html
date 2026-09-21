@@ -14,29 +14,33 @@
     box-sizing: border-box;
 }
 
+:root {
+    --bg: #03030a;
+    --panel: rgba(10, 10, 20, .72);
+    --text: #eeeef7;
+    --muted: #77778d;
+    --line: rgba(255,255,255,.09);
+    --glow: #8b82ff;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+}
+
 body {
     min-height: 100vh;
     overflow: hidden;
-    font-family: Arial, sans-serif;
-    color: white;
-
     background:
-        radial-gradient(
-            circle at 50% 45%,
-            #25245f 0%,
-            #11143c 30%,
-            #070a24 62%,
-            #02030d 100%
-        );
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+        radial-gradient(circle at 50% 45%, #17152d 0%, #080812 38%, #03030a 75%);
+    color: var(--text);
+    font-family: Georgia, "Times New Roman", serif;
 }
 
-/* =========================
-   STARS
-========================= */
+
+/* ==================================================
+   NIGHT SKY
+================================================== */
 
 .sky {
     position: fixed;
@@ -45,195 +49,178 @@ body {
     pointer-events: none;
 }
 
-/* Small stars */
-
-.sky::before {
+.sky::before,
+.sky::after {
     content: "";
-
     position: absolute;
-    inset: 0;
-
+    inset: -50px;
     background-image:
-        radial-gradient(circle, white 1px, transparent 1.5px),
-        radial-gradient(circle, #d9ddff 1px, transparent 1.5px),
-        radial-gradient(circle, white 0.7px, transparent 1.2px);
-
+        radial-gradient(circle, rgba(255,255,255,.9) 0 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(180,185,255,.7) 0 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(255,255,255,.5) 0 .7px, transparent 1.2px);
     background-size:
-        37px 41px,
-        61px 73px,
-        89px 97px;
-
+        83px 91px,
+        137px 151px,
+        53px 67px;
     background-position:
-        3px 8px,
-        17px 31px,
-        43px 12px;
-
-    opacity: 0.75;
+        10px 20px,
+        30px 70px,
+        45px 10px;
+    opacity: .42;
 }
 
-/* Glowing stars */
+.sky::after {
+    opacity: .2;
+    transform: scale(1.3);
+    filter: blur(.4px);
+}
+
+
+/* ==================================================
+   STARS
+================================================== */
 
 .star {
     position: absolute;
-
-    width: 4px;
-    height: 4px;
-
-    background: white;
-
+    width: 3px;
+    height: 3px;
     border-radius: 50%;
-
+    background: white;
     box-shadow:
         0 0 5px white,
-        0 0 12px #9da7ff;
-
-    animation: sparkle 3s ease-in-out infinite;
+        0 0 14px rgba(150,155,255,.8);
+    animation: twinkle 4s ease-in-out infinite;
 }
 
-.star:nth-child(1) { top: 12%; left: 18%; animation-delay: .3s; }
-.star:nth-child(2) { top: 23%; left: 35%; animation-delay: 1.2s; }
-.star:nth-child(3) { top: 15%; left: 63%; animation-delay: 2s; }
-.star:nth-child(4) { top: 31%; left: 77%; animation-delay: .8s; }
-.star:nth-child(5) { top: 42%; left: 12%; animation-delay: 1.8s; }
-.star:nth-child(6) { top: 52%; left: 25%; animation-delay: .4s; }
-.star:nth-child(7) { top: 61%; left: 70%; animation-delay: 2.2s; }
-.star:nth-child(8) { top: 73%; left: 83%; animation-delay: 1s; }
-.star:nth-child(9) { top: 82%; left: 18%; animation-delay: 2.5s; }
-.star:nth-child(10) { top: 67%; left: 48%; animation-delay: 1.5s; }
-.star:nth-child(11) { top: 35%; left: 54%; animation-delay: .7s; }
-.star:nth-child(12) { top: 18%; left: 88%; animation-delay: 1.7s; }
+.star:nth-child(1) { top: 12%; left: 9%; animation-delay: .4s; }
+.star:nth-child(2) { top: 20%; left: 26%; animation-delay: 2s; }
+.star:nth-child(3) { top: 8%; left: 46%; animation-delay: 1s; }
+.star:nth-child(4) { top: 28%; left: 68%; animation-delay: 2.8s; }
+.star:nth-child(5) { top: 17%; left: 83%; animation-delay: .7s; }
+.star:nth-child(6) { top: 43%; left: 12%; animation-delay: 1.7s; }
+.star:nth-child(7) { top: 53%; left: 29%; animation-delay: 3s; }
+.star:nth-child(8) { top: 38%; left: 52%; animation-delay: .8s; }
+.star:nth-child(9) { top: 61%; left: 74%; animation-delay: 2.4s; }
+.star:nth-child(10) { top: 74%; left: 87%; animation-delay: 1.2s; }
+.star:nth-child(11) { top: 78%; left: 21%; animation-delay: 2.1s; }
+.star:nth-child(12) { top: 68%; left: 51%; animation-delay: .3s; }
+.star:nth-child(13) { top: 34%; left: 91%; animation-delay: 1.5s; }
+.star:nth-child(14) { top: 87%; left: 67%; animation-delay: 2.7s; }
 
-@keyframes sparkle {
+@keyframes twinkle {
     0%, 100% {
-        transform: scale(.6);
-        opacity: .3;
+        opacity: .25;
+        transform: scale(.65);
     }
 
     50% {
-        transform: scale(1.7);
         opacity: 1;
+        transform: scale(1.6);
     }
 }
 
-/* =========================
+
+/* ==================================================
    MOON
-========================= */
+================================================== */
 
 .moon {
-    position: absolute;
-
+    position: fixed;
+    width: 135px;
+    height: 135px;
     top: 8%;
     right: 10%;
-
-    width: 120px;
-    height: 120px;
 
     border-radius: 50%;
 
     background:
         radial-gradient(
-            circle at 35% 30%,
-            #fffde8,
-            #fff5bd 55%,
-            #e7d889
+            circle at 35% 32%,
+            #fffef0 0%,
+            #fff5c6 48%,
+            #ddd29a 100%
         );
 
     box-shadow:
-        0 0 20px rgba(255, 247, 190, .9),
-        0 0 55px rgba(255, 242, 170, .4),
-        0 0 100px rgba(160, 170, 255, .15);
+        0 0 25px rgba(255,245,190,.7),
+        0 0 70px rgba(255,240,170,.25);
 
     z-index: 1;
 }
 
-/* Moon craters */
-
 .moon::before {
     content: "";
-
     position: absolute;
-
-    width: 18px;
-    height: 18px;
-
+    inset: 0;
     border-radius: 50%;
 
-    background: rgba(170, 160, 110, .18);
-
-    top: 28px;
-    left: 25px;
-
-    box-shadow:
-        38px 10px 0 rgba(170,160,110,.13),
-        22px 43px 0 rgba(170,160,110,.15),
-        53px 52px 0 rgba(170,160,110,.1);
+    background:
+        radial-gradient(circle at 30% 25%, rgba(120,110,80,.15) 0 9px, transparent 10px),
+        radial-gradient(circle at 65% 35%, rgba(120,110,80,.12) 0 12px, transparent 13px),
+        radial-gradient(circle at 48% 70%, rgba(120,110,80,.12) 0 8px, transparent 9px);
 }
-
-/* Crescent cutout */
 
 .moon::after {
     content: "";
-
     position: absolute;
 
-    width: 120px;
-    height: 120px;
+    width: 135px;
+    height: 135px;
 
     border-radius: 50%;
 
-    top: -13px;
-    left: 34px;
+    left: 38px;
+    top: -12px;
 
-    background: #070a24;
+    background: #03030a;
 }
 
-/* =========================
+
+/* ==================================================
    SHOOTING STAR
-========================= */
+================================================== */
 
 .shooting-star {
-    position: absolute;
+    position: fixed;
 
-    width: 130px;
-    height: 2px;
+    width: 150px;
+    height: 1px;
 
-    top: 18%;
-    left: -150px;
+    top: 17%;
+    left: -180px;
 
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.8),
-            white
-        );
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.4),
+        white
+    );
 
-    transform: rotate(-25deg);
+    transform: rotate(-24deg);
 
-    filter:
-        drop-shadow(0 0 5px white)
-        drop-shadow(0 0 12px #8e9cff);
+    box-shadow:
+        0 0 5px white,
+        0 0 15px #8f92ff;
 
-    animation: shoot 8s linear infinite;
+    animation: shooting 10s linear infinite;
 
     z-index: 2;
 }
 
-@keyframes shoot {
-
-    0% {
-        left: -150px;
-        top: 15%;
+@keyframes shooting {
+    0%, 72% {
+        left: -180px;
+        top: 17%;
         opacity: 0;
     }
 
-    10% {
+    74% {
         opacity: 1;
     }
 
-    22% {
-        left: 110%;
-        top: 48%;
+    88% {
+        left: 115%;
+        top: 55%;
         opacity: 0;
     }
 
@@ -242,290 +229,487 @@ body {
     }
 }
 
-/* =========================
-   ATMOSPHERIC GLOW
-========================= */
 
-.glow {
+/* ==================================================
+   CENTER ATMOSPHERE
+================================================== */
+
+.ambient {
     position: fixed;
-    width: 600px;
-    height: 600px;
+
+    width: 700px;
+    height: 700px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
 
     border-radius: 50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(87, 93, 210, .16),
-            transparent 70%
+            rgba(92,82,180,.12),
+            transparent 68%
         );
 
-    filter: blur(40px);
+    filter: blur(35px);
 
     pointer-events: none;
 }
 
-/* =========================
-   MUSIC CARD
-========================= */
 
-.card {
+/* ==================================================
+   OLD WEB FRAME
+================================================== */
+
+.frame {
     position: relative;
 
-    z-index: 10;
+    width: min(760px, 92%);
+    min-height: 500px;
 
-    width: min(420px, 90%);
+    margin: auto;
 
-    padding: 28px;
+    top: 50%;
+    transform: translateY(-50%);
 
-    text-align: center;
+    padding: 42px 45px;
 
-    border-radius: 24px;
-
-    background:
-        rgba(8, 11, 38, .72);
-
-    border:
-        1px solid rgba(170,180,255,.3);
-
-    box-shadow:
-        0 30px 80px rgba(0,0,0,.5),
-        inset 0 1px 1px rgba(255,255,255,.08),
-        0 0 50px rgba(91,101,220,.12);
-
-    backdrop-filter: blur(18px);
-}
-
-/* =========================
-   ALBUM
-========================= */
-
-.album {
-    position: relative;
-
-    width: 240px;
-    height: 240px;
-
-    margin: 0 auto 25px;
-
-    overflow: hidden;
-
-    border-radius: 18px;
+    border: 1px solid var(--line);
 
     background:
-        radial-gradient(
-            circle at 70% 25%,
-            rgba(100,110,220,.5),
-            transparent 25%
-        ),
         linear-gradient(
-            145deg,
-            #1c2059,
-            #090c2b
+            135deg,
+            rgba(15,15,26,.78),
+            rgba(5,5,12,.72)
         );
 
-    border:
-        1px solid rgba(190,195,255,.4);
-
     box-shadow:
-        0 20px 45px rgba(0,0,0,.45);
+        0 30px 100px rgba(0,0,0,.65),
+        inset 0 1px rgba(255,255,255,.04);
+
+    backdrop-filter: blur(12px);
 }
 
-/* Album stars */
 
-.album::before {
-    content:
-        "✦   ·      ✧      ·   ✦"
-        "    ·       ✦      ·"
-        "✧      ·     ✦      ·";
+/* tiny corner decorations */
 
+.frame::before,
+.frame::after {
+    content: "";
     position: absolute;
 
-    inset: 18px;
+    width: 18px;
+    height: 18px;
 
-    color: rgba(255,255,255,.65);
+    border-color: rgba(150,145,255,.45);
+    border-style: solid;
+}
 
-    font-size: 15px;
+.frame::before {
+    top: 12px;
+    left: 12px;
+    border-width: 1px 0 0 1px;
+}
 
-    line-height: 42px;
+.frame::after {
+    right: 12px;
+    bottom: 12px;
+    border-width: 0 1px 1px 0;
+}
+
+
+/* ==================================================
+   HEADER
+================================================== */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid var(--line);
+
+    font-family: Arial, sans-serif;
+}
+
+.logo {
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+
+    color: #aaa8c7;
+}
+
+.status {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #555568;
+}
+
+.status::before {
+    content: "●";
+    margin-right: 7px;
+    color: #817cff;
+    text-shadow: 0 0 8px #817cff;
+}
+
+
+/* ==================================================
+   MAIN
+================================================== */
+
+.content {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 55px;
+
+    align-items: center;
+
+    padding: 55px 0 35px;
+}
+
+
+/* ==================================================
+   LEFT TEXT
+================================================== */
+
+.intro small {
+    display: block;
+
+    margin-bottom: 15px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
 
     letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    color: #66667d;
 }
 
-/* Album moon */
+.intro h1 {
+    font-size: clamp(38px, 5vw, 62px);
 
-.album-moon {
-    position: absolute;
+    font-weight: normal;
 
-    width: 65px;
-    height: 65px;
+    line-height: .95;
 
-    right: 28px;
-    top: 28px;
-
-    border-radius: 50%;
-
-    background: #fff5bd;
-
-    box-shadow:
-        0 0 18px #fff3b0;
-}
-
-.album-moon::after {
-    content: "";
-
-    position: absolute;
-
-    width: 65px;
-    height: 65px;
-
-    border-radius: 50%;
-
-    top: -8px;
-    left: 20px;
-
-    background: #11143c;
-}
-
-/* Music symbol */
-
-.music {
-    position: absolute;
-
-    left: 50%;
-    top: 52%;
-
-    transform: translate(-50%, -50%);
-
-    font-size: 100px;
-
-    color: white;
-
-    text-shadow:
-        0 0 12px white,
-        0 0 30px #8994ff,
-        5px 5px 0 #454b9e;
-
-    animation: musicFloat 3s ease-in-out infinite;
-}
-
-@keyframes musicFloat {
-
-    0%, 100% {
-        transform: translate(-50%, -50%);
-    }
-
-    50% {
-        transform: translate(-50%, calc(-50% - 8px));
-    }
-}
-
-/* =========================
-   TITLE
-========================= */
-
-h1 {
-    font-size: 24px;
-
-    margin-bottom: 8px;
-
-    letter-spacing: .5px;
-
-    text-shadow:
-        0 0 15px rgba(180,185,255,.25);
-}
-
-.subtitle {
-    color: #aeb4df;
-
-    font-size: 13px;
+    letter-spacing: -2px;
 
     margin-bottom: 22px;
 }
 
-/* =========================
-   AUDIO
-========================= */
+.intro h1 span {
+    color: #8883e8;
 
-audio {
-    width: 100%;
-    height: 42px;
+    text-shadow:
+        0 0 25px rgba(125,120,255,.35);
 }
 
-/* =========================
-   FOOTER
-========================= */
+.intro p {
+    max-width: 280px;
 
-.footer {
-    margin-top: 18px;
+    font-family: Arial, sans-serif;
 
-    font-size: 11px;
+    font-size: 12px;
 
-    color: #777fbd;
+    line-height: 1.9;
 
-    letter-spacing: 1px;
+    color: #77778b;
 }
 
-/* =========================
-   GROUND
-========================= */
 
-.ground {
-    position: fixed;
+/* ==================================================
+   MUSIC PLAYER
+================================================== */
 
-    bottom: 0;
-    left: 0;
+.player {
+    position: relative;
 
-    width: 100%;
-    height: 55px;
+    padding: 25px;
+
+    border: 1px solid var(--line);
+
+    background: rgba(255,255,255,.025);
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.035);
+}
+
+
+/* record */
+
+.record {
+    width: 145px;
+    height: 145px;
+
+    margin: 0 auto 24px;
+
+    border-radius: 50%;
 
     background:
-        linear-gradient(
-            180deg,
-            rgba(13,16,52,.7),
-            #03040f
+        repeating-radial-gradient(
+            circle,
+            #08080d 0px,
+            #08080d 2px,
+            #111119 3px,
+            #08080d 5px
         );
 
-    border-top:
-        1px solid rgba(110,120,210,.2);
+    border: 1px solid #282833;
 
-    z-index: 3;
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.55);
+
+    animation: spin 8s linear infinite;
+    animation-play-state: paused;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* =========================
-   MOBILE
-========================= */
+.record.playing {
+    animation-play-state: running;
+}
 
-@media(max-width:600px) {
+.record::before {
+    content: "♪";
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #15152a;
+
+    color: #a19dff;
+
+    font-size: 20px;
+
+    box-shadow:
+        0 0 20px rgba(130,125,255,.25);
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* song info */
+
+.song-name {
+    text-align: center;
+
+    font-size: 18px;
+
+    margin-bottom: 6px;
+}
+
+.song-info {
+    text-align: center;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    color: #5f5f73;
+
+    margin-bottom: 22px;
+}
+
+
+/* controls */
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.play {
+    width: 43px;
+    height: 43px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(150,145,255,.45);
+
+    background: rgba(120,115,240,.1);
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    transition: .25s;
+}
+
+.play:hover {
+    background: rgba(130,125,255,.2);
+
+    box-shadow:
+        0 0 20px rgba(120,115,255,.2);
+
+    transform: scale(1.05);
+}
+
+.progress-area {
+    flex: 1;
+}
+
+.progress {
+    width: 100%;
+    height: 2px;
+
+    appearance: none;
+
+    background: #282832;
+
+    cursor: pointer;
+}
+
+.progress::-webkit-slider-thumb {
+    appearance: none;
+
+    width: 9px;
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: #aaa6ff;
+
+    box-shadow:
+        0 0 10px #7772ff;
+}
+
+.time {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 7px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    color: #50505f;
+}
+
+
+/* ==================================================
+   FOOTER
+================================================== */
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+
+    padding-top: 17px;
+
+    border-top: 1px solid var(--line);
+
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    color: #4d4d5d;
+
+    text-transform: uppercase;
+}
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media(max-width: 650px) {
+
+    body {
+        overflow-y: auto;
+    }
 
     .moon {
         width: 80px;
         height: 80px;
-        right: 7%;
+        right: 6%;
+        top: 6%;
     }
 
     .moon::after {
         width: 80px;
         height: 80px;
+        left: 23px;
     }
 
-    .card {
-        padding: 22px;
+    .frame {
+        width: 92%;
+        min-height: auto;
+
+        top: 0;
+        transform: none;
+
+        margin: 35px auto;
+
+        padding: 25px 22px;
     }
 
-    .album {
-        width: 200px;
-        height: 200px;
+    .content {
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+
+        padding: 40px 0 30px;
     }
 
-    .music {
-        font-size: 80px;
+    .intro {
+        text-align: center;
+    }
+
+    .intro p {
+        margin: auto;
+    }
+
+    .intro h1 {
+        font-size: 48px;
+    }
+
+    .player {
+        max-width: 340px;
+        width: 100%;
+        margin: auto;
+    }
+
+    .footer {
+        font-size: 8px;
     }
 }
 </style>
 </head>
 
 <body>
+
+<!-- NIGHT SKY -->
 
 <div class="sky">
 
@@ -541,45 +725,212 @@ audio {
     <span class="star"></span>
     <span class="star"></span>
     <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
 
 </div>
 
-<div class="glow"></div>
+<div class="ambient"></div>
 
 <div class="moon"></div>
 
 <div class="shooting-star"></div>
 
-<div class="card">
 
-    <div class="album">
+<!-- MAIN FRAME -->
 
-        <div class="album-moon"></div>
+<div class="frame">
 
-        <div class="music">
-            ♪
+    <header class="header">
+
+        <div class="logo">
+            mahdi's night
         </div>
 
-    </div>
+        <div class="status">
+            listening
+        </div>
 
-    <h1>Mahdi's Favorite Song</h1>
+    </header>
 
-    <div class="subtitle">
-        A song under the moonlight 🌙
-    </div>
 
-    <audio controls>
-        <source src="./song.mp3" type="audio/mpeg">
-        Your browser does not support audio.
-    </audio>
+    <main class="content">
 
-    <div class="footer">
-        ✦ Enjoy the music ✦
-    </div>
+        <section class="intro">
+
+            <small>personal space / 001</small>
+
+            <h1>
+                Welcome to<br>
+                <span>my night.</span>
+            </h1>
+
+            <p>
+                Somewhere between silence,
+                memories and music.
+                Stay for a while.
+            </p>
+
+        </section>
+
+
+        <section class="player">
+
+            <div class="record" id="record"></div>
+
+            <div class="song-name">
+                My Favorite Song
+            </div>
+
+            <div class="song-info">
+                PLAYING UNDER THE MOON
+            </div>
+
+            <div class="controls">
+
+                <button class="play" id="playButton">
+                    ▶
+                </button>
+
+                <div class="progress-area">
+
+                    <input
+                        class="progress"
+                        id="progress"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="0"
+                    >
+
+                    <div class="time">
+
+                        <span id="currentTime">
+                            0:00
+                        </span>
+
+                        <span id="duration">
+                            0:00
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="footer">
+
+        <span>© Mahdi</span>
+
+        <span>✦  somewhere in the night  ✦</span>
+
+    </footer>
 
 </div>
 
-<div class="ground"></div>
+
+<!-- AUDIO -->
+
+<audio id="audio">
+    <source src="./song.mp3" type="audio/mpeg">
+</audio>
+
+
+<script>
+
+const audio = document.getElementById("audio");
+const playButton = document.getElementById("playButton");
+const progress = document.getElementById("progress");
+const record = document.getElementById("record");
+
+const currentTime = document.getElementById("currentTime");
+const duration = document.getElementById("duration");
+
+
+function formatTime(seconds) {
+
+    if (isNaN(seconds)) return "0:00";
+
+    const minutes = Math.floor(seconds / 60);
+
+    const secs = Math.floor(seconds % 60)
+        .toString()
+        .padStart(2, "0");
+
+    return `${minutes}:${secs}`;
+}
+
+
+playButton.addEventListener("click", () => {
+
+    if (audio.paused) {
+
+        audio.play();
+
+        playButton.textContent = "Ⅱ";
+
+        record.classList.add("playing");
+
+    } else {
+
+        audio.pause();
+
+        playButton.textContent = "▶";
+
+        record.classList.remove("playing");
+
+    }
+
+});
+
+
+audio.addEventListener("loadedmetadata", () => {
+
+    duration.textContent =
+        formatTime(audio.duration);
+
+});
+
+
+audio.addEventListener("timeupdate", () => {
+
+    const percent =
+        (audio.currentTime / audio.duration) * 100;
+
+    progress.value = percent || 0;
+
+    currentTime.textContent =
+        formatTime(audio.currentTime);
+
+});
+
+
+progress.addEventListener("input", () => {
+
+    audio.currentTime =
+        (progress.value / 100) * audio.duration;
+
+});
+
+
+audio.addEventListener("ended", () => {
+
+    playButton.textContent = "▶";
+
+    record.classList.remove("playing");
+
+    progress.value = 0;
+
+});
+
+
+</script>
 
 </body>
 </html>
