@@ -576,7 +576,6 @@ body {
     overflow: hidden;
 }
 
-
 .frame::before {
     content: "";
 
@@ -707,7 +706,7 @@ body {
 
     align-items: center;
 
-    padding: 55px 35px;
+    padding: 45px 35px;
 
     z-index: 2;
 }
@@ -758,7 +757,7 @@ body {
 .player {
     position: relative;
 
-    padding: 28px;
+    padding: 25px;
 
     border: 1px solid rgba(255,255,255,.065);
 
@@ -784,7 +783,7 @@ body {
 
     justify-content: space-between;
 
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 
     font-family: Arial, sans-serif;
 
@@ -805,10 +804,10 @@ body {
 .record-wrap {
     position: relative;
 
-    width: 220px;
-    height: 220px;
+    width: 200px;
+    height: 200px;
 
-    margin: 0 auto 24px;
+    margin: 0 auto 18px;
 }
 
 .record-glow {
@@ -835,8 +834,8 @@ body {
 .record {
     position: relative;
 
-    width: 220px;
-    height: 220px;
+    width: 200px;
+    height: 200px;
 
     border-radius: 50%;
 
@@ -937,7 +936,7 @@ body {
 
     font-size: 20px;
 
-    margin-bottom: 18px;
+    margin-bottom: 12px;
 }
 
 
@@ -945,36 +944,94 @@ body {
    LYRICS
 ===================================================== */
 
+.lyrics-title {
+    margin-bottom: 8px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 7px;
+
+    letter-spacing: 3px;
+
+    color: #505165;
+
+    text-transform: uppercase;
+
+    text-align: center;
+}
+
 .lyrics-box {
-    position: relative;
 
-    height: 210px;
-
-    margin: 0 0 20px;
+    height: 145px;
 
     overflow-y: auto;
 
     overflow-x: hidden;
 
-    padding: 18px 14px;
+    padding: 10px 14px;
 
-    border-top: 1px solid rgba(255,255,255,.035);
+    margin-bottom: 16px;
 
-    border-bottom: 1px solid rgba(255,255,255,.035);
+    border-top:
+        1px solid rgba(255,255,255,.04);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.04);
+
+    direction: rtl;
+
+    overscroll-behavior: contain;
 
     scrollbar-width: thin;
 
     scrollbar-color:
-        rgba(120,115,255,.45)
+        #45415f
         transparent;
-
-    direction: rtl;
-
-    scroll-behavior: smooth;
 }
 
 
-/* Chrome / Edge scrollbar */
+/*
+   IMPORTANT:
+   Lyrics are completely static.
+   No highlight.
+   No animation.
+   No color change.
+*/
+
+.lyrics-box p {
+
+    margin: 0 0 11px 0;
+
+    color: #77788c;
+
+    font-family:
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    font-size: 13px;
+
+    line-height: 1.9;
+
+    text-align: center;
+
+    direction: rtl;
+
+    font-weight: normal;
+
+    transition: none;
+
+    animation: none;
+
+    text-shadow: none;
+}
+
+.lyrics-box p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* SCROLLBAR */
 
 .lyrics-box::-webkit-scrollbar {
     width: 4px;
@@ -985,132 +1042,13 @@ body {
 }
 
 .lyrics-box::-webkit-scrollbar-thumb {
-    background: rgba(120,115,255,.4);
+    background: #45415f;
 
     border-radius: 10px;
 }
 
-
-/* TOP / BOTTOM FADE */
-
-.lyrics-box::before {
-    content: "";
-
-    position: sticky;
-
-    display: block;
-
-    top: -18px;
-
-    height: 25px;
-
-    margin-bottom: -25px;
-
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(9,10,24,1),
-            transparent
-        );
-
-    z-index: 5;
-
-    pointer-events: none;
-}
-
-
-.lyrics-box::after {
-    content: "";
-
-    position: sticky;
-
-    display: block;
-
-    bottom: -18px;
-
-    height: 25px;
-
-    margin-top: -25px;
-
-    background:
-        linear-gradient(
-            to top,
-            rgba(9,10,24,1),
-            transparent
-        );
-
-    z-index: 5;
-
-    pointer-events: none;
-}
-
-
-.lyrics {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 14px;
-
-    direction: rtl;
-
-    padding: 35px 5px;
-}
-
-
-.lyric-line {
-    flex-shrink: 0;
-
-    text-align: center;
-
-    color:
-        rgba(238,238,254,.42);
-
-    font-size: 14px;
-
-    line-height: 1.9;
-
-    padding: 4px 8px;
-
-    transition:
-        color .5s ease,
-        opacity .5s ease,
-        transform .5s ease,
-        text-shadow .5s ease;
-
-    cursor: default;
-}
-
-
-.lyric-line:hover {
-    color: rgba(238,238,254,.75);
-}
-
-
-.lyric-line.active {
-    color: #f2f0ff;
-
-    opacity: 1;
-
-    transform: scale(1.035);
-
-    text-shadow:
-        0 0 10px rgba(125,120,255,.65),
-        0 0 28px rgba(125,120,255,.25);
-}
-
-
-.lyric-line.near {
-    color:
-        rgba(238,238,254,.55);
-}
-
-
-.lyric-line.far {
-    color:
-        rgba(238,238,254,.28);
-
-    opacity: .7;
+.lyrics-box::-webkit-scrollbar-thumb:hover {
+    background: #45415f;
 }
 
 
@@ -1119,7 +1057,7 @@ body {
 ===================================================== */
 
 .visualizer {
-    height: 38px;
+    height: 32px;
 
     display: flex;
 
@@ -1129,7 +1067,7 @@ body {
 
     gap: 3px;
 
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .bar {
@@ -1339,11 +1277,12 @@ body {
     }
 
     .lyrics-box {
-        height: 250px;
+        height: 210px;
     }
 
-    .lyric-line {
+    .lyrics-box p {
         font-size: 13px;
+        line-height: 1.9;
     }
 
     .footer {
@@ -1566,14 +1505,53 @@ body {
 
                 <!-- LYRICS -->
 
-                <div
-                    class="lyrics-box"
-                    id="lyricsBox">
+                <div class="lyrics-title">
+                    lyrics
+                </div>
 
-                    <div
-                        class="lyrics"
-                        id="lyrics">
-                    </div>
+                <div class="lyrics-box" id="lyricsBox">
+
+                    <!--
+                        متن آهنگ خودت را اینجا قرار بده.
+
+                        هر خط را داخل یک <p> بنویس.
+
+                        مثال:
+
+                        <p>تو یه شیرینی تلخی واسه قلب نیمه جونم
+توی این ترانه هایی که برای تو می خونم
+تو یه شیرینی تلخی توی خاطرات دورم
+تو تموم لحظه های دل ساکت و صبورم
+تو یه رویای قشنگی توی خواب هر شب من
+تو یه آه سینه سوزی توی گرمای تب من
+تو یه فریاد بلندی تو سکوت بی کسی هام
+تو یه عشقی که بریدی من و از دل بستگی هام
+کجایی عزیز من بی تو من یه لحظه خوشی ندارم
+کجایی که بی تو من غصه می خورم تلخ روزگارم
+تو که رفتی از کنارم غم غریبی اومد سراغم
+بیا تا دوباره احساس کنم تو دنیا یکی رو دارم
+تو یه شیرینی تلخی واسه قلب نیمه جونم
+توی این ترانه هایی که برای تو می خونم
+تو یه شیرینی تلخی توی خاطرات دورم
+تو تموم لحظه های دل ساکت و صبورم
+تو یه رویای قشنگی توی خواب هر شب من
+تو یه آه سینه سوزی توی گرمای تب من
+تو یه فریاد بلندی تو سکوت بی کسی هام
+تو یه عشقی که بریدی من و از دل بستگی هام
+کجایی عزیز من بی تو من یه لحظه خوشی ندارم
+کجایی که بی تو من غصه می خورم تلخ روزگارم
+تو که رفتی از کنارم غم غریبی اومد سراغم
+بیا تا دوباره احساس کنم تو دنیا یکی رو دارم</p>
+                        <p></p>
+                        <p></p>
+
+                        این بخش کاملاً ثابت است:
+                        بدون هایلایت،
+                        بدون حرکت،
+                        بدون تغییر رنگ.
+                    -->
+
+                    <p>YOUR LYRICS HERE</p>
 
                 </div>
 
@@ -1715,301 +1693,6 @@ const bars =
 const cursorGlow =
     document.getElementById("cursorGlow");
 
-const lyricsBox =
-    document.getElementById("lyricsBox");
-
-const lyricsContainer =
-    document.getElementById("lyrics");
-
-
-/* =====================================================
-   LYRICS
-===================================================== */
-
-const lyricsData = [
-
-    {
-        time: 0,
-        text: "تو یه شیرینی تلخی واسه قلب نیمه جونم"
-    },
-
-    {
-        time: 6,
-        text: "توی این ترانه هایی که برای تو می خونم"
-    },
-
-    {
-        time: 12,
-        text: "تو یه شیرینی تلخی توی خاطرات دورم"
-    },
-
-    {
-        time: 18,
-        text: "تو تموم لحظه های دل ساکت و صبورم"
-    },
-
-    {
-        time: 24,
-        text: "تو یه رویای قشنگی توی خواب هر شب من"
-    },
-
-    {
-        time: 30,
-        text: "تو یه آه سینه سوزی توی گرمای تب من"
-    },
-
-    {
-        time: 36,
-        text: "تو یه فریاد بلندی تو سکوت بی کسی هام"
-    },
-
-    {
-        time: 42,
-        text: "تو یه عشقی که بریدی من و از دل بستگی هام"
-    },
-
-    {
-        time: 48,
-        text: "کجایی عزیز من بی تو من یه لحظه خوشی ندارم"
-    },
-
-    {
-        time: 54,
-        text: "کجایی که بی تو من غصه می خورم تلخ روزگارم"
-    },
-
-    {
-        time: 60,
-        text: "تو که رفتی از کنارم غم غریبی اومد سراغم"
-    },
-
-    {
-        time: 66,
-        text: "بیا تا دوباره احساس کنم تو دنیا یکی رو دارم"
-    },
-
-    {
-        time: 72,
-        text: "تو یه شیرینی تلخی واسه قلب نیمه جونم"
-    },
-
-    {
-        time: 78,
-        text: "توی این ترانه هایی که برای تو می خونم"
-    },
-
-    {
-        time: 84,
-        text: "تو یه شیرینی تلخی توی خاطرات دورم"
-    },
-
-    {
-        time: 90,
-        text: "تو تموم لحظه های دل ساکت و صبورم"
-    },
-
-    {
-        time: 96,
-        text: "تو یه رویای قشنگی توی خواب هر شب من"
-    },
-
-    {
-        time: 102,
-        text: "تو یه آه سینه سوزی توی گرمای تب من"
-    },
-
-    {
-        time: 108,
-        text: "تو یه فریاد بلندی تو سکوت بی کسی هام"
-    },
-
-    {
-        time: 114,
-        text: "تو یه عشقی که بریدی من و از دل بستگی هام"
-    },
-
-    {
-        time: 120,
-        text: "کجایی عزیز من بی تو من یه لحظه خوشی ندارم"
-    },
-
-    {
-        time: 126,
-        text: "کجایی که بی تو من غصه می خورم تلخ روزگارم"
-    },
-
-    {
-        time: 132,
-        text: "تو که رفتی از کنارم غم غریبی اومد سراغم"
-    },
-
-    {
-        time: 138,
-        text: "بیا تا دوباره احساس کنم تو دنیا یکی رو دارم"
-    }
-
-];
-
-
-/* =====================================================
-   CREATE LYRICS
-===================================================== */
-
-lyricsData.forEach(
-    (line, index) => {
-
-        const element =
-            document.createElement("div");
-
-        element.className =
-            "lyric-line";
-
-        element.dataset.index =
-            index;
-
-        element.textContent =
-            line.text;
-
-        lyricsContainer.appendChild(
-            element
-        );
-
-    }
-);
-
-
-const lyricElements =
-    document.querySelectorAll(
-        ".lyric-line"
-    );
-
-let activeLyric = -1;
-
-
-/* =====================================================
-   UPDATE ACTIVE LYRIC
-===================================================== */
-
-function updateLyrics() {
-
-    const time =
-        audio.currentTime;
-
-    let index = 0;
-
-    for (
-        let i = 0;
-        i < lyricsData.length;
-        i++
-    ) {
-
-        if (
-            time >= lyricsData[i].time
-        ) {
-
-            index = i;
-
-        } else {
-
-            break;
-
-        }
-
-    }
-
-
-    if (
-        index === activeLyric
-    ) {
-
-        return;
-
-    }
-
-
-    activeLyric = index;
-
-
-    lyricElements.forEach(
-        (line, i) => {
-
-            line.classList.remove(
-                "active",
-                "near",
-                "far"
-            );
-
-
-            if (i === index) {
-
-                line.classList.add(
-                    "active"
-                );
-
-            }
-
-            else if (
-                i === index - 1 ||
-                i === index + 1
-            ) {
-
-                line.classList.add(
-                    "near"
-                );
-
-            }
-
-            else {
-
-                line.classList.add(
-                    "far"
-                );
-
-            }
-
-        }
-    );
-
-
-    /*
-       Auto-scroll to current lyric.
-       The user can still manually scroll
-       through the entire lyrics.
-    */
-
-    const activeElement =
-        lyricElements[index];
-
-    if (activeElement) {
-
-        const boxHeight =
-            lyricsBox.clientHeight;
-
-        const elementTop =
-            activeElement.offsetTop;
-
-        const elementHeight =
-            activeElement.offsetHeight;
-
-
-        const target =
-            elementTop -
-            (boxHeight / 2) +
-            (elementHeight / 2);
-
-
-        lyricsBox.scrollTo({
-
-            top: target,
-
-            behavior: "smooth"
-
-        });
-
-    }
-
-}
-
 
 /* =====================================================
    TIME
@@ -2018,9 +1701,7 @@ function updateLyrics() {
 function formatTime(seconds) {
 
     if (isNaN(seconds)) {
-
         return "0:00";
-
     }
 
     const minutes =
@@ -2032,7 +1713,6 @@ function formatTime(seconds) {
         .padStart(2, "0");
 
     return `${minutes}:${secs}`;
-
 }
 
 
@@ -2050,29 +1730,23 @@ playButton.addEventListener(
 
                 await audio.play();
 
-                playButton.textContent =
-                    "Ⅱ";
+                playButton.textContent = "Ⅱ";
 
                 record.classList.add(
                     "playing"
                 );
 
-            }
-
-            catch (error) {
+            } catch (error) {
 
                 console.log(error);
 
             }
 
-        }
-
-        else {
+        } else {
 
             audio.pause();
 
-            playButton.textContent =
-                "▶";
+            playButton.textContent = "▶";
 
             record.classList.remove(
                 "playing"
@@ -2093,9 +1767,7 @@ audio.addEventListener(
     () => {
 
         duration.textContent =
-            formatTime(
-                audio.duration
-            );
+            formatTime(audio.duration);
 
     }
 );
@@ -2110,26 +1782,15 @@ audio.addEventListener(
     () => {
 
         if (!audio.duration) {
-
             return;
-
         }
 
-
         progress.value =
-            (
-                audio.currentTime /
-                audio.duration
-            ) * 100;
-
+            (audio.currentTime /
+            audio.duration) * 100;
 
         currentTime.textContent =
-            formatTime(
-                audio.currentTime
-            );
-
-
-        updateLyrics();
+            formatTime(audio.currentTime);
 
     }
 );
@@ -2144,20 +1805,12 @@ progress.addEventListener(
     () => {
 
         if (!audio.duration) {
-
             return;
-
         }
 
-
         audio.currentTime =
-            (
-                progress.value /
-                100
-            ) * audio.duration;
-
-
-        updateLyrics();
+            (progress.value / 100) *
+            audio.duration;
 
     }
 );
@@ -2171,18 +1824,13 @@ audio.addEventListener(
     "ended",
     () => {
 
-        playButton.textContent =
-            "▶";
+        playButton.textContent = "▶";
 
         record.classList.remove(
             "playing"
         );
 
         progress.value = 0;
-
-        activeLyric = -1;
-
-        updateLyrics();
 
     }
 );
@@ -2202,13 +1850,10 @@ let visualizerStarted = false;
 function startVisualizer() {
 
     if (visualizerStarted) {
-
         return;
-
     }
 
     visualizerStarted = true;
-
 
     audioContext =
         new (
@@ -2216,19 +1861,15 @@ function startVisualizer() {
             window.webkitAudioContext
         )();
 
-
     analyser =
         audioContext.createAnalyser();
 
-
     analyser.fftSize = 64;
-
 
     source =
         audioContext.createMediaElementSource(
             audio
         );
-
 
     source.connect(analyser);
 
@@ -2236,15 +1877,12 @@ function startVisualizer() {
         audioContext.destination
     );
 
-
     dataArray =
         new Uint8Array(
             analyser.frequencyBinCount
         );
 
-
     animateVisualizer();
-
 }
 
 
@@ -2254,18 +1892,13 @@ function animateVisualizer() {
         animateVisualizer
     );
 
-
     if (!analyser) {
-
         return;
-
     }
-
 
     analyser.getByteFrequencyData(
         dataArray
     );
-
 
     bars.forEach(
         (bar, index) => {
@@ -2273,15 +1906,12 @@ function animateVisualizer() {
             const value =
                 dataArray[index] || 0;
 
-
             const height =
                 4 +
-                (value / 255) * 34;
-
+                (value / 255) * 28;
 
             bar.style.height =
                 height + "px";
-
 
             bar.style.opacity =
                 .3 +
@@ -2289,7 +1919,6 @@ function animateVisualizer() {
 
         }
     );
-
 }
 
 
@@ -2299,11 +1928,9 @@ audio.addEventListener(
 
         startVisualizer();
 
-
         if (
             audioContext &&
-            audioContext.state ===
-            "suspended"
+            audioContext.state === "suspended"
         ) {
 
             audioContext.resume();
@@ -2346,13 +1973,6 @@ if (
         "none";
 
 }
-
-
-/* =====================================================
-   INITIAL LYRICS
-===================================================== */
-
-updateLyrics();
 
 </script>
 
