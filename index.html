@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mahdi's Night</title>
+<title>شباهنگ</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -14,915 +18,409 @@
     box-sizing: border-box;
 }
 
-:root {
-    --bg: #020208;
-    --purple: #7770ff;
-    --soft: #aaa6ff;
-    --white: #eeeefe;
-    --muted: #686a82;
-}
-
-html,
-body {
+html, body {
     width: 100%;
     height: 100%;
 }
 
 body {
     overflow: hidden;
-
     background:
-        radial-gradient(
-            ellipse at 50% 45%,
-            #11142c 0%,
-            #080a18 40%,
-            #03040b 72%,
-            #010106 100%
-        );
-
-    color: var(--white);
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+        radial-gradient(circle at 50% 25%, #202044 0%, #0b0b18 42%, #030309 100%);
+    color: white;
+    font-family: "Vazirmatn", sans-serif;
 }
 
 
-/* =====================================================
-   MOUSE GLOW
-===================================================== */
-
-.cursor-glow {
-    position: fixed;
-
-    width: 450px;
-    height: 450px;
-
-    border-radius: 50%;
-
-    pointer-events: none;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(110,105,255,.085),
-            transparent 68%
-        );
-
-    transform: translate(-50%, -50%);
-
-    z-index: 30;
-}
-
-
-/* =====================================================
+/* =========================
    SKY
-===================================================== */
+========================= */
 
 .sky {
     position: fixed;
     inset: 0;
-
     overflow: hidden;
-
     pointer-events: none;
 }
 
 .sky::before {
     content: "";
-
     position: absolute;
-    inset: -30px;
-
-    background-image:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.85) 0 1px,
-            transparent 1.5px
-        ),
-        radial-gradient(
-            circle,
-            rgba(170,175,255,.65) 0 1px,
-            transparent 1.5px
-        ),
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.3) 0 .7px,
-            transparent 1.2px
-        );
-
-    background-size:
-        73px 81px,
-        127px 139px,
-        47px 61px;
-
-    opacity: .4;
+    inset: -20%;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(105, 90, 255, .10), transparent 25%),
+        radial-gradient(circle at 80% 20%, rgba(120, 150, 255, .08), transparent 25%),
+        radial-gradient(circle at 50% 80%, rgba(80, 60, 160, .08), transparent 30%);
 }
 
 
-/* =====================================================
+/* =========================
    STARS
-===================================================== */
+========================= */
+
+.stars {
+    position: absolute;
+    inset: 0;
+}
 
 .star {
     position: absolute;
-
     width: 2px;
     height: 2px;
-
     border-radius: 50%;
-
-    background: white;
-
-    box-shadow:
-        0 0 5px white,
-        0 0 13px rgba(130,135,255,.8);
-
-    animation:
-        twinkle var(--speed) ease-in-out infinite;
+    background: #fff;
+    box-shadow: 0 0 7px rgba(255,255,255,.8);
+    animation: twinkle 3s infinite ease-in-out;
 }
 
-.star:nth-child(1)  { left: 7%;  top: 13%; --speed: 3.5s; }
-.star:nth-child(2)  { left: 15%; top: 31%; --speed: 5s; }
-.star:nth-child(3)  { left: 24%; top: 9%;  --speed: 4s; }
-.star:nth-child(4)  { left: 34%; top: 23%; --speed: 6s; }
-.star:nth-child(5)  { left: 44%; top: 7%;  --speed: 3.8s; }
-.star:nth-child(6)  { left: 54%; top: 27%; --speed: 5.2s; }
-.star:nth-child(7)  { left: 65%; top: 12%; --speed: 4.5s; }
-.star:nth-child(8)  { left: 76%; top: 24%; --speed: 5.8s; }
-.star:nth-child(9)  { left: 87%; top: 10%; --speed: 4.2s; }
-.star:nth-child(10) { left: 94%; top: 35%; --speed: 6.2s; }
-
-.star:nth-child(11) { left: 8%;  top: 55%; --speed: 4s; }
-.star:nth-child(12) { left: 19%; top: 69%; --speed: 5.5s; }
-.star:nth-child(13) { left: 31%; top: 50%; --speed: 3.6s; }
-.star:nth-child(14) { left: 43%; top: 73%; --speed: 6s; }
-.star:nth-child(15) { left: 56%; top: 58%; --speed: 4.7s; }
-.star:nth-child(16) { left: 68%; top: 72%; --speed: 5.8s; }
-.star:nth-child(17) { left: 81%; top: 51%; --speed: 3.8s; }
-.star:nth-child(18) { left: 93%; top: 66%; --speed: 5s; }
-
-.star:nth-child(19) { left: 13%; top: 87%; --speed: 5.7s; }
-.star:nth-child(20) { left: 29%; top: 82%; --speed: 4.3s; }
-.star:nth-child(21) { left: 51%; top: 88%; --speed: 6s; }
-.star:nth-child(22) { left: 73%; top: 84%; --speed: 4s; }
-.star:nth-child(23) { left: 88%; top: 91%; --speed: 5.2s; }
-
+.star:nth-child(1) { left: 8%; top: 17%; animation-delay: .2s; }
+.star:nth-child(2) { left: 16%; top: 31%; animation-delay: 1s; }
+.star:nth-child(3) { left: 25%; top: 12%; animation-delay: 1.7s; }
+.star:nth-child(4) { left: 35%; top: 23%; animation-delay: .5s; }
+.star:nth-child(5) { left: 44%; top: 10%; animation-delay: 2s; }
+.star:nth-child(6) { left: 56%; top: 17%; animation-delay: 1.2s; }
+.star:nth-child(7) { left: 66%; top: 8%; animation-delay: .3s; }
+.star:nth-child(8) { left: 77%; top: 26%; animation-delay: 1.8s; }
+.star:nth-child(9) { left: 87%; top: 14%; animation-delay: .7s; }
+.star:nth-child(10) { left: 93%; top: 38%; animation-delay: 2.2s; }
+.star:nth-child(11) { left: 11%; top: 53%; animation-delay: 1.4s; }
+.star:nth-child(12) { left: 29%; top: 44%; animation-delay: .9s; }
+.star:nth-child(13) { left: 72%; top: 48%; animation-delay: 2.1s; }
+.star:nth-child(14) { left: 82%; top: 61%; animation-delay: .4s; }
+.star:nth-child(15) { left: 52%; top: 55%; animation-delay: 1.6s; }
+.star:nth-child(16) { left: 39%; top: 67%; animation-delay: .8s; }
+.star:nth-child(17) { left: 18%; top: 72%; animation-delay: 2.4s; }
+.star:nth-child(18) { left: 91%; top: 76%; animation-delay: 1.1s; }
+.star:nth-child(19) { left: 62%; top: 34%; animation-delay: 1.9s; }
+.star:nth-child(20) { left: 47%; top: 39%; animation-delay: .6s; }
 
 @keyframes twinkle {
-
-    0%,
-    100% {
-        opacity: .12;
-        transform: scale(.6);
-    }
-
-    50% {
-        opacity: 1;
-        transform: scale(1.8);
-    }
-}
-
-
-/* =====================================================
-   SPECIAL STARS
-===================================================== */
-
-.bright-star {
-    position: absolute;
-
-    width: 4px;
-    height: 4px;
-
-    border-radius: 50%;
-
-    background: white;
-
-    box-shadow:
-        0 0 8px white,
-        0 0 22px #7770ff;
-
-    animation:
-        bright 3s ease-in-out infinite;
-}
-
-.bright-star.one {
-    left: 21%;
-    top: 17%;
-}
-
-.bright-star.two {
-    left: 72%;
-    top: 39%;
-
-    animation-delay: 1.2s;
-}
-
-.bright-star.three {
-    left: 57%;
-    top: 15%;
-
-    animation-delay: .5s;
-}
-
-@keyframes bright {
-
-    0%,
-    100% {
+    0%, 100% {
         opacity: .25;
-        transform: scale(.6);
+        transform: scale(.7);
     }
 
     50% {
         opacity: 1;
-        transform: scale(1.8);
+        transform: scale(1.5);
     }
 }
 
 
-/* =====================================================
-   MOON
-===================================================== */
+/* =========================
+   NEW MOON
+========================= */
 
 .moon {
-    position: fixed;
+    position: absolute;
+    width: 190px;
+    height: 190px;
 
-    width: 180px;
-    height: 180px;
+    top: 9%;
+    left: 50%;
 
-    right: 9%;
-    top: 8%;
+    transform: translateX(-50%);
 
     border-radius: 50%;
 
     background:
         radial-gradient(
-            circle at 35% 30%,
-            #fffef1 0%,
-            #fff5c8 45%,
-            #d2c794 100%
+            circle at 38% 35%,
+            #fff,
+            #e9e9ff 38%,
+            #bdbdf0 70%,
+            #7778ad 100%
         );
 
     box-shadow:
-        0 0 30px rgba(255,245,190,.8),
-        0 0 90px rgba(255,240,180,.3),
-        0 0 160px rgba(220,210,160,.08);
+        0 0 25px rgba(225,225,255,.65),
+        0 0 70px rgba(160,160,255,.35),
+        0 0 140px rgba(120,120,255,.15);
 
-    z-index: 2;
+    opacity: .95;
 }
+
+
+/* Moon craters */
 
 .moon::before {
     content: "";
-
     position: absolute;
-    inset: 0;
-
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
 
-    background:
-        radial-gradient(
-            circle at 30% 25%,
-            rgba(100,95,70,.16) 0 12px,
-            transparent 13px
-        ),
-        radial-gradient(
-            circle at 68% 30%,
-            rgba(100,95,70,.13) 0 17px,
-            transparent 18px
-        ),
-        radial-gradient(
-            circle at 47% 68%,
-            rgba(100,95,70,.15) 0 13px,
-            transparent 14px
-        );
+    left: 35px;
+    top: 48px;
+
+    background: rgba(110,110,155,.18);
+
+    box-shadow:
+        65px 20px 0 10px rgba(110,110,155,.12),
+        85px 80px 0 5px rgba(100,100,145,.15),
+        35px 105px 0 8px rgba(100,100,145,.12),
+        110px 125px 0 4px rgba(100,100,145,.15);
 }
+
+
+/* Moon glow */
 
 .moon::after {
     content: "";
-
     position: absolute;
-
-    width: 180px;
-    height: 180px;
-
-    left: 45px;
-    top: -17px;
+    inset: -25px;
 
     border-radius: 50%;
 
-    background: #050611;
+    background: radial-gradient(
+        circle,
+        rgba(180,180,255,.18),
+        transparent 65%
+    );
+
+    z-index: -1;
 }
 
 
-/* =====================================================
-   SHOOTING STARS
-===================================================== */
+/* =========================
+   SHOOTING STAR
+========================= */
 
-.shooting {
-    position: fixed;
+.shooting-star {
+    position: absolute;
+    width: 130px;
+    height: 2px;
 
-    width: 170px;
-    height: 1px;
+    top: 25%;
+    left: -150px;
 
-    left: -220px;
-    top: 18%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.9)
+    );
 
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.35),
-            white
-        );
+    transform: rotate(-25deg);
 
-    transform: rotate(-27deg);
-
-    box-shadow:
-        0 0 7px white,
-        0 0 18px #7770ff;
-
-    animation:
-        shooting 12s linear infinite;
-
-    z-index: 3;
-}
-
-.shooting.two {
-    top: 43%;
-    width: 120px;
-    animation-delay: 6s;
+    animation: shooting 9s linear infinite;
 }
 
 @keyframes shooting {
 
-    0%,
-    70% {
-        left: -220px;
+    0% {
+        left: -180px;
         opacity: 0;
     }
 
-    73% {
+    8% {
         opacity: 1;
     }
 
-    88% {
-        left: 115%;
+    20% {
+        left: 110%;
         opacity: 0;
     }
 
     100% {
+        left: 110%;
         opacity: 0;
     }
 }
 
 
-/* =====================================================
-   HORIZON
-===================================================== */
+/* =========================
+   CITY
+========================= */
 
-.horizon {
-    position: fixed;
-
-    left: 0;
-    right: 0;
+.city {
+    position: absolute;
     bottom: 0;
-
-    height: 38%;
+    left: 0;
+    width: 100%;
+    height: 17%;
 
     background:
         linear-gradient(
             to top,
-            rgba(36,34,90,.35),
-            transparent
+            #020207,
+            rgba(4,4,12,.92)
         );
 
-    pointer-events: none;
+    clip-path: polygon(
+        0 35%,
+        5% 35%,
+        5% 22%,
+        10% 22%,
+        10% 42%,
+        15% 42%,
+        15% 18%,
+        20% 18%,
+        20% 32%,
+        25% 32%,
+        25% 12%,
+        30% 12%,
+        30% 38%,
+        36% 38%,
+        36% 25%,
+        42% 25%,
+        42% 44%,
+        48% 44%,
+        48% 20%,
+        54% 20%,
+        54% 34%,
+        60% 34%,
+        60% 15%,
+        66% 15%,
+        66% 40%,
+        73% 40%,
+        73% 25%,
+        80% 25%,
+        80% 12%,
+        86% 12%,
+        86% 37%,
+        92% 37%,
+        92% 22%,
+        100% 22%,
+        100% 100%,
+        0 100%
+    );
 }
 
 
-/* =====================================================
-   CITY
-===================================================== */
+/* =========================
+   MAIN GLASS PANEL
+========================= */
 
-.city {
-    position: fixed;
-
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    height: 70px;
-
-    display: flex;
-
-    align-items: flex-end;
-
-    gap: 3px;
-
-    pointer-events: none;
-
-    opacity: .8;
-}
-
-.building {
+.container {
     position: relative;
+    z-index: 5;
 
-    flex: 1;
-
-    max-width: 130px;
-
-    background: #03040b;
-
-    border-top: 1px solid rgba(120,120,160,.08);
-}
-
-.building:nth-child(1) { height: 55%; }
-.building:nth-child(2) { height: 82%; }
-.building:nth-child(3) { height: 47%; }
-.building:nth-child(4) { height: 70%; }
-.building:nth-child(5) { height: 95%; }
-.building:nth-child(6) { height: 61%; }
-.building:nth-child(7) { height: 80%; }
-.building:nth-child(8) { height: 52%; }
-.building:nth-child(9) { height: 88%; }
-.building:nth-child(10) { height: 66%; }
-
-.window {
-    position: absolute;
-
-    width: 3px;
-    height: 5px;
-
-    background: #aaa66c;
-
-    box-shadow:
-        0 0 6px rgba(220,210,120,.35);
-
-    opacity: .5;
-
-    animation:
-        windowBlink 6s ease-in-out infinite;
-}
-
-.window:nth-child(1) {
-    top: 22%;
-    left: 30%;
-}
-
-.window:nth-child(2) {
-    top: 45%;
-    left: 65%;
-    animation-delay: 2s;
-}
-
-.window:nth-child(3) {
-    top: 68%;
-    left: 42%;
-    animation-delay: 4s;
-}
-
-@keyframes windowBlink {
-
-    0%,
-    100% {
-        opacity: .15;
-    }
-
-    50% {
-        opacity: .8;
-    }
-}
-
-
-/* =====================================================
-   AMBIENT
-===================================================== */
-
-.ambient {
-    position: fixed;
-
-    width: 850px;
-    height: 850px;
-
-    left: 50%;
-    top: 52%;
-
-    transform:
-        translate(-50%, -50%);
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(85,78,190,.14),
-            transparent 68%
-        );
-
-    filter: blur(40px);
-
-    pointer-events: none;
-}
-
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-.wrapper {
-    position: relative;
-
-    width: min(1050px, 92%);
-
-    height: 100vh;
+    width: min(850px, 90vw);
+    min-height: 530px;
 
     margin: auto;
 
-    display: flex;
+    top: 50%;
+    transform: translateY(-50%);
 
-    align-items: center;
+    padding: 55px;
 
-    z-index: 10;
-}
+    border-radius: 35px;
 
+    /* کاملاً مات‌تر */
+    background: rgba(10, 10, 24, .88);
 
-/* =====================================================
-   FRAME
-===================================================== */
-
-.frame {
-    position: relative;
-
-    width: 100%;
-
-    padding: 26px 30px;
-
-    border: 1px solid rgba(255,255,255,.075);
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(10,11,25,.7),
-            rgba(3,4,10,.62)
-        );
-
-    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,.12);
 
     box-shadow:
-        0 40px 120px rgba(0,0,0,.65),
-        inset 0 1px rgba(255,255,255,.035);
+        0 35px 100px rgba(0,0,0,.65),
+        inset 0 1px 0 rgba(255,255,255,.08);
+
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
 
     overflow: hidden;
 }
 
 
-/* subtle light sweep */
+/* نور خیلی ظریف داخل شیشه */
 
-.frame::before {
+.container::before {
     content: "";
-
     position: absolute;
+    width: 450px;
+    height: 450px;
 
-    width: 300px;
-    height: 100%;
+    top: -250px;
+    right: -150px;
 
-    top: 0;
-    left: -350px;
+    background: radial-gradient(
+        circle,
+        rgba(120,110,255,.10),
+        transparent 70%
+    );
 
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(130,125,255,.035),
-            transparent
-        );
-
-    transform: skewX(-20deg);
-
-    animation:
-        sweep 9s ease-in-out infinite;
-}
-
-@keyframes sweep {
-
-    0%,
-    65% {
-        left: -350px;
-    }
-
-    85% {
-        left: 110%;
-    }
-
-    100% {
-        left: 110%;
-    }
+    pointer-events: none;
 }
 
 
-/* =====================================================
-   HEADER
-===================================================== */
+/* =========================
+   TITLE
+========================= */
 
-.header {
+.title {
+    text-align: center;
     position: relative;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    padding-bottom: 16px;
-
-    border-bottom: 1px solid rgba(255,255,255,.06);
-
     z-index: 2;
 }
 
-.logo {
-    font-family: Arial, sans-serif;
+.title h1 {
 
-    font-size: 10px;
+    font-size: clamp(55px, 8vw, 90px);
 
-    letter-spacing: 5px;
-
-    color: #85869b;
-
-    text-transform: uppercase;
-}
-
-.status {
-    font-family: Arial, sans-serif;
-
-    font-size: 8px;
-
-    letter-spacing: 3px;
-
-    color: #55566a;
-
-    text-transform: uppercase;
-}
-
-.status::before {
-    content: "";
-
-    display: inline-block;
-
-    width: 5px;
-    height: 5px;
-
-    margin-right: 7px;
-
-    border-radius: 50%;
-
-    background: #7770ff;
-
-    box-shadow:
-        0 0 9px #7770ff;
-
-    animation:
-        pulse 2s infinite;
-}
-
-@keyframes pulse {
-
-    50% {
-        opacity: .25;
-    }
-}
-
-
-/* =====================================================
-   CONTENT
-===================================================== */
-
-.content {
-    position: relative;
-
-    display: grid;
-
-    grid-template-columns: .85fr 1.15fr;
-
-    gap: 70px;
-
-    align-items: center;
-
-    padding: 55px 35px;
-
-    z-index: 2;
-}
-
-
-/* =====================================================
-   LEFT
-===================================================== */
-
-.intro small {
-    display: block;
-
-    margin-bottom: 18px;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 8px;
-
-    letter-spacing: 4px;
-
-    color: #55576b;
-
-    text-transform: uppercase;
-}
-
-.intro h1 {
-    font-size: clamp(48px, 6vw, 78px);
-
-    font-weight: normal;
-
-    line-height: .87;
+    font-weight: 400;
 
     letter-spacing: -4px;
-}
 
-.intro h1 span {
-    color: #8c87ff;
+    color: #e9e8ff;
 
     text-shadow:
-        0 0 35px rgba(125,120,255,.35);
+        0 0 25px rgba(150,145,255,.35),
+        0 0 60px rgba(100,95,255,.15);
+
+    margin-bottom: 40px;
 }
 
 
-/* =====================================================
+/* =========================
    PLAYER
-===================================================== */
+========================= */
 
 .player {
-    position: relative;
-
-    padding: 28px;
-
-    border: 1px solid rgba(255,255,255,.065);
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.035),
-            rgba(255,255,255,.01)
-        );
-
-    box-shadow:
-        inset 0 1px rgba(255,255,255,.03),
-        0 25px 60px rgba(0,0,0,.25);
-}
-
-
-/* =====================================================
-   PLAYER TOP
-===================================================== */
-
-.player-top {
     display: flex;
-
-    justify-content: space-between;
-
-    margin-bottom: 20px;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 7px;
-
-    letter-spacing: 3px;
-
-    color: #505165;
-
-    text-transform: uppercase;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
 }
 
 
-/* =====================================================
-   RECORD
-===================================================== */
-
-.record-wrap {
-    position: relative;
-
-    width: 220px;
-    height: 220px;
-
-    margin: 0 auto 24px;
-}
-
-.record-glow {
-    position: absolute;
-
-    inset: -20px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(105,100,255,.14),
-            transparent 65%
-        );
-
-    filter: blur(13px);
-
-    opacity: .4;
-
-    transition: .6s;
-}
+/* Vinyl */
 
 .record {
-    position: relative;
-
-    width: 220px;
-    height: 220px;
+    width: 180px;
+    height: 180px;
 
     border-radius: 50%;
 
     background:
         repeating-radial-gradient(
             circle,
-            #05050a 0px,
-            #05050a 2px,
-            #101019 3px,
-            #05050a 5px
+            #0b0b10 0px,
+            #0b0b10 3px,
+            #161620 4px,
+            #0b0b10 6px
         );
 
-    border: 1px solid #292934;
+    border: 5px solid #08080d;
 
     box-shadow:
-        0 25px 55px rgba(0,0,0,.65);
+        0 15px 40px rgba(0,0,0,.55),
+        inset 0 0 25px rgba(255,255,255,.04);
 
-    display: flex;
+    position: relative;
 
-    align-items: center;
-    justify-content: center;
-
-    animation:
-        spin 7s linear infinite;
-
-    animation-play-state: paused;
+    transition: .4s;
 }
+
 
 .record.playing {
-    animation-play-state: running;
-}
-
-.record.playing + .record-glow {
-    opacity: 1;
-    transform: scale(1.15);
-}
-
-.record::before {
-    content: "";
-
-    position: absolute;
-
-    inset: 17px;
-
-    border-radius: 50%;
-
-    border:
-        1px solid rgba(255,255,255,.035);
-
-    box-shadow:
-        inset 0 0 0 12px rgba(255,255,255,.01),
-        inset 0 0 0 25px rgba(255,255,255,.018),
-        inset 0 0 0 40px rgba(255,255,255,.012);
-}
-
-.record::after {
-    content: "♪";
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    width: 54px;
-    height: 54px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            #8580ff,
-            #3f3b98
-        );
-
-    color: white;
-
-    font-size: 23px;
-
-    box-shadow:
-        0 0 25px rgba(120,115,255,.25);
+    animation: spin 5s linear infinite;
 }
 
 @keyframes spin {
+    from {
+        transform: rotate(0);
+    }
 
     to {
         transform: rotate(360deg);
@@ -930,247 +428,185 @@ body {
 }
 
 
-/* =====================================================
-   SONG
-===================================================== */
+/* Center */
 
-.song-name {
-    text-align: center;
+.record::after {
+    content: "";
 
-    font-size: 20px;
+    position: absolute;
 
-    margin-bottom: 20px;
-}
+    width: 48px;
+    height: 48px;
 
+    left: 50%;
+    top: 50%;
 
-/* =====================================================
-   VISUALIZER
-===================================================== */
-
-.visualizer {
-    height: 38px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 3px;
-
-    margin-bottom: 20px;
-}
-
-.bar {
-    width: 3px;
-
-    height: 4px;
-
-    border-radius: 5px;
-
-    background: #8580ff;
-
-    opacity: .5;
-
-    box-shadow:
-        0 0 8px rgba(130,125,255,.45);
-
-    transition:
-        height .08s linear;
-}
-
-
-/* =====================================================
-   CONTROLS
-===================================================== */
-
-.controls {
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-}
-
-.play {
-    flex-shrink: 0;
-
-    width: 47px;
-    height: 47px;
+    transform: translate(-50%, -50%);
 
     border-radius: 50%;
 
-    border: 1px solid rgba(145,140,255,.4);
-
     background:
-        rgba(110,105,255,.08);
+        radial-gradient(
+            circle,
+            #b9b5ff 0 8px,
+            #171722 9px 100%
+        );
+
+    box-shadow:
+        0 0 15px rgba(150,145,255,.35);
+}
+
+
+/* =========================
+   SONG NAME
+========================= */
+
+.song-name {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255,255,255,.72);
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.play-btn {
+
+    width: 62px;
+    height: 62px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,.15);
+
+    background: rgba(255,255,255,.07);
 
     color: white;
 
+    font-size: 20px;
+
     cursor: pointer;
 
-    font-size: 14px;
-
     transition: .3s;
-}
-
-.play:hover {
-    transform: scale(1.08);
-
-    background:
-        rgba(120,115,255,.18);
 
     box-shadow:
-        0 0 28px rgba(120,115,255,.25);
+        0 8px 25px rgba(0,0,0,.25);
 }
 
-.progress-area {
-    flex: 1;
+.play-btn:hover {
+
+    transform: scale(1.08);
+
+    background: rgba(150,145,255,.18);
+
+    box-shadow:
+        0 0 30px rgba(130,125,255,.25);
 }
+
+
+/* =========================
+   PROGRESS
+========================= */
 
 .progress {
-    width: 100%;
+
+    width: min(430px, 80%);
+
+    appearance: none;
 
     height: 3px;
 
+    border-radius: 10px;
+
+    background: rgba(255,255,255,.15);
+
+    outline: none;
+}
+
+.progress::-webkit-slider-thumb {
+
     appearance: none;
 
-    border-radius: 5px;
+    width: 12px;
+    height: 12px;
 
-    background: #292936;
+    border-radius: 50%;
+
+    background: #c3c0ff;
+
+    box-shadow:
+        0 0 12px rgba(160,155,255,.5);
 
     cursor: pointer;
 }
 
-.progress::-webkit-slider-thumb {
-    appearance: none;
 
-    width: 10px;
-    height: 10px;
-
-    border-radius: 50%;
-
-    background: #aaa6ff;
-
-    box-shadow:
-        0 0 12px #7772ff;
-}
-
-.time {
-    display: flex;
-
-    justify-content: space-between;
-
-    margin-top: 8px;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 8px;
-
-    color: #4e5060;
-}
-
-
-/* =====================================================
+/* =========================
    FOOTER
-===================================================== */
+========================= */
 
 .footer {
-    position: relative;
 
-    display: flex;
+    position: absolute;
 
-    justify-content: space-between;
+    bottom: 22px;
+    left: 50%;
 
-    padding: 15px 8px 0;
+    transform: translateX(-50%);
 
-    border-top: 1px solid rgba(255,255,255,.055);
+    color: rgba(255,255,255,.25);
 
-    font-family: Arial, sans-serif;
+    font-size: 11px;
 
-    font-size: 7px;
+    letter-spacing: 2px;
 
-    letter-spacing: 3px;
-
-    color: #414352;
-
-    text-transform: uppercase;
-
-    z-index: 2;
+    direction: ltr;
 }
 
 
-/* =====================================================
-   MOBILE
-===================================================== */
+/* =========================
+   RESPONSIVE
+========================= */
 
-@media(max-width: 750px) {
+@media (max-width: 600px) {
 
-    body {
-        overflow-y: auto;
-    }
+    .container {
 
-    .wrapper {
-        width: 94%;
+        width: 88vw;
 
-        height: auto;
+        min-height: 500px;
 
-        min-height: 100vh;
+        padding: 40px 20px;
 
-        padding: 25px 0;
-    }
-
-    .frame {
-        padding: 22px 16px;
-    }
-
-    .content {
-        grid-template-columns: 1fr;
-
-        gap: 35px;
-
-        padding: 42px 8px;
-    }
-
-    .intro {
-        text-align: center;
+        border-radius: 28px;
     }
 
     .moon {
-        width: 105px;
-        height: 105px;
 
-        right: 2%;
-        top: 5%;
+        width: 130px;
+        height: 130px;
+
+        top: 7%;
     }
 
-    .moon::after {
-        width: 105px;
-        height: 105px;
+    .title h1 {
 
-        left: 27px;
-        top: -10px;
+        font-size: 55px;
+
+        margin-bottom: 35px;
     }
 
-    .record-wrap,
     .record {
-        width: 185px;
-        height: 185px;
-    }
 
-    .record::after {
-        width: 48px;
-        height: 48px;
-    }
-
-    .player {
-        padding: 24px;
+        width: 150px;
+        height: 150px;
     }
 
     .footer {
-        gap: 15px;
 
-        line-height: 1.7;
+        bottom: 12px;
     }
 }
 
@@ -1181,306 +617,94 @@ body {
 <body>
 
 
-<!-- MOUSE -->
-
-<div
-    class="cursor-glow"
-    id="cursorGlow">
-</div>
-
-
-<!-- SKY -->
+<!-- =========================
+     NIGHT SKY
+========================= -->
 
 <div class="sky">
 
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
+    <div class="stars">
 
-    <span class="bright-star one"></span>
-    <span class="bright-star two"></span>
-    <span class="bright-star three"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+
+    </div>
+
+
+    <div class="moon"></div>
+
+    <div class="shooting-star"></div>
+
+    <div class="city"></div>
 
 </div>
 
 
-<!-- MOON -->
 
-<div class="moon"></div>
+<!-- =========================
+     MAIN
+========================= -->
 
+<main class="container">
 
-<!-- SHOOTING STARS -->
+    <div class="title">
 
-<div class="shooting"></div>
-<div class="shooting two"></div>
+        <h1>شباهنگ</h1>
 
-
-<!-- AMBIENT -->
-
-<div class="ambient"></div>
-<div class="horizon"></div>
-
-
-<!-- CITY -->
-
-<div class="city">
-
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
     </div>
 
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
+
+    <div class="player">
+
+        <div class="record" id="record"></div>
+
+        <div class="song-name">
+            My Favorite Song
+        </div>
+
+        <button
+            class="play-btn"
+            id="playBtn">
+            ▶
+        </button>
+
+        <input
+            class="progress"
+            id="progress"
+            type="range"
+            min="0"
+            max="100"
+            value="0">
+
     </div>
 
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
-    </div>
+</main>
 
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
-    </div>
 
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
-    </div>
-
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
-    </div>
-
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
-    </div>
-
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
-    </div>
-
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
-    </div>
-
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
-    </div>
-
+<div class="footer">
+    MAHDI'S NIGHT
 </div>
 
 
-<!-- MAIN -->
-
-<div class="wrapper">
-
-    <div class="frame">
-
-
-        <!-- HEADER -->
-
-        <header class="header">
-
-            <div class="logo">
-                mahdi's night
-            </div>
-
-            <div class="status">
-                listening
-            </div>
-
-        </header>
-
-
-        <!-- CONTENT -->
-
-        <main class="content">
-
-
-            <!-- LEFT -->
-
-            <section class="intro">
-
-                <small>
-                    personal space
-                </small>
-
-                <h1>
-                    My<br>
-                    <span>Night.</span>
-                </h1>
-
-            </section>
-
-
-            <!-- PLAYER -->
-
-            <section class="player">
-
-                <div class="player-top">
-
-                    <span>
-                        now playing
-                    </span>
-
-                    <span>
-                        01
-                    </span>
-
-                </div>
-
-
-                <div class="record-wrap">
-
-                    <div class="record-glow"></div>
-
-                    <div
-                        class="record"
-                        id="record">
-                    </div>
-
-                </div>
-
-
-                <div class="song-name">
-                    My Favorite Song
-                </div>
-
-
-                <!-- VISUALIZER -->
-
-                <div
-                    class="visualizer"
-                    id="visualizer">
-
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-
-                </div>
-
-
-                <!-- CONTROLS -->
-
-                <div class="controls">
-
-                    <button
-                        class="play"
-                        id="playButton">
-                        ▶
-                    </button>
-
-                    <div class="progress-area">
-
-                        <input
-                            class="progress"
-                            id="progress"
-                            type="range"
-                            min="0"
-                            max="100"
-                            value="0">
-
-                        <div class="time">
-
-                            <span id="currentTime">
-                                0:00
-                            </span>
-
-                            <span id="duration">
-                                0:00
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-        </main>
-
-
-        <!-- FOOTER -->
-
-        <footer class="footer">
-
-            <span>
-                © Mahdi
-            </span>
-
-            <span>
-                ✦ night / music ✦
-            </span>
-
-        </footer>
-
-
-    </div>
-
-</div>
-
-
-<!-- AUDIO -->
 
 <audio id="audio">
 
@@ -1491,317 +715,75 @@ body {
 </audio>
 
 
+
 <script>
 
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const audio =
-    document.getElementById("audio");
-
-const playButton =
-    document.getElementById("playButton");
-
-const progress =
-    document.getElementById("progress");
-
-const record =
-    document.getElementById("record");
-
-const currentTime =
-    document.getElementById("currentTime");
-
-const duration =
-    document.getElementById("duration");
-
-const bars =
-    document.querySelectorAll(".bar");
-
-const cursorGlow =
-    document.getElementById("cursorGlow");
+const audio = document.getElementById("audio");
+const playBtn = document.getElementById("playBtn");
+const record = document.getElementById("record");
+const progress = document.getElementById("progress");
 
 
-/* =====================================================
-   TIME
-===================================================== */
+/* Play / Pause */
 
-function formatTime(seconds) {
+playBtn.addEventListener("click", () => {
 
-    if (isNaN(seconds)) {
-        return "0:00";
-    }
+    if (audio.paused) {
 
-    const minutes =
-        Math.floor(seconds / 60);
+        audio.play();
 
-    const secs =
-        Math.floor(seconds % 60)
-        .toString()
-        .padStart(2, "0");
+        playBtn.textContent = "Ⅱ";
 
-    return `${minutes}:${secs}`;
-}
+        record.classList.add("playing");
 
+    } else {
 
-/* =====================================================
-   PLAY
-===================================================== */
+        audio.pause();
 
-playButton.addEventListener(
-    "click",
-    async () => {
+        playBtn.textContent = "▶";
 
-        if (audio.paused) {
-
-            try {
-
-                await audio.play();
-
-                playButton.textContent = "Ⅱ";
-
-                record.classList.add(
-                    "playing"
-                );
-
-            } catch (error) {
-
-                console.log(error);
-
-            }
-
-        } else {
-
-            audio.pause();
-
-            playButton.textContent = "▶";
-
-            record.classList.remove(
-                "playing"
-            );
-
-        }
+        record.classList.remove("playing");
 
     }
-);
 
+});
 
-/* =====================================================
-   METADATA
-===================================================== */
 
-audio.addEventListener(
-    "loadedmetadata",
-    () => {
+/* Progress */
 
-        duration.textContent =
-            formatTime(audio.duration);
+audio.addEventListener("timeupdate", () => {
 
-    }
-);
+    if (!audio.duration) return;
 
+    progress.value =
+        (audio.currentTime / audio.duration) * 100;
 
-/* =====================================================
-   PROGRESS
-===================================================== */
+});
 
-audio.addEventListener(
-    "timeupdate",
-    () => {
 
-        if (!audio.duration) {
-            return;
-        }
+/* Seek */
 
-        progress.value =
-            (audio.currentTime /
-            audio.duration) * 100;
+progress.addEventListener("input", () => {
 
-        currentTime.textContent =
-            formatTime(audio.currentTime);
+    if (!audio.duration) return;
 
-    }
-);
+    audio.currentTime =
+        (progress.value / 100) * audio.duration;
 
+});
 
-/* =====================================================
-   SEEK
-===================================================== */
 
-progress.addEventListener(
-    "input",
-    () => {
+/* When song ends */
 
-        if (!audio.duration) {
-            return;
-        }
+audio.addEventListener("ended", () => {
 
-        audio.currentTime =
-            (progress.value / 100) *
-            audio.duration;
+    playBtn.textContent = "▶";
 
-    }
-);
+    record.classList.remove("playing");
 
+    progress.value = 0;
 
-/* =====================================================
-   END
-===================================================== */
-
-audio.addEventListener(
-    "ended",
-    () => {
-
-        playButton.textContent = "▶";
-
-        record.classList.remove(
-            "playing"
-        );
-
-        progress.value = 0;
-
-    }
-);
-
-
-/* =====================================================
-   AUDIO VISUALIZER
-===================================================== */
-
-let audioContext;
-let analyser;
-let source;
-let dataArray;
-let visualizerStarted = false;
-
-
-function startVisualizer() {
-
-    if (visualizerStarted) {
-        return;
-    }
-
-    visualizerStarted = true;
-
-    audioContext =
-        new (
-            window.AudioContext ||
-            window.webkitAudioContext
-        )();
-
-    analyser =
-        audioContext.createAnalyser();
-
-    analyser.fftSize = 64;
-
-    source =
-        audioContext.createMediaElementSource(
-            audio
-        );
-
-    source.connect(analyser);
-
-    analyser.connect(
-        audioContext.destination
-    );
-
-    dataArray =
-        new Uint8Array(
-            analyser.frequencyBinCount
-        );
-
-    animateVisualizer();
-}
-
-
-function animateVisualizer() {
-
-    requestAnimationFrame(
-        animateVisualizer
-    );
-
-    if (!analyser) {
-        return;
-    }
-
-    analyser.getByteFrequencyData(
-        dataArray
-    );
-
-    bars.forEach(
-        (bar, index) => {
-
-            const value =
-                dataArray[index] || 0;
-
-            const height =
-                4 +
-                (value / 255) * 34;
-
-            bar.style.height =
-                height + "px";
-
-            bar.style.opacity =
-                .3 +
-                (value / 255) * .7;
-
-        }
-    );
-}
-
-
-audio.addEventListener(
-    "play",
-    () => {
-
-        startVisualizer();
-
-        if (
-            audioContext &&
-            audioContext.state === "suspended"
-        ) {
-
-            audioContext.resume();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   MOUSE LIGHT
-===================================================== */
-
-document.addEventListener(
-    "mousemove",
-    (event) => {
-
-        cursorGlow.style.left =
-            event.clientX + "px";
-
-        cursorGlow.style.top =
-            event.clientY + "px";
-
-    }
-);
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-if (
-    window.matchMedia(
-        "(pointer: coarse)"
-    ).matches
-) {
-
-    cursorGlow.style.display =
-        "none";
-
-}
+});
 
 </script>
 
