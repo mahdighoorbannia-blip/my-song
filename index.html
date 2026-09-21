@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,113 +17,44 @@
 :root {
     --bg: #020208;
     --purple: #7770ff;
-    --soft: #aaa6ff;
-    --white: #eeeefe;
-    --muted: #686a82;
+    --purple-soft: #9b95ff;
+    --white: #eeeeff;
 }
 
 html,
 body {
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 body {
-    overflow: hidden;
-
-    background:
-        radial-gradient(
-            ellipse at 50% 45%,
-            #11142c 0%,
-            #080a18 40%,
-            #03040b 72%,
-            #010106 100%
-        );
-
+    background: var(--bg);
     color: var(--white);
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    font-family: Arial, sans-serif;
 }
 
-
-/* =====================================================
-   MOUSE GLOW
-===================================================== */
-
-.cursor-glow {
-    position: fixed;
-
-    width: 450px;
-    height: 450px;
-
-    border-radius: 50%;
-
-    pointer-events: none;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(110,105,255,.085),
-            transparent 68%
-        );
-
-    transform: translate(-50%, -50%);
-
-    z-index: 30;
-}
-
-
-/* =====================================================
-   SKY
-===================================================== */
+/* =========================
+   BACKGROUND
+========================= */
 
 .sky {
     position: fixed;
     inset: 0;
-
     overflow: hidden;
 
-    pointer-events: none;
-}
-
-.sky::before {
-    content: "";
-
-    position: absolute;
-    inset: -30px;
-
-    background-image:
+    background:
         radial-gradient(
-            circle,
-            rgba(255,255,255,.85) 0 1px,
-            transparent 1.5px
+            circle at 50% 25%,
+            rgba(80,70,180,.13),
+            transparent 35%
         ),
-        radial-gradient(
-            circle,
-            rgba(170,175,255,.65) 0 1px,
-            transparent 1.5px
-        ),
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.3) 0 .7px,
-            transparent 1.2px
+        linear-gradient(
+            180deg,
+            #03030c 0%,
+            #020208 100%
         );
-
-    background-size:
-        73px 81px,
-        127px 139px,
-        47px 61px;
-
-    opacity: .4;
 }
-
-
-/* =====================================================
-   STARS
-===================================================== */
 
 .star {
     position: absolute;
@@ -131,171 +62,43 @@ body {
     width: 2px;
     height: 2px;
 
+    background: #fff;
+
     border-radius: 50%;
 
-    background: white;
+    opacity: .7;
 
-    box-shadow:
-        0 0 5px white,
-        0 0 13px rgba(130,135,255,.8);
-
-    animation:
-        twinkle var(--speed) ease-in-out infinite;
+    animation: twinkle 3s infinite ease-in-out;
 }
-
-.star:nth-child(1)  { left: 7%;  top: 13%; --speed: 3.5s; }
-.star:nth-child(2)  { left: 15%; top: 31%; --speed: 5s; }
-.star:nth-child(3)  { left: 24%; top: 9%;  --speed: 4s; }
-.star:nth-child(4)  { left: 34%; top: 23%; --speed: 6s; }
-.star:nth-child(5)  { left: 44%; top: 7%;  --speed: 3.8s; }
-.star:nth-child(6)  { left: 54%; top: 27%; --speed: 5.2s; }
-.star:nth-child(7)  { left: 65%; top: 12%; --speed: 4.5s; }
-.star:nth-child(8)  { left: 76%; top: 24%; --speed: 5.8s; }
-.star:nth-child(9)  { left: 87%; top: 10%; --speed: 4.2s; }
-.star:nth-child(10) { left: 94%; top: 35%; --speed: 6.2s; }
-
-.star:nth-child(11) { left: 8%;  top: 55%; --speed: 4s; }
-.star:nth-child(12) { left: 19%; top: 69%; --speed: 5.5s; }
-.star:nth-child(13) { left: 31%; top: 50%; --speed: 3.6s; }
-.star:nth-child(14) { left: 43%; top: 73%; --speed: 6s; }
-.star:nth-child(15) { left: 56%; top: 58%; --speed: 4.7s; }
-.star:nth-child(16) { left: 68%; top: 72%; --speed: 5.8s; }
-.star:nth-child(17) { left: 81%; top: 51%; --speed: 3.8s; }
-.star:nth-child(18) { left: 93%; top: 66%; --speed: 5s; }
-
-.star:nth-child(19) { left: 13%; top: 87%; --speed: 5.7s; }
-.star:nth-child(20) { left: 29%; top: 82%; --speed: 4.3s; }
-.star:nth-child(21) { left: 51%; top: 88%; --speed: 6s; }
-.star:nth-child(22) { left: 73%; top: 84%; --speed: 4s; }
-.star:nth-child(23) { left: 88%; top: 91%; --speed: 5.2s; }
-
 
 @keyframes twinkle {
 
-    0%,
-    100% {
-        opacity: .12;
-        transform: scale(.6);
-    }
-
-    50% {
-        opacity: 1;
-        transform: scale(1.8);
-    }
-}
-
-
-/* =====================================================
-   SPECIAL STARS
-===================================================== */
-
-.bright-star {
-    position: absolute;
-
-    width: 4px;
-    height: 4px;
-
-    border-radius: 50%;
-
-    background: white;
-
-    box-shadow:
-        0 0 8px white,
-        0 0 22px #7770ff;
-
-    animation:
-        bright 3s ease-in-out infinite;
-}
-
-.bright-star.one {
-    left: 21%;
-    top: 17%;
-}
-
-.bright-star.two {
-    left: 72%;
-    top: 39%;
-
-    animation-delay: 1.2s;
-}
-
-.bright-star.three {
-    left: 57%;
-    top: 15%;
-
-    animation-delay: .5s;
-}
-
-@keyframes bright {
-
-    0%,
-    100% {
+    0%, 100% {
         opacity: .25;
-        transform: scale(.6);
     }
 
     50% {
         opacity: 1;
-        transform: scale(1.8);
     }
+
 }
-
-
-/* =====================================================
-   MOON
-===================================================== */
 
 .moon {
-    position: fixed;
+    position: absolute;
 
-    width: 180px;
-    height: 180px;
-
-    right: 9%;
     top: 8%;
+    right: 12%;
+
+    width: 100px;
+    height: 100px;
 
     border-radius: 50%;
 
-    background:
-        radial-gradient(
-            circle at 35% 30%,
-            #fffef1 0%,
-            #fff5c8 45%,
-            #d2c794 100%
-        );
+    background: #eeeefe;
 
     box-shadow:
-        0 0 30px rgba(255,245,190,.8),
-        0 0 90px rgba(255,240,180,.3),
-        0 0 160px rgba(220,210,160,.08);
-
-    z-index: 2;
-}
-
-.moon::before {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle at 30% 25%,
-            rgba(100,95,70,.16) 0 12px,
-            transparent 13px
-        ),
-        radial-gradient(
-            circle at 68% 30%,
-            rgba(100,95,70,.13) 0 17px,
-            transparent 18px
-        ),
-        radial-gradient(
-            circle at 47% 68%,
-            rgba(100,95,70,.15) 0 13px,
-            transparent 14px
-        );
+        0 0 25px rgba(170,160,255,.35),
+        0 0 80px rgba(120,110,255,.12);
 }
 
 .moon::after {
@@ -303,327 +106,216 @@ body {
 
     position: absolute;
 
-    width: 180px;
-    height: 180px;
-
-    left: 45px;
-    top: -17px;
+    width: 100px;
+    height: 100px;
 
     border-radius: 50%;
 
-    background: #050611;
+    background: #03030c;
+
+    left: 30px;
+    top: -12px;
 }
 
-
-/* =====================================================
+/* =========================
    SHOOTING STARS
-===================================================== */
+========================= */
 
-.shooting {
-    position: fixed;
+.shooting-star {
+    position: absolute;
 
-    width: 170px;
+    width: 90px;
     height: 1px;
-
-    left: -220px;
-    top: 18%;
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            rgba(255,255,255,.35),
-            white
+            #fff
         );
 
-    transform: rotate(-27deg);
+    transform: rotate(-35deg);
 
-    box-shadow:
-        0 0 7px white,
-        0 0 18px #7770ff;
+    opacity: 0;
 
-    animation:
-        shooting 12s linear infinite;
-
-    z-index: 3;
+    animation: shooting 7s infinite;
 }
 
-.shooting.two {
-    top: 43%;
-    width: 120px;
-    animation-delay: 6s;
+.shooting-star.one {
+    top: 20%;
+    left: 10%;
+}
+
+.shooting-star.two {
+    top: 35%;
+    right: 15%;
+
+    animation-delay: 3s;
 }
 
 @keyframes shooting {
 
-    0%,
-    70% {
-        left: -220px;
+    0%, 80% {
         opacity: 0;
+
+        transform:
+            translate(0, 0)
+            rotate(-35deg);
     }
 
-    73% {
+    83% {
         opacity: 1;
     }
 
-    88% {
-        left: 115%;
+    90% {
         opacity: 0;
+
+        transform:
+            translate(180px, 110px)
+            rotate(-35deg);
     }
 
     100% {
         opacity: 0;
     }
+
 }
 
-
-/* =====================================================
-   HORIZON
-===================================================== */
-
-.horizon {
-    position: fixed;
-
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    height: 38%;
-
-    background:
-        linear-gradient(
-            to top,
-            rgba(36,34,90,.35),
-            transparent
-        );
-
-    pointer-events: none;
-}
-
-
-/* =====================================================
+/* =========================
    CITY
-===================================================== */
+========================= */
 
 .city {
     position: fixed;
 
     bottom: 0;
     left: 0;
-    right: 0;
 
-    height: 70px;
+    width: 100%;
+    height: 120px;
 
     display: flex;
 
     align-items: flex-end;
 
-    gap: 3px;
+    gap: 4px;
 
-    pointer-events: none;
-
-    opacity: .8;
+    opacity: .45;
 }
 
 .building {
-    position: relative;
+    background: #05050d;
 
-    flex: 1;
-
-    max-width: 130px;
-
-    background: #03040b;
-
-    border-top: 1px solid rgba(120,120,160,.08);
+    border-top:
+        1px solid
+        rgba(255,255,255,.03);
 }
 
-.building:nth-child(1) { height: 55%; }
-.building:nth-child(2) { height: 82%; }
-.building:nth-child(3) { height: 47%; }
-.building:nth-child(4) { height: 70%; }
-.building:nth-child(5) { height: 95%; }
-.building:nth-child(6) { height: 61%; }
-.building:nth-child(7) { height: 80%; }
-.building:nth-child(8) { height: 52%; }
-.building:nth-child(9) { height: 88%; }
-.building:nth-child(10) { height: 66%; }
-
-.window {
-    position: absolute;
-
-    width: 3px;
-    height: 5px;
-
-    background: #aaa66c;
-
-    box-shadow:
-        0 0 6px rgba(220,210,120,.35);
-
-    opacity: .5;
-
-    animation:
-        windowBlink 6s ease-in-out infinite;
+.building:nth-child(1) {
+    width: 7%;
+    height: 50%;
 }
 
-.window:nth-child(1) {
-    top: 22%;
-    left: 30%;
+.building:nth-child(2) {
+    width: 9%;
+    height: 75%;
 }
 
-.window:nth-child(2) {
-    top: 45%;
-    left: 65%;
-    animation-delay: 2s;
+.building:nth-child(3) {
+    width: 6%;
+    height: 40%;
 }
 
-.window:nth-child(3) {
-    top: 68%;
-    left: 42%;
-    animation-delay: 4s;
+.building:nth-child(4) {
+    width: 10%;
+    height: 90%;
 }
 
-@keyframes windowBlink {
-
-    0%,
-    100% {
-        opacity: .15;
-    }
-
-    50% {
-        opacity: .8;
-    }
+.building:nth-child(5) {
+    width: 8%;
+    height: 60%;
 }
 
-
-/* =====================================================
-   AMBIENT
-===================================================== */
-
-.ambient {
-    position: fixed;
-
-    width: 850px;
-    height: 850px;
-
-    left: 50%;
-    top: 52%;
-
-    transform:
-        translate(-50%, -50%);
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(85,78,190,.14),
-            transparent 68%
-        );
-
-    filter: blur(40px);
-
-    pointer-events: none;
+.building:nth-child(6) {
+    width: 12%;
+    height: 80%;
 }
 
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-.wrapper {
-    position: relative;
-
-    width: min(1050px, 92%);
-
-    height: 100vh;
-
-    margin: auto;
-
-    display: flex;
-
-    align-items: center;
-
-    z-index: 10;
+.building:nth-child(7) {
+    width: 7%;
+    height: 45%;
 }
 
+.building:nth-child(8) {
+    width: 10%;
+    height: 70%;
+}
 
-/* =====================================================
+.building:nth-child(9) {
+    width: 8%;
+    height: 55%;
+}
+
+.building:nth-child(10) {
+    width: 10%;
+    height: 85%;
+}
+
+.building:nth-child(11) {
+    width: 8%;
+    height: 50%;
+}
+
+.building:nth-child(12) {
+    width: 10%;
+    height: 65%;
+}
+
+/* =========================
    FRAME
-===================================================== */
+========================= */
 
 .frame {
     position: relative;
 
-    width: 100%;
+    z-index: 5;
 
-    padding: 26px 30px;
+    width: min(1100px, 92%);
+    height: min(720px, 88vh);
 
-    border: 1px solid rgba(255,255,255,.075);
+    margin: auto;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border:
+        1px solid
+        rgba(150,140,255,.18);
 
     background:
-        linear-gradient(
-            135deg,
-            rgba(10,11,25,.7),
-            rgba(3,4,10,.62)
-        );
+        rgba(5,5,15,.72);
 
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(18px);
 
     box-shadow:
-        0 40px 120px rgba(0,0,0,.65),
-        inset 0 1px rgba(255,255,255,.035);
+        0 0 60px rgba(90,80,255,.08),
+        inset 0 0 50px
+        rgba(100,90,255,.025);
 
-    overflow: hidden;
+    display: flex;
+
+    flex-direction: column;
 }
 
-.frame::before {
-    content: "";
-
-    position: absolute;
-
-    width: 300px;
-    height: 100%;
-
-    top: 0;
-    left: -350px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(130,125,255,.035),
-            transparent
-        );
-
-    transform: skewX(-20deg);
-
-    animation:
-        sweep 9s ease-in-out infinite;
-}
-
-@keyframes sweep {
-
-    0%,
-    65% {
-        left: -350px;
-    }
-
-    85% {
-        left: 110%;
-    }
-
-    100% {
-        left: 110%;
-    }
-}
-
-
-/* =====================================================
+/* =========================
    HEADER
-===================================================== */
+========================= */
 
 .header {
-    position: relative;
+    height: 70px;
+
+    padding: 0 30px;
 
     display: flex;
 
@@ -631,246 +323,172 @@ body {
 
     align-items: center;
 
-    padding-bottom: 16px;
-
-    border-bottom: 1px solid rgba(255,255,255,.06);
-
-    z-index: 2;
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.06);
 }
 
 .logo {
-    font-family: Arial, sans-serif;
-
-    font-size: 10px;
+    font-size: 18px;
 
     letter-spacing: 5px;
 
-    color: #85869b;
-
-    text-transform: uppercase;
+    color: #fff;
 }
 
 .status {
-    font-family: Arial, sans-serif;
-
-    font-size: 8px;
+    font-size: 11px;
 
     letter-spacing: 3px;
 
-    color: #55566a;
-
-    text-transform: uppercase;
+    color:
+        rgba(238,238,254,.4);
 }
 
-.status::before {
-    content: "";
-
-    display: inline-block;
-
-    width: 5px;
-    height: 5px;
-
-    margin-right: 7px;
-
-    border-radius: 50%;
-
-    background: #7770ff;
-
-    box-shadow:
-        0 0 9px #7770ff;
-
-    animation:
-        pulse 2s infinite;
-}
-
-@keyframes pulse {
-
-    50% {
-        opacity: .25;
-    }
-}
-
-
-/* =====================================================
+/* =========================
    CONTENT
-===================================================== */
+========================= */
 
 .content {
-    position: relative;
+    flex: 1;
 
     display: grid;
 
-    grid-template-columns: .85fr 1.15fr;
+    grid-template-columns:
+        1fr 1.5fr;
 
-    gap: 70px;
-
-    align-items: center;
-
-    padding: 45px 35px;
-
-    z-index: 2;
+    min-height: 0;
 }
 
+.left {
+    padding: 45px;
 
-/* =====================================================
-   LEFT
-===================================================== */
+    border-right:
+        1px solid
+        rgba(255,255,255,.05);
 
-.intro small {
-    display: block;
+    display: flex;
 
-    margin-bottom: 18px;
+    flex-direction: column;
 
-    font-family: Arial, sans-serif;
+    justify-content: space-between;
+}
 
-    font-size: 8px;
+.small-title {
+    font-size: 10px;
 
     letter-spacing: 4px;
 
-    color: #55576b;
+    color:
+        rgba(238,238,254,.3);
 
     text-transform: uppercase;
 }
 
-.intro h1 {
-    font-size: clamp(48px, 6vw, 78px);
+.big-title {
+    margin-top: 15px;
 
-    font-weight: normal;
+    font-size:
+        clamp(32px, 5vw, 65px);
 
-    line-height: .87;
+    font-weight: 300;
 
-    letter-spacing: -4px;
+    letter-spacing: -3px;
 }
 
-.intro h1 span {
-    color: #8c87ff;
+.subtitle {
+    margin-top: 15px;
 
-    text-shadow:
-        0 0 35px rgba(125,120,255,.35);
+    color:
+        rgba(238,238,254,.4);
+
+    font-size: 13px;
+
+    line-height: 1.8;
 }
 
-
-/* =====================================================
+/* =========================
    PLAYER
-===================================================== */
+========================= */
 
 .player {
-    position: relative;
+    padding: 35px 40px;
 
-    padding: 25px;
+    display: flex;
 
-    border: 1px solid rgba(255,255,255,.065);
+    flex-direction: column;
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.035),
-            rgba(255,255,255,.01)
-        );
+    min-width: 0;
 
-    box-shadow:
-        inset 0 1px rgba(255,255,255,.03),
-        0 25px 60px rgba(0,0,0,.25);
+    min-height: 0;
 }
 
-
-/* =====================================================
-   PLAYER TOP
-===================================================== */
-
-.player-top {
+.track-info {
     display: flex;
 
     justify-content: space-between;
 
-    margin-bottom: 15px;
+    align-items: center;
+}
 
-    font-family: Arial, sans-serif;
-
-    font-size: 7px;
+.track-number {
+    font-size: 11px;
 
     letter-spacing: 3px;
 
-    color: #505165;
-
-    text-transform: uppercase;
+    color:
+        rgba(238,238,254,.35);
 }
 
+.now-playing {
+    font-size: 10px;
 
-/* =====================================================
+    letter-spacing: 3px;
+
+    color: var(--purple-soft);
+}
+
+/* =========================
    RECORD
-===================================================== */
+========================= */
 
 .record-wrap {
-    position: relative;
+    display: flex;
 
-    width: 200px;
-    height: 200px;
+    justify-content: center;
 
-    margin: 0 auto 18px;
-}
+    align-items: center;
 
-.record-glow {
-    position: absolute;
-
-    inset: -20px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(105,100,255,.14),
-            transparent 65%
-        );
-
-    filter: blur(13px);
-
-    opacity: .4;
-
-    transition: .6s;
+    margin: 25px 0;
 }
 
 .record {
-    position: relative;
-
-    width: 200px;
-    height: 200px;
+    width: 125px;
+    height: 125px;
 
     border-radius: 50%;
 
     background:
         repeating-radial-gradient(
             circle,
-            #05050a 0px,
-            #05050a 2px,
-            #101019 3px,
-            #05050a 5px
+            #0b0b13 0px,
+            #0b0b13 2px,
+            #171720 3px,
+            #08080e 5px
         );
 
-    border: 1px solid #292934;
+    border:
+        1px solid
+        rgba(255,255,255,.08);
 
     box-shadow:
-        0 25px 55px rgba(0,0,0,.65);
+        0 0 35px
+        rgba(100,90,255,.15),
 
-    display: flex;
+        inset 0 0 15px
+        rgba(255,255,255,.05);
 
-    align-items: center;
-    justify-content: center;
-
-    animation:
-        spin 7s linear infinite;
-
-    animation-play-state: paused;
-}
-
-.record.playing {
-    animation-play-state: running;
-}
-
-.record.playing + .record-glow {
-    opacity: 1;
-    transform: scale(1.15);
+    position: relative;
 }
 
 .record::before {
@@ -878,45 +496,31 @@ body {
 
     position: absolute;
 
-    inset: 17px;
+    width: 35px;
+    height: 35px;
+
+    top: 50%;
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%);
 
     border-radius: 50%;
+
+    background: #090910;
 
     border:
-        1px solid rgba(255,255,255,.035);
+        5px solid
+        #7770ff;
 
     box-shadow:
-        inset 0 0 0 12px rgba(255,255,255,.01),
-        inset 0 0 0 25px rgba(255,255,255,.018),
-        inset 0 0 0 40px rgba(255,255,255,.012);
+        0 0 15px
+        rgba(120,110,255,.35);
 }
 
-.record::after {
-    content: "♪";
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    width: 54px;
-    height: 54px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            #8580ff,
-            #3f3b98
-        );
-
-    color: white;
-
-    font-size: 23px;
-
-    box-shadow:
-        0 0 25px rgba(120,115,255,.25);
+.record.playing {
+    animation:
+        spin 5s linear infinite;
 }
 
 @keyframes spin {
@@ -924,114 +528,80 @@ body {
     to {
         transform: rotate(360deg);
     }
+
 }
 
+/* =========================
+   SONG TITLE
+========================= */
 
-/* =====================================================
-   SONG
-===================================================== */
-
-.song-name {
+.song-title {
     text-align: center;
 
-    font-size: 20px;
+    font-size: 18px;
 
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 }
 
-
-/* =====================================================
+/* =========================
    LYRICS
-===================================================== */
-
-.lyrics-title {
-    margin-bottom: 8px;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 7px;
-
-    letter-spacing: 3px;
-
-    color: #505165;
-
-    text-transform: uppercase;
-
-    text-align: center;
-}
+========================= */
 
 .lyrics-box {
-
-    height: 145px;
+    height: 210px;
 
     overflow-y: auto;
-
     overflow-x: hidden;
 
-    padding: 10px 14px;
-
-    margin-bottom: 16px;
-
-    border-top:
-        1px solid rgba(255,255,255,.04);
-
-    border-bottom:
-        1px solid rgba(255,255,255,.04);
+    padding: 18px 14px;
 
     direction: rtl;
 
-    overscroll-behavior: contain;
+    border-top:
+        1px solid
+        rgba(255,255,255,.06);
 
-    scrollbar-width: thin;
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.06);
 
-    scrollbar-color:
-        #45415f
-        transparent;
+    scroll-behavior: auto;
 }
 
+.lyrics {
+    direction: rtl;
 
-/*
-   IMPORTANT:
-   Lyrics are completely static.
-   No highlight.
-   No animation.
-   No color change.
-*/
+    padding: 10px 5px;
 
-.lyrics-box p {
+    white-space: pre-line;
+}
 
-    margin: 0 0 11px 0;
-
-    color: #77788c;
-
-    font-family:
-        Tahoma,
-        Arial,
-        sans-serif;
-
-    font-size: 13px;
-
-    line-height: 1.9;
+.lyric-line {
+    white-space: pre-line;
 
     text-align: center;
 
-    direction: rtl;
+    color:
+        rgba(238,238,254,.55);
 
-    font-weight: normal;
+    font-size: 14px;
+
+    line-height: 2;
+
+    padding: 4px 8px;
+
+    cursor: default;
 
     transition: none;
 
     animation: none;
 
+    transform: none;
+
+    opacity: 1;
+
     text-shadow: none;
 }
-
-.lyrics-box p:last-child {
-    margin-bottom: 0;
-}
-
-
-/* SCROLLBAR */
 
 .lyrics-box::-webkit-scrollbar {
     width: 4px;
@@ -1042,99 +612,99 @@ body {
 }
 
 .lyrics-box::-webkit-scrollbar-thumb {
-    background: #45415f;
+    background:
+        rgba(150,140,255,.25);
 
     border-radius: 10px;
 }
 
-.lyrics-box::-webkit-scrollbar-thumb:hover {
-    background: #45415f;
-}
-
-
-/* =====================================================
+/* =========================
    VISUALIZER
-===================================================== */
+========================= */
 
 .visualizer {
-    height: 32px;
+    height: 35px;
+
+    margin-top: 20px;
 
     display: flex;
 
-    align-items: center;
-
     justify-content: center;
 
-    gap: 3px;
+    align-items: center;
 
-    margin-bottom: 15px;
+    gap: 4px;
 }
 
 .bar {
     width: 3px;
+    height: 8px;
 
-    height: 4px;
+    background:
+        rgba(130,120,255,.65);
 
     border-radius: 5px;
-
-    background: #8580ff;
-
-    opacity: .5;
-
-    box-shadow:
-        0 0 8px rgba(130,125,255,.45);
-
-    transition:
-        height .08s linear;
 }
 
+.visualizer.playing .bar {
+    animation:
+        bars .8s infinite ease-in-out;
+}
 
-/* =====================================================
+.bar:nth-child(1) {
+    animation-delay: .1s;
+}
+
+.bar:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.bar:nth-child(3) {
+    animation-delay: .3s;
+}
+
+.bar:nth-child(4) {
+    animation-delay: .4s;
+}
+
+.bar:nth-child(5) {
+    animation-delay: .5s;
+}
+
+.bar:nth-child(6) {
+    animation-delay: .4s;
+}
+
+.bar:nth-child(7) {
+    animation-delay: .3s;
+}
+
+.bar:nth-child(8) {
+    animation-delay: .2s;
+}
+
+.bar:nth-child(9) {
+    animation-delay: .1s;
+}
+
+@keyframes bars {
+
+    0%, 100% {
+        height: 7px;
+    }
+
+    50% {
+        height: 28px;
+    }
+
+}
+
+/* =========================
    CONTROLS
-===================================================== */
-
-.controls {
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-}
-
-.play {
-    flex-shrink: 0;
-
-    width: 47px;
-    height: 47px;
-
-    border-radius: 50%;
-
-    border: 1px solid rgba(145,140,255,.4);
-
-    background:
-        rgba(110,105,255,.08);
-
-    color: white;
-
-    cursor: pointer;
-
-    font-size: 14px;
-
-    transition: .3s;
-}
-
-.play:hover {
-    transform: scale(1.08);
-
-    background:
-        rgba(120,115,255,.18);
-
-    box-shadow:
-        0 0 28px rgba(120,115,255,.25);
-}
+========================= */
 
 .progress-area {
-    flex: 1;
+    margin-top: 10px;
 }
 
 .progress {
@@ -1144,9 +714,8 @@ body {
 
     appearance: none;
 
-    border-radius: 5px;
-
-    background: #292936;
+    background:
+        rgba(255,255,255,.08);
 
     cursor: pointer;
 }
@@ -1159,10 +728,7 @@ body {
 
     border-radius: 50%;
 
-    background: #aaa6ff;
-
-    box-shadow:
-        0 0 12px #7772ff;
+    background: #9b95ff;
 }
 
 .time {
@@ -1172,353 +738,267 @@ body {
 
     margin-top: 8px;
 
-    font-family: Arial, sans-serif;
+    font-size: 10px;
 
-    font-size: 8px;
-
-    color: #4e5060;
+    color:
+        rgba(238,238,254,.3);
 }
 
+.controls {
+    display: flex;
 
-/* =====================================================
-   FOOTER
-===================================================== */
+    justify-content: center;
 
-.footer {
-    position: relative;
+    align-items: center;
+
+    gap: 25px;
+
+    margin-top: 20px;
+}
+
+.control {
+    width: 40px;
+    height: 40px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    background:
+        rgba(255,255,255,.02);
+
+    color:
+        rgba(238,238,254,.7);
+
+    cursor: pointer;
 
     display: flex;
 
-    justify-content: space-between;
+    align-items: center;
 
-    padding: 15px 8px 0;
+    justify-content: center;
 
-    border-top: 1px solid rgba(255,255,255,.055);
-
-    font-family: Arial, sans-serif;
-
-    font-size: 7px;
-
-    letter-spacing: 3px;
-
-    color: #414352;
-
-    text-transform: uppercase;
-
-    z-index: 2;
+    transition: .2s;
 }
 
+.control:hover {
+    border-color:
+        rgba(150,140,255,.4);
 
-/* =====================================================
+    color: #fff;
+}
+
+.play {
+    width: 48px;
+    height: 48px;
+
+    border-color:
+        rgba(150,140,255,.35);
+
+    color: #aaa5ff;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    height: 45px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.05);
+
+    color:
+        rgba(238,238,254,.22);
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+}
+
+/* =========================
    MOBILE
-===================================================== */
+========================= */
 
-@media(max-width: 750px) {
+@media (max-width: 750px) {
 
+    html,
     body {
-        overflow-y: auto;
-    }
-
-    .wrapper {
-        width: 94%;
-
-        height: auto;
-
-        min-height: 100vh;
-
-        padding: 25px 0;
+        overflow: auto;
     }
 
     .frame {
-        padding: 22px 16px;
+        height: auto;
+
+        min-height: 90vh;
     }
 
     .content {
         grid-template-columns: 1fr;
-
-        gap: 35px;
-
-        padding: 42px 8px;
     }
 
-    .intro {
-        text-align: center;
-    }
+    .left {
+        border-right: none;
 
-    .moon {
-        width: 105px;
-        height: 105px;
+        border-bottom:
+            1px solid
+            rgba(255,255,255,.05);
 
-        right: 2%;
-        top: 5%;
-    }
-
-    .moon::after {
-        width: 105px;
-        height: 105px;
-
-        left: 27px;
-        top: -10px;
-    }
-
-    .record-wrap,
-    .record {
-        width: 185px;
-        height: 185px;
-    }
-
-    .record::after {
-        width: 48px;
-        height: 48px;
+        padding: 30px;
     }
 
     .player {
-        padding: 24px;
+        padding: 30px 20px;
     }
 
-    .lyrics-box {
-        height: 210px;
+    .moon {
+        width: 70px;
+        height: 70px;
     }
 
-    .lyrics-box p {
-        font-size: 13px;
-        line-height: 1.9;
+    .moon::after {
+        width: 70px;
+        height: 70px;
+
+        left: 20px;
     }
 
-    .footer {
-        gap: 15px;
-
-        line-height: 1.7;
-    }
 }
 
 </style>
 </head>
 
-
 <body>
-
-
-<!-- MOUSE -->
-
-<div
-    class="cursor-glow"
-    id="cursorGlow">
-</div>
-
-
-<!-- SKY -->
 
 <div class="sky">
 
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
+    <div class="star" style="top:8%;left:12%;"></div>
+    <div class="star" style="top:15%;left:25%;"></div>
+    <div class="star" style="top:12%;left:42%;"></div>
+    <div class="star" style="top:25%;left:55%;"></div>
+    <div class="star" style="top:18%;left:72%;"></div>
+    <div class="star" style="top:32%;left:82%;"></div>
+    <div class="star" style="top:40%;left:15%;"></div>
+    <div class="star" style="top:50%;left:35%;"></div>
+    <div class="star" style="top:45%;left:65%;"></div>
+    <div class="star" style="top:60%;left:78%;"></div>
+    <div class="star" style="top:70%;left:20%;"></div>
+    <div class="star" style="top:75%;left:50%;"></div>
 
-    <span class="bright-star one"></span>
-    <span class="bright-star two"></span>
-    <span class="bright-star three"></span>
+    <div class="moon"></div>
 
-</div>
+    <div class="shooting-star one"></div>
+    <div class="shooting-star two"></div>
 
-
-<!-- MOON -->
-
-<div class="moon"></div>
-
-
-<!-- SHOOTING STARS -->
-
-<div class="shooting"></div>
-<div class="shooting two"></div>
-
-
-<!-- AMBIENT -->
-
-<div class="ambient"></div>
-<div class="horizon"></div>
-
-
-<!-- CITY -->
-
-<div class="city">
-
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
-    </div>
-
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
-    </div>
-
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
-    </div>
-
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
-    </div>
-
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
-    </div>
-
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
-    </div>
-
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
-    </div>
-
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
-    </div>
-
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
-    </div>
-
-    <div class="building">
-        <span class="window"></span>
-        <span class="window"></span>
-        <span class="window"></span>
+    <div class="city">
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
     </div>
 
 </div>
 
 
-<!-- MAIN -->
+<div class="frame">
 
-<div class="wrapper">
+    <header class="header">
 
-    <div class="frame">
+        <div class="logo">
+            mahdi's night
+        </div>
 
+        <div class="status">
+            listening
+        </div>
 
-        <!-- HEADER -->
-
-        <header class="header">
-
-            <div class="logo">
-                mahdi's night
-            </div>
-
-            <div class="status">
-                listening
-            </div>
-
-        </header>
+    </header>
 
 
-        <!-- CONTENT -->
-
-        <main class="content">
+    <main class="content">
 
 
-            <!-- LEFT -->
+        <section class="left">
 
-            <section class="intro">
+            <div>
 
-                <small>
+                <div class="small-title">
                     personal space
-                </small>
+                </div>
 
-                <h1>
+                <div class="big-title">
                     Song<br>
-                    <span>Night.</span>
-                </h1>
-
-            </section>
-
-
-            <!-- PLAYER -->
-
-            <section class="player">
-
-                <div class="player-top">
-
-                    <span>
-                        now playing
-                    </span>
-
-                    <span>
-                        01
-                    </span>
-
+                    Night.
                 </div>
 
-
-                <div class="record-wrap">
-
-                    <div class="record-glow"></div>
-
-                    <div
-                        class="record"
-                        id="record">
-                    </div>
-
+                <div class="subtitle">
+                    A little piece of music<br>
+                    for the quiet hours.
                 </div>
 
+            </div>
 
-                <div class="song-name">
-                    My Favorite Song
+        </section>
+
+
+        <section class="player">
+
+
+            <div class="track-info">
+
+                <div class="track-number">
+                    01
                 </div>
 
-
-                <!-- LYRICS -->
-
-                <div class="lyrics-title">
-                    lyrics
+                <div class="now-playing">
+                    NOW PLAYING
                 </div>
 
-                <div class="lyrics-box" id="lyricsBox">
+            </div>
 
-                    <!--
-                        متن آهنگ خودت را اینجا قرار بده.
 
-                        هر خط را داخل یک <p> بنویس.
+            <div class="record-wrap">
 
-                        مثال:
+                <div
+                    class="record"
+                    id="record">
+                </div>
 
-                        <p>تو یه شیرینی تلخی واسه قلب نیمه جونم
+            </div>
+
+
+            <div class="song-title">
+                My Favorite Song
+            </div>
+
+
+            <!-- =================================================
+                 👇👇👇 فقط این قسمت را پر کن 👇👇👇
+            ================================================== -->
+
+            <div class="lyrics-box">
+
+                <div class="lyrics">
+
+                    <div class="lyric-line">
+
+                        <!--
+تو یه شیرینی تلخی واسه قلب نیمه جونم
 توی این ترانه هایی که برای تو می خونم
 تو یه شیرینی تلخی توی خاطرات دورم
 تو تموم لحظه های دل ساکت و صبورم
@@ -1541,145 +1021,128 @@ body {
 کجایی عزیز من بی تو من یه لحظه خوشی ندارم
 کجایی که بی تو من غصه می خورم تلخ روزگارم
 تو که رفتی از کنارم غم غریبی اومد سراغم
-بیا تا دوباره احساس کنم تو دنیا یکی رو دارم</p>
-                        <p></p>
-                        <p></p>
+بیا تا دوباره احساس کنم تو دنیا یکی رو دارم
+                        -->
 
-                        این بخش کاملاً ثابت است:
-                        بدون هایلایت،
-                        بدون حرکت،
-                        بدون تغییر رنگ.
-                    -->
-
-                    <p>YOUR LYRICS HERE</p>
-
-                </div>
-
-
-                <!-- VISUALIZER -->
-
-                <div
-                    class="visualizer"
-                    id="visualizer">
-
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-
-                </div>
-
-
-                <!-- CONTROLS -->
-
-                <div class="controls">
-
-                    <button
-                        class="play"
-                        id="playButton">
-                        ▶
-                    </button>
-
-                    <div class="progress-area">
-
-                        <input
-                            class="progress"
-                            id="progress"
-                            type="range"
-                            min="0"
-                            max="100"
-                            value="0">
-
-                        <div class="time">
-
-                            <span id="currentTime">
-                                0:00
-                            </span>
-
-                            <span id="duration">
-                                0:00
-                            </span>
-
-                        </div>
+                        اینجا متن آهنگت را Paste کن
 
                     </div>
 
                 </div>
 
-            </section>
+            </div>
 
-        </main>
-
-
-        <!-- FOOTER -->
-
-        <footer class="footer">
-
-            <span>
-                © Mahdi
-            </span>
-
-            <span>
-                ✦ night / music ✦
-            </span>
-
-        </footer>
+            <!-- =================================================
+                 👆👆👆 پایان قسمت متن آهنگ 👆👆👆
+            ================================================== -->
 
 
-    </div>
+            <div
+                class="visualizer"
+                id="visualizer">
+
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+
+            </div>
+
+
+            <div class="progress-area">
+
+                <input
+                    type="range"
+                    class="progress"
+                    id="progress"
+                    min="0"
+                    max="100"
+                    value="0"
+                >
+
+                <div class="time">
+
+                    <span id="currentTime">
+                        0:00
+                    </span>
+
+                    <span id="duration">
+                        0:00
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="controls">
+
+                <button
+                    class="control"
+                    id="back">
+                    −15
+                </button>
+
+                <button
+                    class="control play"
+                    id="play">
+                    ▶
+                </button>
+
+                <button
+                    class="control"
+                    id="forward">
+                    +15
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+    <footer class="footer">
+        MAHDI'S NIGHT
+    </footer>
+
 
 </div>
 
 
-<!-- AUDIO -->
-
-<audio id="audio">
-
-    <source
-        src="./song.mp3"
-        type="audio/mpeg">
-
+<audio
+    id="audio"
+    src="./song.mp3">
 </audio>
 
 
 <script>
 
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
+/* =========================
+   AUDIO
+========================= */
 
 const audio =
     document.getElementById("audio");
 
-const playButton =
-    document.getElementById("playButton");
-
-const progress =
-    document.getElementById("progress");
+const playBtn =
+    document.getElementById("play");
 
 const record =
     document.getElementById("record");
+
+const visualizer =
+    document.getElementById("visualizer");
+
+const progress =
+    document.getElementById("progress");
 
 const currentTime =
     document.getElementById("currentTime");
@@ -1687,20 +1150,20 @@ const currentTime =
 const duration =
     document.getElementById("duration");
 
-const bars =
-    document.querySelectorAll(".bar");
+const back =
+    document.getElementById("back");
 
-const cursorGlow =
-    document.getElementById("cursorGlow");
+const forward =
+    document.getElementById("forward");
 
 
-/* =====================================================
+/* =========================
    TIME
-===================================================== */
+========================= */
 
 function formatTime(seconds) {
 
-    if (isNaN(seconds)) {
+    if (!isFinite(seconds)) {
         return "0:00";
     }
 
@@ -1713,54 +1176,13 @@ function formatTime(seconds) {
         .padStart(2, "0");
 
     return `${minutes}:${secs}`;
+
 }
 
 
-/* =====================================================
-   PLAY
-===================================================== */
-
-playButton.addEventListener(
-    "click",
-    async () => {
-
-        if (audio.paused) {
-
-            try {
-
-                await audio.play();
-
-                playButton.textContent = "Ⅱ";
-
-                record.classList.add(
-                    "playing"
-                );
-
-            } catch (error) {
-
-                console.log(error);
-
-            }
-
-        } else {
-
-            audio.pause();
-
-            playButton.textContent = "▶";
-
-            record.classList.remove(
-                "playing"
-            );
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   METADATA
-===================================================== */
+/* =========================
+   LOAD AUDIO
+========================= */
 
 audio.addEventListener(
     "loadedmetadata",
@@ -1773,62 +1195,134 @@ audio.addEventListener(
 );
 
 
-/* =====================================================
-   PROGRESS
-===================================================== */
+/* =========================
+   TIME UPDATE
+========================= */
 
 audio.addEventListener(
     "timeupdate",
     () => {
 
-        if (!audio.duration) {
-            return;
-        }
-
-        progress.value =
-            (audio.currentTime /
-            audio.duration) * 100;
-
         currentTime.textContent =
             formatTime(audio.currentTime);
+
+        if (audio.duration) {
+
+            progress.value =
+                (audio.currentTime /
+                audio.duration) * 100;
+
+        }
 
     }
 );
 
 
-/* =====================================================
-   SEEK
-===================================================== */
+/* =========================
+   PLAY / PAUSE
+========================= */
+
+playBtn.addEventListener(
+    "click",
+    () => {
+
+        if (audio.paused) {
+
+            audio.play();
+
+            playBtn.textContent = "Ⅱ";
+
+            record.classList.add("playing");
+
+            visualizer.classList.add("playing");
+
+        }
+
+        else {
+
+            audio.pause();
+
+            playBtn.textContent = "▶";
+
+            record.classList.remove("playing");
+
+            visualizer.classList.remove("playing");
+
+        }
+
+    }
+);
+
+
+/* =========================
+   PROGRESS
+========================= */
 
 progress.addEventListener(
     "input",
     () => {
 
-        if (!audio.duration) {
-            return;
-        }
+        if (audio.duration) {
 
-        audio.currentTime =
-            (progress.value / 100) *
-            audio.duration;
+            audio.currentTime =
+                (progress.value / 100) *
+                audio.duration;
+
+        }
 
     }
 );
 
 
-/* =====================================================
+/* =========================
+   BACK
+========================= */
+
+back.addEventListener(
+    "click",
+    () => {
+
+        audio.currentTime =
+            Math.max(
+                0,
+                audio.currentTime - 15
+            );
+
+    }
+);
+
+
+/* =========================
+   FORWARD
+========================= */
+
+forward.addEventListener(
+    "click",
+    () => {
+
+        audio.currentTime =
+            Math.min(
+                audio.duration || 0,
+                audio.currentTime + 15
+            );
+
+    }
+);
+
+
+/* =========================
    END
-===================================================== */
+========================= */
 
 audio.addEventListener(
     "ended",
     () => {
 
-        playButton.textContent = "▶";
+        playBtn.textContent = "▶";
 
-        record.classList.remove(
-            "playing"
-        );
+        record.classList.remove("playing");
+
+        visualizer.classList.remove("playing");
 
         progress.value = 0;
 
@@ -1836,143 +1330,46 @@ audio.addEventListener(
 );
 
 
-/* =====================================================
-   AUDIO VISUALIZER
-===================================================== */
+/* =========================
+   CURSOR GLOW
+========================= */
 
-let audioContext;
-let analyser;
-let source;
-let dataArray;
-let visualizerStarted = false;
+const cursorGlow =
+    document.createElement("div");
 
+cursorGlow.style.position = "fixed";
 
-function startVisualizer() {
+cursorGlow.style.width = "250px";
 
-    if (visualizerStarted) {
-        return;
-    }
+cursorGlow.style.height = "250px";
 
-    visualizerStarted = true;
+cursorGlow.style.borderRadius = "50%";
 
-    audioContext =
-        new (
-            window.AudioContext ||
-            window.webkitAudioContext
-        )();
+cursorGlow.style.pointerEvents = "none";
 
-    analyser =
-        audioContext.createAnalyser();
+cursorGlow.style.transform =
+    "translate(-50%, -50%)";
 
-    analyser.fftSize = 64;
+cursorGlow.style.background =
+    "radial-gradient(circle, rgba(100,90,255,.08), transparent 70%)";
 
-    source =
-        audioContext.createMediaElementSource(
-            audio
-        );
+cursorGlow.style.zIndex = "2";
 
-    source.connect(analyser);
+document.body.appendChild(cursorGlow);
 
-    analyser.connect(
-        audioContext.destination
-    );
-
-    dataArray =
-        new Uint8Array(
-            analyser.frequencyBinCount
-        );
-
-    animateVisualizer();
-}
-
-
-function animateVisualizer() {
-
-    requestAnimationFrame(
-        animateVisualizer
-    );
-
-    if (!analyser) {
-        return;
-    }
-
-    analyser.getByteFrequencyData(
-        dataArray
-    );
-
-    bars.forEach(
-        (bar, index) => {
-
-            const value =
-                dataArray[index] || 0;
-
-            const height =
-                4 +
-                (value / 255) * 28;
-
-            bar.style.height =
-                height + "px";
-
-            bar.style.opacity =
-                .3 +
-                (value / 255) * .7;
-
-        }
-    );
-}
-
-
-audio.addEventListener(
-    "play",
-    () => {
-
-        startVisualizer();
-
-        if (
-            audioContext &&
-            audioContext.state === "suspended"
-        ) {
-
-            audioContext.resume();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   MOUSE LIGHT
-===================================================== */
 
 document.addEventListener(
     "mousemove",
-    (event) => {
+    (e) => {
 
         cursorGlow.style.left =
-            event.clientX + "px";
+            e.clientX + "px";
 
         cursorGlow.style.top =
-            event.clientY + "px";
+            e.clientY + "px";
 
     }
 );
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-if (
-    window.matchMedia(
-        "(pointer: coarse)"
-    ).matches
-) {
-
-    cursorGlow.style.display =
-        "none";
-
-}
 
 </script>
 
