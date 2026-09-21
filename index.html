@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +7,7 @@
 <title>Mahdi's Night</title>
 
 <style>
+
 * {
     margin: 0;
     padding: 0;
@@ -15,233 +15,511 @@
 }
 
 :root {
-    --bg: #03030a;
-    --panel: rgba(10, 10, 20, .72);
-    --text: #eeeef7;
-    --muted: #77778d;
-    --line: rgba(255,255,255,.09);
-    --glow: #8b82ff;
+    --black: #020208;
+    --deep: #050714;
+    --purple: #7770ff;
+    --soft-purple: #9a94ff;
+    --white: #f2f1ff;
+    --muted: #777890;
 }
 
-html, body {
+html,
+body {
     width: 100%;
-    min-height: 100%;
+    height: 100%;
 }
 
 body {
-    min-height: 100vh;
     overflow: hidden;
     background:
-        radial-gradient(circle at 50% 45%, #17152d 0%, #080812 38%, #03030a 75%);
-    color: var(--text);
+        radial-gradient(
+            ellipse at 50% 45%,
+            #11132b 0%,
+            #080a18 38%,
+            #03040b 72%,
+            #010106 100%
+        );
+
+    color: var(--white);
     font-family: Georgia, "Times New Roman", serif;
 }
 
 
-/* ==================================================
-   NIGHT SKY
-================================================== */
+/* =========================================================
+   MOUSE GLOW
+========================================================= */
+
+.cursor-glow {
+    position: fixed;
+
+    width: 420px;
+    height: 420px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(112,106,255,.09),
+            transparent 68%
+        );
+
+    transform: translate(-50%, -50%);
+
+    z-index: 20;
+
+    mix-blend-mode: screen;
+}
+
+
+/* =========================================================
+   SKY
+========================================================= */
 
 .sky {
     position: fixed;
     inset: 0;
+
     overflow: hidden;
+
     pointer-events: none;
 }
 
-.sky::before,
-.sky::after {
+
+/* tiny distant stars */
+
+.sky::before {
     content: "";
+
     position: absolute;
-    inset: -50px;
+    inset: -20px;
+
     background-image:
-        radial-gradient(circle, rgba(255,255,255,.9) 0 1px, transparent 1.5px),
-        radial-gradient(circle, rgba(180,185,255,.7) 0 1px, transparent 1.5px),
-        radial-gradient(circle, rgba(255,255,255,.5) 0 .7px, transparent 1.2px);
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.8) 0 1px,
+            transparent 1.5px
+        ),
+        radial-gradient(
+            circle,
+            rgba(160,165,255,.6) 0 1px,
+            transparent 1.5px
+        ),
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.35) 0 .7px,
+            transparent 1.2px
+        );
+
     background-size:
-        83px 91px,
-        137px 151px,
-        53px 67px;
+        71px 79px,
+        113px 127px,
+        43px 57px;
+
     background-position:
         10px 20px,
         30px 70px,
         45px 10px;
+
     opacity: .42;
 }
 
-.sky::after {
-    opacity: .2;
-    transform: scale(1.3);
-    filter: blur(.4px);
-}
 
-
-/* ==================================================
+/* =========================================================
    STARS
-================================================== */
+========================================================= */
 
 .star {
     position: absolute;
-    width: 3px;
-    height: 3px;
+
+    width: 2px;
+    height: 2px;
+
     border-radius: 50%;
+
     background: white;
+
     box-shadow:
         0 0 5px white,
-        0 0 14px rgba(150,155,255,.8);
-    animation: twinkle 4s ease-in-out infinite;
+        0 0 12px rgba(140,145,255,.8);
+
+    animation:
+        twinkle var(--speed) ease-in-out infinite;
 }
 
-.star:nth-child(1) { top: 12%; left: 9%; animation-delay: .4s; }
-.star:nth-child(2) { top: 20%; left: 26%; animation-delay: 2s; }
-.star:nth-child(3) { top: 8%; left: 46%; animation-delay: 1s; }
-.star:nth-child(4) { top: 28%; left: 68%; animation-delay: 2.8s; }
-.star:nth-child(5) { top: 17%; left: 83%; animation-delay: .7s; }
-.star:nth-child(6) { top: 43%; left: 12%; animation-delay: 1.7s; }
-.star:nth-child(7) { top: 53%; left: 29%; animation-delay: 3s; }
-.star:nth-child(8) { top: 38%; left: 52%; animation-delay: .8s; }
-.star:nth-child(9) { top: 61%; left: 74%; animation-delay: 2.4s; }
-.star:nth-child(10) { top: 74%; left: 87%; animation-delay: 1.2s; }
-.star:nth-child(11) { top: 78%; left: 21%; animation-delay: 2.1s; }
-.star:nth-child(12) { top: 68%; left: 51%; animation-delay: .3s; }
-.star:nth-child(13) { top: 34%; left: 91%; animation-delay: 1.5s; }
-.star:nth-child(14) { top: 87%; left: 67%; animation-delay: 2.7s; }
+.star:nth-child(1)  { left: 7%;  top: 14%; --speed: 3.2s; }
+.star:nth-child(2)  { left: 14%; top: 31%; --speed: 5s; }
+.star:nth-child(3)  { left: 22%; top: 10%; --speed: 4s; }
+.star:nth-child(4)  { left: 31%; top: 23%; --speed: 6s; }
+.star:nth-child(5)  { left: 39%; top: 8%;  --speed: 3.5s; }
+.star:nth-child(6)  { left: 47%; top: 28%; --speed: 4.7s; }
+.star:nth-child(7)  { left: 55%; top: 13%; --speed: 5.3s; }
+.star:nth-child(8)  { left: 64%; top: 7%;  --speed: 3.8s; }
+.star:nth-child(9)  { left: 72%; top: 25%; --speed: 5.5s; }
+.star:nth-child(10) { left: 81%; top: 12%; --speed: 4.2s; }
+.star:nth-child(11) { left: 91%; top: 29%; --speed: 6.2s; }
+
+.star:nth-child(12) { left: 5%;  top: 55%; --speed: 4s; }
+.star:nth-child(13) { left: 17%; top: 66%; --speed: 5.4s; }
+.star:nth-child(14) { left: 28%; top: 48%; --speed: 3.4s; }
+.star:nth-child(15) { left: 38%; top: 67%; --speed: 6s; }
+.star:nth-child(16) { left: 51%; top: 54%; --speed: 4.6s; }
+.star:nth-child(17) { left: 62%; top: 69%; --speed: 5.7s; }
+.star:nth-child(18) { left: 74%; top: 49%; --speed: 3.7s; }
+.star:nth-child(19) { left: 86%; top: 61%; --speed: 5s; }
+.star:nth-child(20) { left: 95%; top: 48%; --speed: 4.4s; }
+
+.star:nth-child(21) { left: 11%; top: 84%; --speed: 6s; }
+.star:nth-child(22) { left: 24%; top: 76%; --speed: 4s; }
+.star:nth-child(23) { left: 46%; top: 85%; --speed: 5s; }
+.star:nth-child(24) { left: 68%; top: 81%; --speed: 3.6s; }
+.star:nth-child(25) { left: 83%; top: 88%; --speed: 5.8s; }
 
 @keyframes twinkle {
-    0%, 100% {
-        opacity: .25;
-        transform: scale(.65);
+
+    0%,
+    100% {
+        opacity: .15;
+        transform: scale(.6);
     }
 
     50% {
         opacity: 1;
-        transform: scale(1.6);
+        transform: scale(2);
     }
 }
 
 
-/* ==================================================
+/* =========================================================
+   BRIGHT STARS
+========================================================= */
+
+.bright-star {
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 8px white,
+        0 0 22px rgba(150,145,255,.9);
+
+    animation: brightTwinkle 3s ease-in-out infinite;
+}
+
+.bright-star.one {
+    left: 18%;
+    top: 18%;
+}
+
+.bright-star.two {
+    left: 79%;
+    top: 34%;
+
+    animation-delay: 1.4s;
+}
+
+.bright-star.three {
+    left: 57%;
+    top: 17%;
+
+    animation-delay: .7s;
+}
+
+@keyframes brightTwinkle {
+
+    0%,
+    100% {
+        opacity: .35;
+        transform: scale(.7);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.8);
+    }
+}
+
+
+/* =========================================================
    MOON
-================================================== */
+========================================================= */
 
 .moon {
     position: fixed;
-    width: 135px;
-    height: 135px;
-    top: 8%;
+
+    width: 190px;
+    height: 190px;
+
     right: 10%;
+    top: 8%;
 
     border-radius: 50%;
 
     background:
         radial-gradient(
-            circle at 35% 32%,
+            circle at 35% 30%,
             #fffef0 0%,
-            #fff5c6 48%,
-            #ddd29a 100%
+            #fff7cf 45%,
+            #cfc58e 100%
         );
 
     box-shadow:
-        0 0 25px rgba(255,245,190,.7),
-        0 0 70px rgba(255,240,170,.25);
-
-    z-index: 1;
-}
-
-.moon::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-
-    background:
-        radial-gradient(circle at 30% 25%, rgba(120,110,80,.15) 0 9px, transparent 10px),
-        radial-gradient(circle at 65% 35%, rgba(120,110,80,.12) 0 12px, transparent 13px),
-        radial-gradient(circle at 48% 70%, rgba(120,110,80,.12) 0 8px, transparent 9px);
-}
-
-.moon::after {
-    content: "";
-    position: absolute;
-
-    width: 135px;
-    height: 135px;
-
-    border-radius: 50%;
-
-    left: 38px;
-    top: -12px;
-
-    background: #03030a;
-}
-
-
-/* ==================================================
-   SHOOTING STAR
-================================================== */
-
-.shooting-star {
-    position: fixed;
-
-    width: 150px;
-    height: 1px;
-
-    top: 17%;
-    left: -180px;
-
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.4),
-        white
-    );
-
-    transform: rotate(-24deg);
-
-    box-shadow:
-        0 0 5px white,
-        0 0 15px #8f92ff;
-
-    animation: shooting 10s linear infinite;
+        0 0 25px rgba(255,245,190,.8),
+        0 0 80px rgba(255,240,180,.3),
+        0 0 150px rgba(210,200,160,.1);
 
     z-index: 2;
 }
 
+
+/* moon craters */
+
+.moon::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 29% 27%,
+            rgba(100,95,70,.18) 0 12px,
+            transparent 13px
+        ),
+        radial-gradient(
+            circle at 68% 30%,
+            rgba(100,95,70,.13) 0 18px,
+            transparent 19px
+        ),
+        radial-gradient(
+            circle at 46% 66%,
+            rgba(100,95,70,.16) 0 13px,
+            transparent 14px
+        ),
+        radial-gradient(
+            circle at 75% 67%,
+            rgba(100,95,70,.1) 0 9px,
+            transparent 10px
+        );
+}
+
+
+/* crescent shadow */
+
+.moon::after {
+    content: "";
+
+    position: absolute;
+
+    width: 190px;
+    height: 190px;
+
+    border-radius: 50%;
+
+    left: 48px;
+    top: -18px;
+
+    background: #050611;
+}
+
+
+/* =========================================================
+   SHOOTING STARS
+========================================================= */
+
+.shooting {
+    position: fixed;
+
+    width: 170px;
+    height: 1px;
+
+    left: -220px;
+    top: 16%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.4),
+            white
+        );
+
+    transform: rotate(-27deg);
+
+    box-shadow:
+        0 0 7px white,
+        0 0 18px #8580ff;
+
+    animation: shooting 12s linear infinite;
+
+    z-index: 3;
+}
+
+.shooting.two {
+    top: 38%;
+    animation-delay: 6s;
+    width: 120px;
+}
+
 @keyframes shooting {
-    0%, 72% {
-        left: -180px;
-        top: 17%;
+
+    0%,
+    70% {
+        left: -220px;
         opacity: 0;
     }
 
-    74% {
+    72% {
         opacity: 1;
     }
 
     88% {
         left: 115%;
-        top: 55%;
         opacity: 0;
     }
 
     100% {
+        left: 115%;
         opacity: 0;
     }
 }
 
 
-/* ==================================================
-   CENTER ATMOSPHERE
-================================================== */
+/* =========================================================
+   HORIZON GLOW
+========================================================= */
+
+.horizon {
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 35%;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(34,32,82,.32),
+            transparent
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CITY
+========================================================= */
+
+.city {
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 75px;
+
+    display: flex;
+    align-items: flex-end;
+
+    gap: 4px;
+
+    opacity: .75;
+
+    pointer-events: none;
+}
+
+.building {
+    position: relative;
+
+    background: #03040b;
+
+    border-top: 1px solid rgba(110,110,150,.08);
+}
+
+.building:nth-child(1) { width: 8%; height: 55%; }
+.building:nth-child(2) { width: 6%; height: 85%; }
+.building:nth-child(3) { width: 10%; height: 45%; }
+.building:nth-child(4) { width: 5%; height: 72%; }
+.building:nth-child(5) { width: 11%; height: 95%; }
+.building:nth-child(6) { width: 7%; height: 58%; }
+.building:nth-child(7) { width: 9%; height: 78%; }
+.building:nth-child(8) { width: 6%; height: 50%; }
+.building:nth-child(9) { width: 12%; height: 88%; }
+.building:nth-child(10) { width: 8%; height: 65%; }
+.building:nth-child(11) { width: 12%; height: 80%; }
+
+.window {
+    position: absolute;
+
+    width: 3px;
+    height: 5px;
+
+    background: #aaa76e;
+
+    box-shadow: 0 0 6px rgba(220,210,120,.35);
+
+    opacity: .55;
+
+    animation: windowBlink 6s ease-in-out infinite;
+}
+
+.window:nth-child(1) {
+    top: 20%;
+    left: 30%;
+}
+
+.window:nth-child(2) {
+    top: 42%;
+    left: 65%;
+
+    animation-delay: 2s;
+}
+
+.window:nth-child(3) {
+    top: 66%;
+    left: 38%;
+
+    animation-delay: 4s;
+}
+
+@keyframes windowBlink {
+
+    0%,
+    100% {
+        opacity: .2;
+    }
+
+    50% {
+        opacity: .85;
+    }
+}
+
+
+/* =========================================================
+   AMBIENT LIGHT
+========================================================= */
 
 .ambient {
     position: fixed;
 
-    width: 700px;
-    height: 700px;
+    width: 800px;
+    height: 800px;
 
     left: 50%;
-    top: 50%;
+    top: 52%;
 
     transform: translate(-50%, -50%);
 
@@ -250,8 +528,8 @@ body {
     background:
         radial-gradient(
             circle,
-            rgba(92,82,180,.12),
-            transparent 68%
+            rgba(82,76,180,.13),
+            transparent 67%
         );
 
     filter: blur(35px);
@@ -260,265 +538,452 @@ body {
 }
 
 
-/* ==================================================
-   OLD WEB FRAME
-================================================== */
+/* =========================================================
+   MAIN WRAPPER
+========================================================= */
+
+.wrapper {
+    position: relative;
+
+    width: min(1080px, 92%);
+
+    height: 100vh;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    z-index: 10;
+}
+
+
+/* =========================================================
+   GLASS FRAME
+========================================================= */
 
 .frame {
     position: relative;
 
-    width: min(760px, 92%);
-    min-height: 500px;
+    width: 100%;
 
-    margin: auto;
+    padding: 28px 32px;
 
-    top: 50%;
-    transform: translateY(-50%);
-
-    padding: 42px 45px;
-
-    border: 1px solid var(--line);
+    border: 1px solid rgba(255,255,255,.08);
 
     background:
         linear-gradient(
             135deg,
-            rgba(15,15,26,.78),
-            rgba(5,5,12,.72)
+            rgba(12,13,28,.74),
+            rgba(3,4,11,.67)
         );
 
+    backdrop-filter: blur(18px);
+
     box-shadow:
-        0 30px 100px rgba(0,0,0,.65),
+        0 40px 120px rgba(0,0,0,.65),
         inset 0 1px rgba(255,255,255,.04);
 
-    backdrop-filter: blur(12px);
+    overflow: hidden;
 }
 
 
-/* tiny corner decorations */
-
-.frame::before,
-.frame::after {
-    content: "";
-    position: absolute;
-
-    width: 18px;
-    height: 18px;
-
-    border-color: rgba(150,145,255,.45);
-    border-style: solid;
-}
+/* frame glow */
 
 .frame::before {
-    top: 12px;
-    left: 12px;
-    border-width: 1px 0 0 1px;
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(100,94,255,.05),
+            transparent 70%
+        );
+
+    pointer-events: none;
 }
+
+
+/* corner lines */
 
 .frame::after {
-    right: 12px;
-    bottom: 12px;
-    border-width: 0 1px 1px 0;
+    content: "";
+
+    position: absolute;
+
+    inset: 12px;
+
+    border: 1px solid rgba(140,135,255,.05);
+
+    pointer-events: none;
 }
 
 
-/* ==================================================
+/* =========================================================
    HEADER
-================================================== */
+========================================================= */
 
 .header {
+    position: relative;
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 
     padding-bottom: 18px;
 
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid rgba(255,255,255,.07);
 
-    font-family: Arial, sans-serif;
+    z-index: 2;
 }
 
 .logo {
-    font-size: 12px;
-    letter-spacing: 4px;
+    font-family: Arial, sans-serif;
+
+    font-size: 11px;
+
+    letter-spacing: 5px;
+
     text-transform: uppercase;
 
-    color: #aaa8c7;
+    color: #aaa8c5;
 }
 
 .status {
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: #555568;
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    color: #5f6077;
 }
 
 .status::before {
-    content: "●";
-    margin-right: 7px;
-    color: #817cff;
-    text-shadow: 0 0 8px #817cff;
+    content: "";
+
+    display: inline-block;
+
+    width: 6px;
+    height: 6px;
+
+    margin-right: 8px;
+
+    border-radius: 50%;
+
+    background: #7770ff;
+
+    box-shadow:
+        0 0 8px #7770ff;
+
+    animation: statusPulse 2s infinite;
+}
+
+@keyframes statusPulse {
+
+    50% {
+        opacity: .35;
+    }
 }
 
 
-/* ==================================================
-   MAIN
-================================================== */
+/* =========================================================
+   CONTENT
+========================================================= */
 
 .content {
+    position: relative;
+
     display: grid;
 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: .9fr 1.1fr;
 
-    gap: 55px;
+    gap: 70px;
 
     align-items: center;
 
-    padding: 55px 0 35px;
+    padding: 65px 35px 60px;
+
+    z-index: 2;
 }
 
 
-/* ==================================================
-   LEFT TEXT
-================================================== */
+/* =========================================================
+   INTRO
+========================================================= */
 
 .intro small {
     display: block;
 
-    margin-bottom: 15px;
+    margin-bottom: 18px;
 
     font-family: Arial, sans-serif;
 
-    font-size: 10px;
+    font-size: 9px;
 
     letter-spacing: 4px;
 
-    text-transform: uppercase;
+    color: #62647b;
 
-    color: #66667d;
+    text-transform: uppercase;
 }
 
 .intro h1 {
-    font-size: clamp(38px, 5vw, 62px);
+    font-size: clamp(45px, 6vw, 76px);
 
     font-weight: normal;
 
-    line-height: .95;
+    line-height: .88;
 
-    letter-spacing: -2px;
+    letter-spacing: -4px;
 
-    margin-bottom: 22px;
+    margin-bottom: 28px;
 }
 
 .intro h1 span {
-    color: #8883e8;
+    color: #8d87ff;
 
     text-shadow:
-        0 0 25px rgba(125,120,255,.35);
+        0 0 30px rgba(125,120,255,.3);
 }
 
 .intro p {
-    max-width: 280px;
+    max-width: 340px;
 
     font-family: Arial, sans-serif;
 
     font-size: 12px;
 
-    line-height: 1.9;
+    line-height: 2;
 
-    color: #77778b;
+    color: #73758c;
 }
 
 
-/* ==================================================
-   MUSIC PLAYER
-================================================== */
+/* tiny quote */
+
+.quote {
+    margin-top: 35px;
+
+    padding-left: 15px;
+
+    border-left: 1px solid rgba(140,135,255,.4);
+
+    font-size: 11px;
+
+    font-style: italic;
+
+    color: #57596d;
+}
+
+
+/* =========================================================
+   PLAYER
+========================================================= */
 
 .player {
     position: relative;
 
-    padding: 25px;
+    padding: 30px;
 
-    border: 1px solid var(--line);
+    border: 1px solid rgba(255,255,255,.075);
 
-    background: rgba(255,255,255,.025);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.035),
+            rgba(255,255,255,.012)
+        );
 
     box-shadow:
-        inset 0 1px rgba(255,255,255,.035);
+        inset 0 1px rgba(255,255,255,.035),
+        0 20px 50px rgba(0,0,0,.25);
 }
 
 
-/* record */
+/* player top */
+
+.player-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+
+    color: #57586c;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   VINYL
+========================================================= */
+
+.record-wrap {
+    position: relative;
+
+    width: 220px;
+    height: 220px;
+
+    margin: 0 auto 28px;
+}
+
+.record-glow {
+    position: absolute;
+
+    inset: -15px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(110,105,255,.13),
+            transparent 65%
+        );
+
+    filter: blur(12px);
+
+    opacity: .45;
+
+    transition: .5s;
+}
 
 .record {
-    width: 145px;
-    height: 145px;
+    position: relative;
 
-    margin: 0 auto 24px;
+    width: 220px;
+    height: 220px;
 
     border-radius: 50%;
 
     background:
         repeating-radial-gradient(
             circle,
-            #08080d 0px,
-            #08080d 2px,
-            #111119 3px,
-            #08080d 5px
+            #05050a 0px,
+            #05050a 2px,
+            #101019 3px,
+            #05050a 5px
         );
 
-    border: 1px solid #282833;
+    border: 1px solid #252531;
 
     box-shadow:
-        0 15px 35px rgba(0,0,0,.55);
-
-    animation: spin 8s linear infinite;
-    animation-play-state: paused;
+        0 20px 50px rgba(0,0,0,.65);
 
     display: flex;
-    justify-content: center;
+
     align-items: center;
+    justify-content: center;
+
+    animation: spin 7s linear infinite;
+
+    animation-play-state: paused;
 }
 
 .record.playing {
     animation-play-state: running;
 }
 
+.record.playing + .record-glow {
+    opacity: 1;
+    transform: scale(1.15);
+}
+
+
+/* vinyl grooves */
+
 .record::before {
-    content: "♪";
+    content: "";
 
-    width: 42px;
-    height: 42px;
+    position: absolute;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    inset: 18px;
 
     border-radius: 50%;
 
-    background: #15152a;
-
-    color: #a19dff;
-
-    font-size: 20px;
+    border:
+        1px solid rgba(255,255,255,.04);
 
     box-shadow:
-        0 0 20px rgba(130,125,255,.25);
+        inset 0 0 0 12px rgba(255,255,255,.01),
+        inset 0 0 0 24px rgba(255,255,255,.02),
+        inset 0 0 0 38px rgba(255,255,255,.015);
+}
+
+
+/* center label */
+
+.record::after {
+    content: "♪";
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 55px;
+    height: 55px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #8580ff,
+            #423e9b
+        );
+
+    color: white;
+
+    font-size: 24px;
+
+    box-shadow:
+        0 0 20px rgba(120,115,255,.25);
 }
 
 @keyframes spin {
+
     to {
         transform: rotate(360deg);
     }
 }
 
 
-/* song info */
+/* =========================================================
+   SONG INFO
+========================================================= */
 
 .song-name {
     text-align: center;
 
-    font-size: 18px;
+    font-size: 21px;
 
-    margin-bottom: 6px;
+    margin-bottom: 7px;
 }
 
 .song-info {
@@ -526,50 +991,96 @@ body {
 
     font-family: Arial, sans-serif;
 
-    font-size: 10px;
+    font-size: 8px;
 
-    letter-spacing: 2px;
+    letter-spacing: 3px;
 
-    color: #5f5f73;
+    color: #595a70;
+
+    text-transform: uppercase;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   VISUALIZER
+========================================================= */
+
+.visualizer {
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 3px;
 
     margin-bottom: 22px;
 }
 
+.bar {
+    width: 3px;
 
-/* controls */
+    height: 5px;
+
+    border-radius: 4px;
+
+    background: #8580ff;
+
+    opacity: .55;
+
+    box-shadow:
+        0 0 8px rgba(130,125,255,.4);
+
+    transition: height .08s linear;
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
 
 .controls {
     display: flex;
+
     align-items: center;
-    gap: 12px;
+
+    gap: 15px;
 }
 
 .play {
-    width: 43px;
-    height: 43px;
+    flex-shrink: 0;
+
+    width: 48px;
+    height: 48px;
 
     border-radius: 50%;
 
-    border: 1px solid rgba(150,145,255,.45);
+    border: 1px solid rgba(145,140,255,.45);
 
-    background: rgba(120,115,240,.1);
+    background:
+        rgba(110,105,255,.09);
 
     color: white;
 
     cursor: pointer;
 
-    font-size: 15px;
+    font-size: 14px;
 
-    transition: .25s;
+    transition: .3s;
 }
 
 .play:hover {
-    background: rgba(130,125,255,.2);
+    transform: scale(1.08);
+
+    background:
+        rgba(120,115,255,.18);
 
     box-shadow:
-        0 0 20px rgba(120,115,255,.2);
-
-    transform: scale(1.05);
+        0 0 25px rgba(120,115,255,.25);
 }
 
 .progress-area {
@@ -578,11 +1089,14 @@ body {
 
 .progress {
     width: 100%;
-    height: 2px;
+
+    height: 3px;
 
     appearance: none;
 
-    background: #282832;
+    border-radius: 5px;
+
+    background: #272735;
 
     cursor: pointer;
 }
@@ -590,96 +1104,93 @@ body {
 .progress::-webkit-slider-thumb {
     appearance: none;
 
-    width: 9px;
-    height: 9px;
+    width: 10px;
+    height: 10px;
 
     border-radius: 50%;
 
     background: #aaa6ff;
 
     box-shadow:
-        0 0 10px #7772ff;
+        0 0 12px #7772ff;
+
+    cursor: pointer;
 }
 
 .time {
     display: flex;
+
     justify-content: space-between;
 
-    margin-top: 7px;
+    margin-top: 8px;
 
     font-family: Arial, sans-serif;
 
-    font-size: 9px;
+    font-size: 8px;
 
-    color: #50505f;
+    color: #505163;
 }
 
 
-/* ==================================================
+/* =========================================================
    FOOTER
-================================================== */
+========================================================= */
 
 .footer {
+    position: relative;
+
     display: flex;
+
     justify-content: space-between;
 
-    padding-top: 17px;
+    padding: 17px 10px 0;
 
-    border-top: 1px solid var(--line);
+    border-top: 1px solid rgba(255,255,255,.06);
 
     font-family: Arial, sans-serif;
 
-    font-size: 9px;
+    font-size: 8px;
 
-    letter-spacing: 2px;
+    letter-spacing: 3px;
 
-    color: #4d4d5d;
+    color: #484a5b;
 
     text-transform: uppercase;
+
+    z-index: 2;
 }
 
 
-/* ==================================================
+/* =========================================================
    MOBILE
-================================================== */
+========================================================= */
 
-@media(max-width: 650px) {
+@media(max-width: 750px) {
 
     body {
         overflow-y: auto;
     }
 
-    .moon {
-        width: 80px;
-        height: 80px;
-        right: 6%;
-        top: 6%;
-    }
+    .wrapper {
+        width: 94%;
 
-    .moon::after {
-        width: 80px;
-        height: 80px;
-        left: 23px;
+        height: auto;
+
+        min-height: 100vh;
+
+        padding: 30px 0;
     }
 
     .frame {
-        width: 92%;
-        min-height: auto;
-
-        top: 0;
-        transform: none;
-
-        margin: 35px auto;
-
-        padding: 25px 22px;
+        padding: 22px 18px;
     }
 
     .content {
         grid-template-columns: 1fr;
 
-        gap: 35px;
+        gap: 40px;
 
-        padding: 40px 0 30px;
+        padding: 45px 10px;
     }
 
     .intro {
@@ -690,26 +1201,70 @@ body {
         margin: auto;
     }
 
-    .intro h1 {
-        font-size: 48px;
+    .quote {
+        text-align: left;
+
+        max-width: 280px;
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .moon {
+        width: 105px;
+        height: 105px;
+
+        right: 2%;
+        top: 5%;
+    }
+
+    .moon::after {
+        width: 105px;
+        height: 105px;
+
+        left: 27px;
+        top: -10px;
+    }
+
+    .record-wrap,
+    .record {
+        width: 185px;
+        height: 185px;
+    }
+
+    .record::after {
+        width: 48px;
+        height: 48px;
     }
 
     .player {
-        max-width: 340px;
-        width: 100%;
-        margin: auto;
+        padding: 24px;
     }
 
     .footer {
-        font-size: 8px;
+        gap: 15px;
+
+        line-height: 1.7;
     }
 }
+
 </style>
 </head>
 
+
 <body>
 
-<!-- NIGHT SKY -->
+
+<!-- =====================================================
+     MOUSE LIGHT
+===================================================== -->
+
+<div class="cursor-glow" id="cursorGlow"></div>
+
+
+<!-- =====================================================
+     SKY
+===================================================== -->
 
 <div class="sky">
 
@@ -724,142 +1279,371 @@ body {
     <span class="star"></span>
     <span class="star"></span>
     <span class="star"></span>
+
     <span class="star"></span>
     <span class="star"></span>
     <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+
+    <span class="bright-star one"></span>
+    <span class="bright-star two"></span>
+    <span class="bright-star three"></span>
 
 </div>
 
-<div class="ambient"></div>
 
 <div class="moon"></div>
 
-<div class="shooting-star"></div>
+<div class="shooting"></div>
+<div class="shooting two"></div>
+
+<div class="ambient"></div>
+
+<div class="horizon"></div>
 
 
-<!-- MAIN FRAME -->
+<!-- =====================================================
+     CITY
+===================================================== -->
 
-<div class="frame">
+<div class="city">
 
-    <header class="header">
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
 
-        <div class="logo">
-            mahdi's night
-        </div>
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
 
-        <div class="status">
-            listening
-        </div>
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
 
-    </header>
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
+
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
+
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
+
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
+
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
+
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
+
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
+
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
+
+</div>
 
 
-    <main class="content">
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
-        <section class="intro">
+<div class="wrapper">
 
-            <small>personal space / 001</small>
-
-            <h1>
-                Welcome to<br>
-                <span>my night.</span>
-            </h1>
-
-            <p>
-                Somewhere between silence,
-                memories and music.
-                Stay for a while.
-            </p>
-
-        </section>
+    <div class="frame">
 
 
-        <section class="player">
+        <!-- HEADER -->
 
-            <div class="record" id="record"></div>
+        <header class="header">
 
-            <div class="song-name">
-                My Favorite Song
+            <div class="logo">
+                mahdi's night
             </div>
 
-            <div class="song-info">
-                PLAYING UNDER THE MOON
+            <div class="status">
+                listening
             </div>
 
-            <div class="controls">
+        </header>
 
-                <button class="play" id="playButton">
-                    ▶
-                </button>
 
-                <div class="progress-area">
+        <!-- CONTENT -->
 
-                    <input
-                        class="progress"
-                        id="progress"
-                        type="range"
-                        min="0"
-                        max="100"
-                        value="0"
+        <main class="content">
+
+
+            <!-- INTRO -->
+
+            <section class="intro">
+
+                <small>
+                    personal space / 001
+                </small>
+
+                <h1>
+                    Welcome to<br>
+                    <span>my night.</span>
+                </h1>
+
+                <p>
+                    Somewhere between silence,
+                    memories and music.
+                    Stay for a while.
+                </p>
+
+                <div class="quote">
+                    "Some nights are better
+                    when nobody knows about them."
+                </div>
+
+            </section>
+
+
+            <!-- PLAYER -->
+
+            <section class="player">
+
+                <div class="player-top">
+
+                    <span>
+                        now playing
+                    </span>
+
+                    <span>
+                        001 / 001
+                    </span>
+
+                </div>
+
+
+                <div class="record-wrap">
+
+                    <div class="record-glow"></div>
+
+                    <div
+                        class="record"
+                        id="record"
+                    ></div>
+
+                </div>
+
+
+                <div class="song-name">
+                    My Favorite Song
+                </div>
+
+                <div class="song-info">
+                    playing under the moon
+                </div>
+
+
+                <!-- VISUALIZER -->
+
+                <div
+                    class="visualizer"
+                    id="visualizer"
+                >
+
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+
+                </div>
+
+
+                <!-- CONTROLS -->
+
+                <div class="controls">
+
+                    <button
+                        class="play"
+                        id="playButton"
                     >
+                        ▶
+                    </button>
 
-                    <div class="time">
 
-                        <span id="currentTime">
-                            0:00
-                        </span>
+                    <div class="progress-area">
 
-                        <span id="duration">
-                            0:00
-                        </span>
+                        <input
+                            class="progress"
+                            id="progress"
+                            type="range"
+                            min="0"
+                            max="100"
+                            value="0"
+                        >
+
+                        <div class="time">
+
+                            <span id="currentTime">
+                                0:00
+                            </span>
+
+                            <span id="duration">
+                                0:00
+                            </span>
+
+                        </div>
 
                     </div>
 
                 </div>
 
-            </div>
+            </section>
 
-        </section>
-
-    </main>
+        </main>
 
 
-    <footer class="footer">
+        <!-- FOOTER -->
 
-        <span>© Mahdi</span>
+        <footer class="footer">
 
-        <span>✦  somewhere in the night  ✦</span>
+            <span>
+                © Mahdi
+            </span>
 
-    </footer>
+            <span>
+                ✦ somewhere in the night ✦
+            </span>
+
+        </footer>
+
+
+    </div>
 
 </div>
 
 
-<!-- AUDIO -->
+<!-- =====================================================
+     AUDIO
+===================================================== -->
 
 <audio id="audio">
-    <source src="./song.mp3" type="audio/mpeg">
+
+    <source
+        src="./song.mp3"
+        type="audio/mpeg"
+    >
+
 </audio>
 
 
 <script>
 
-const audio = document.getElementById("audio");
-const playButton = document.getElementById("playButton");
-const progress = document.getElementById("progress");
-const record = document.getElementById("record");
 
-const currentTime = document.getElementById("currentTime");
-const duration = document.getElementById("duration");
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
+const audio =
+    document.getElementById("audio");
+
+const playButton =
+    document.getElementById("playButton");
+
+const progress =
+    document.getElementById("progress");
+
+const record =
+    document.getElementById("record");
+
+const currentTime =
+    document.getElementById("currentTime");
+
+const duration =
+    document.getElementById("duration");
+
+const bars =
+    document.querySelectorAll(".bar");
+
+const cursorGlow =
+    document.getElementById("cursorGlow");
+
+
+/* =====================================================
+   TIME
+===================================================== */
 
 function formatTime(seconds) {
 
-    if (isNaN(seconds)) return "0:00";
+    if (isNaN(seconds)) {
+        return "0:00";
+    }
 
-    const minutes = Math.floor(seconds / 60);
+    const minutes =
+        Math.floor(seconds / 60);
 
-    const secs = Math.floor(seconds % 60)
+    const secs =
+        Math.floor(seconds % 60)
         .toString()
         .padStart(2, "0");
 
@@ -867,71 +1651,275 @@ function formatTime(seconds) {
 }
 
 
-playButton.addEventListener("click", () => {
+/* =====================================================
+   PLAY
+===================================================== */
 
-    if (audio.paused) {
+playButton.addEventListener(
+    "click",
+    async () => {
 
-        audio.play();
+        if (audio.paused) {
 
-        playButton.textContent = "Ⅱ";
+            try {
 
-        record.classList.add("playing");
+                await audio.play();
 
-    } else {
+                playButton.textContent = "Ⅱ";
 
-        audio.pause();
+                record.classList.add(
+                    "playing"
+                );
+
+            } catch (error) {
+
+                console.log(error);
+
+            }
+
+        } else {
+
+            audio.pause();
+
+            playButton.textContent = "▶";
+
+            record.classList.remove(
+                "playing"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   METADATA
+===================================================== */
+
+audio.addEventListener(
+    "loadedmetadata",
+    () => {
+
+        duration.textContent =
+            formatTime(audio.duration);
+
+    }
+);
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+audio.addEventListener(
+    "timeupdate",
+    () => {
+
+        if (!audio.duration) {
+            return;
+        }
+
+        const percent =
+            (audio.currentTime /
+            audio.duration) * 100;
+
+        progress.value =
+            percent;
+
+        currentTime.textContent =
+            formatTime(audio.currentTime);
+
+    }
+);
+
+
+/* =====================================================
+   SEEK
+===================================================== */
+
+progress.addEventListener(
+    "input",
+    () => {
+
+        if (!audio.duration) {
+            return;
+        }
+
+        audio.currentTime =
+            (progress.value / 100) *
+            audio.duration;
+
+    }
+);
+
+
+/* =====================================================
+   END
+===================================================== */
+
+audio.addEventListener(
+    "ended",
+    () => {
 
         playButton.textContent = "▶";
 
-        record.classList.remove("playing");
+        record.classList.remove(
+            "playing"
+        );
+
+        progress.value = 0;
 
     }
-
-});
-
-
-audio.addEventListener("loadedmetadata", () => {
-
-    duration.textContent =
-        formatTime(audio.duration);
-
-});
+);
 
 
-audio.addEventListener("timeupdate", () => {
+/* =====================================================
+   REAL AUDIO VISUALIZER
+===================================================== */
 
-    const percent =
-        (audio.currentTime / audio.duration) * 100;
-
-    progress.value = percent || 0;
-
-    currentTime.textContent =
-        formatTime(audio.currentTime);
-
-});
+let audioContext;
+let analyser;
+let source;
+let dataArray;
+let visualizerStarted = false;
 
 
-progress.addEventListener("input", () => {
+function startVisualizer() {
 
-    audio.currentTime =
-        (progress.value / 100) * audio.duration;
+    if (visualizerStarted) {
+        return;
+    }
 
-});
+    visualizerStarted = true;
 
 
-audio.addEventListener("ended", () => {
+    audioContext =
+        new (
+            window.AudioContext ||
+            window.webkitAudioContext
+        )();
 
-    playButton.textContent = "▶";
 
-    record.classList.remove("playing");
+    analyser =
+        audioContext.createAnalyser();
 
-    progress.value = 0;
+    analyser.fftSize = 64;
 
-});
+
+    source =
+        audioContext.createMediaElementSource(
+            audio
+        );
+
+
+    source.connect(analyser);
+
+    analyser.connect(
+        audioContext.destination
+    );
+
+
+    dataArray =
+        new Uint8Array(
+            analyser.frequencyBinCount
+        );
+
+
+    animateVisualizer();
+
+}
+
+
+function animateVisualizer() {
+
+    requestAnimationFrame(
+        animateVisualizer
+    );
+
+
+    if (!analyser) {
+        return;
+    }
+
+
+    analyser.getByteFrequencyData(
+        dataArray
+    );
+
+
+    bars.forEach(
+        (bar, index) => {
+
+            const value =
+                dataArray[index] || 0;
+
+            const height =
+                5 + (value / 255) * 36;
+
+            bar.style.height =
+                height + "px";
+
+            bar.style.opacity =
+                .35 + (value / 255) * .65;
+
+        }
+    );
+
+}
+
+
+audio.addEventListener(
+    "play",
+    () => {
+
+        startVisualizer();
+
+        if (
+            audioContext &&
+            audioContext.state === "suspended"
+        ) {
+            audioContext.resume();
+        }
+
+    }
+);
+
+
+/* =====================================================
+   MOUSE LIGHT
+===================================================== */
+
+document.addEventListener(
+    "mousemove",
+    (event) => {
+
+        cursorGlow.style.left =
+            event.clientX + "px";
+
+        cursorGlow.style.top =
+            event.clientY + "px";
+
+    }
+);
+
+
+/* =====================================================
+   HIDE CURSOR LIGHT ON MOBILE
+===================================================== */
+
+if (
+    window.matchMedia(
+        "(pointer: coarse)"
+    ).matches
+) {
+
+    cursorGlow.style.display = "none";
+
+}
 
 
 </script>
 
 </body>
 </html>
-```
