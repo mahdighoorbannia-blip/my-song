@@ -7,6 +7,7 @@
 <title>Mahdi's Night</title>
 
 <style>
+
 * {
     margin: 0;
     padding: 0;
@@ -16,95 +17,358 @@
 :root {
     --bg: #020208;
     --purple: #7770ff;
-    --purple-light: #a49fff;
-    --white: #f4f3ff;
-    --muted: rgba(235, 233, 255, 0.35);
+    --soft: #aaa6ff;
+    --white: #eeeefe;
+    --muted: #686a82;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
 }
 
 body {
-    min-height: 100vh;
-    overflow-x: hidden;
+    overflow: hidden;
+
     background:
-        radial-gradient(circle at 50% 20%, #17152d 0%, #080714 35%, #020208 75%);
+        radial-gradient(
+            ellipse at 50% 45%,
+            #11142c 0%,
+            #080a18 40%,
+            #03040b 72%,
+            #010106 100%
+        );
+
     color: var(--white);
-    font-family: Arial, Helvetica, sans-serif;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 }
 
-/* =========================
-   STARS
-========================= */
 
-.stars {
+/* =====================================================
+   MOUSE GLOW
+===================================================== */
+
+.cursor-glow {
+    position: fixed;
+
+    width: 450px;
+    height: 450px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(110,105,255,.085),
+            transparent 68%
+        );
+
+    transform: translate(-50%, -50%);
+
+    z-index: 30;
+}
+
+
+/* =====================================================
+   SKY
+===================================================== */
+
+.sky {
     position: fixed;
     inset: 0;
+
+    overflow: hidden;
+
     pointer-events: none;
-    z-index: 0;
 }
+
+.sky::before {
+    content: "";
+
+    position: absolute;
+    inset: -30px;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.85) 0 1px,
+            transparent 1.5px
+        ),
+        radial-gradient(
+            circle,
+            rgba(170,175,255,.65) 0 1px,
+            transparent 1.5px
+        ),
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.3) 0 .7px,
+            transparent 1.2px
+        );
+
+    background-size:
+        73px 81px,
+        127px 139px,
+        47px 61px;
+
+    opacity: .4;
+}
+
+
+/* =====================================================
+   STARS
+===================================================== */
 
 .star {
     position: absolute;
+
     width: 2px;
     height: 2px;
-    background: white;
+
     border-radius: 50%;
-    opacity: 0.6;
-    animation: twinkle 3s infinite ease-in-out;
+
+    background: white;
+
+    box-shadow:
+        0 0 5px white,
+        0 0 13px rgba(130,135,255,.8);
+
+    animation:
+        twinkle var(--speed) ease-in-out infinite;
 }
 
-.star:nth-child(2n) {
-    animation-delay: 1s;
-}
+.star:nth-child(1)  { left: 7%;  top: 13%; --speed: 3.5s; }
+.star:nth-child(2)  { left: 15%; top: 31%; --speed: 5s; }
+.star:nth-child(3)  { left: 24%; top: 9%;  --speed: 4s; }
+.star:nth-child(4)  { left: 34%; top: 23%; --speed: 6s; }
+.star:nth-child(5)  { left: 44%; top: 7%;  --speed: 3.8s; }
+.star:nth-child(6)  { left: 54%; top: 27%; --speed: 5.2s; }
+.star:nth-child(7)  { left: 65%; top: 12%; --speed: 4.5s; }
+.star:nth-child(8)  { left: 76%; top: 24%; --speed: 5.8s; }
+.star:nth-child(9)  { left: 87%; top: 10%; --speed: 4.2s; }
+.star:nth-child(10) { left: 94%; top: 35%; --speed: 6.2s; }
 
-.star:nth-child(3n) {
-    animation-delay: 2s;
-}
+.star:nth-child(11) { left: 8%;  top: 55%; --speed: 4s; }
+.star:nth-child(12) { left: 19%; top: 69%; --speed: 5.5s; }
+.star:nth-child(13) { left: 31%; top: 50%; --speed: 3.6s; }
+.star:nth-child(14) { left: 43%; top: 73%; --speed: 6s; }
+.star:nth-child(15) { left: 56%; top: 58%; --speed: 4.7s; }
+.star:nth-child(16) { left: 68%; top: 72%; --speed: 5.8s; }
+.star:nth-child(17) { left: 81%; top: 51%; --speed: 3.8s; }
+.star:nth-child(18) { left: 93%; top: 66%; --speed: 5s; }
+
+.star:nth-child(19) { left: 13%; top: 87%; --speed: 5.7s; }
+.star:nth-child(20) { left: 29%; top: 82%; --speed: 4.3s; }
+.star:nth-child(21) { left: 51%; top: 88%; --speed: 6s; }
+.star:nth-child(22) { left: 73%; top: 84%; --speed: 4s; }
+.star:nth-child(23) { left: 88%; top: 91%; --speed: 5.2s; }
+
 
 @keyframes twinkle {
-    0%, 100% {
-        opacity: 0.2;
-        transform: scale(0.8);
+
+    0%,
+    100% {
+        opacity: .12;
+        transform: scale(.6);
     }
 
     50% {
         opacity: 1;
-        transform: scale(1.4);
+        transform: scale(1.8);
     }
 }
 
-/* =========================
-   SHOOTING STAR
-========================= */
 
-.shooting-star {
+/* =====================================================
+   SPECIAL STARS
+===================================================== */
+
+.bright-star {
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 8px white,
+        0 0 22px #7770ff;
+
+    animation:
+        bright 3s ease-in-out infinite;
+}
+
+.bright-star.one {
+    left: 21%;
+    top: 17%;
+}
+
+.bright-star.two {
+    left: 72%;
+    top: 39%;
+
+    animation-delay: 1.2s;
+}
+
+.bright-star.three {
+    left: 57%;
+    top: 15%;
+
+    animation-delay: .5s;
+}
+
+@keyframes bright {
+
+    0%,
+    100% {
+        opacity: .25;
+        transform: scale(.6);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.8);
+    }
+}
+
+
+/* =====================================================
+   MOON
+===================================================== */
+
+.moon {
     position: fixed;
-    top: 12%;
-    left: 75%;
-    width: 2px;
-    height: 90px;
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        rgba(255,255,255,0.8),
-        transparent
-    );
-    transform: rotate(45deg);
-    opacity: 0;
-    animation: shooting 8s infinite;
+
+    width: 180px;
+    height: 180px;
+
+    right: 9%;
+    top: 8%;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #fffef1 0%,
+            #fff5c8 45%,
+            #d2c794 100%
+        );
+
+    box-shadow:
+        0 0 30px rgba(255,245,190,.8),
+        0 0 90px rgba(255,240,180,.3),
+        0 0 160px rgba(220,210,160,.08);
+
+    z-index: 2;
+}
+
+.moon::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            rgba(100,95,70,.16) 0 12px,
+            transparent 13px
+        ),
+        radial-gradient(
+            circle at 68% 30%,
+            rgba(100,95,70,.13) 0 17px,
+            transparent 18px
+        ),
+        radial-gradient(
+            circle at 47% 68%,
+            rgba(100,95,70,.15) 0 13px,
+            transparent 14px
+        );
+}
+
+.moon::after {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    left: 45px;
+    top: -17px;
+
+    border-radius: 50%;
+
+    background: #050611;
+}
+
+
+/* =====================================================
+   SHOOTING STARS
+===================================================== */
+
+.shooting {
+    position: fixed;
+
+    width: 170px;
+    height: 1px;
+
+    left: -220px;
+    top: 18%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.35),
+            white
+        );
+
+    transform: rotate(-27deg);
+
+    box-shadow:
+        0 0 7px white,
+        0 0 18px #7770ff;
+
+    animation:
+        shooting 12s linear infinite;
+
+    z-index: 3;
+}
+
+.shooting.two {
+    top: 43%;
+    width: 120px;
+    animation-delay: 6s;
 }
 
 @keyframes shooting {
-    0%, 75% {
+
+    0%,
+    70% {
+        left: -220px;
         opacity: 0;
-        transform: translate(0, 0) rotate(45deg);
     }
 
-    78% {
+    73% {
         opacity: 1;
     }
 
-    83% {
+    88% {
+        left: 115%;
         opacity: 0;
-        transform: translate(-300px, 300px) rotate(45deg);
     }
 
     100% {
@@ -112,661 +376,1355 @@ body {
     }
 }
 
-/* =========================
-   MOON
-========================= */
 
-.moon {
+/* =====================================================
+   HORIZON
+===================================================== */
+
+.horizon {
     position: fixed;
-    top: 70px;
-    right: 9%;
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    background: #eeeaff;
-    box-shadow:
-        0 0 30px rgba(190,185,255,0.45),
-        0 0 90px rgba(120,110,255,0.15);
-    z-index: 1;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 38%;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(36,34,90,.35),
+            transparent
+        );
+
+    pointer-events: none;
 }
 
-.moon::after {
-    content: "";
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: #090816;
-    top: -10px;
-    left: 28px;
-}
 
-/* =========================
+/* =====================================================
    CITY
-========================= */
+===================================================== */
 
 .city {
     position: fixed;
+
     bottom: 0;
     left: 0;
-    width: 100%;
-    height: 130px;
+    right: 0;
+
+    height: 70px;
+
     display: flex;
+
     align-items: flex-end;
-    gap: 5px;
-    z-index: 1;
-    opacity: 0.8;
+
+    gap: 3px;
+
+    pointer-events: none;
+
+    opacity: .8;
 }
 
 .building {
+    position: relative;
+
     flex: 1;
-    background: linear-gradient(
-        to top,
-        #05050b,
-        #0b0a15
-    );
-    position: relative;
+
+    max-width: 130px;
+
+    background: #03040b;
+
+    border-top: 1px solid rgba(120,120,160,.08);
 }
 
-.building::after {
-    content: "";
+.building:nth-child(1) { height: 55%; }
+.building:nth-child(2) { height: 82%; }
+.building:nth-child(3) { height: 47%; }
+.building:nth-child(4) { height: 70%; }
+.building:nth-child(5) { height: 95%; }
+.building:nth-child(6) { height: 61%; }
+.building:nth-child(7) { height: 80%; }
+.building:nth-child(8) { height: 52%; }
+.building:nth-child(9) { height: 88%; }
+.building:nth-child(10) { height: 66%; }
+
+.window {
     position: absolute;
-    inset: 12px;
-    background:
-        repeating-linear-gradient(
-            to bottom,
-            rgba(255,220,130,0.4) 0 4px,
-            transparent 4px 17px
-        );
-    opacity: 0.35;
+
+    width: 3px;
+    height: 5px;
+
+    background: #aaa66c;
+
+    box-shadow:
+        0 0 6px rgba(220,210,120,.35);
+
+    opacity: .5;
+
+    animation:
+        windowBlink 6s ease-in-out infinite;
 }
 
-/* =========================
-   HEADER
-========================= */
-
-header {
-    position: relative;
-    z-index: 5;
-    padding: 28px 6%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.window:nth-child(1) {
+    top: 22%;
+    left: 30%;
 }
 
-.logo {
-    font-size: 14px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
+.window:nth-child(2) {
+    top: 45%;
+    left: 65%;
+    animation-delay: 2s;
 }
 
-.header-dot {
-    width: 7px;
-    height: 7px;
+.window:nth-child(3) {
+    top: 68%;
+    left: 42%;
+    animation-delay: 4s;
+}
+
+@keyframes windowBlink {
+
+    0%,
+    100% {
+        opacity: .15;
+    }
+
+    50% {
+        opacity: .8;
+    }
+}
+
+
+/* =====================================================
+   AMBIENT
+===================================================== */
+
+.ambient {
+    position: fixed;
+
+    width: 850px;
+    height: 850px;
+
+    left: 50%;
+    top: 52%;
+
+    transform:
+        translate(-50%, -50%);
+
     border-radius: 50%;
-    background: var(--purple);
-    box-shadow: 0 0 15px var(--purple);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(85,78,190,.14),
+            transparent 68%
+        );
+
+    filter: blur(40px);
+
+    pointer-events: none;
 }
 
-/* =========================
+
+/* =====================================================
    MAIN
-========================= */
+===================================================== */
 
-main {
+.wrapper {
     position: relative;
-    z-index: 4;
-    min-height: calc(100vh - 80px);
+
+    width: min(1050px, 92%);
+
+    height: 100vh;
+
+    margin: auto;
+
     display: flex;
-    justify-content: center;
+
     align-items: center;
-    padding: 40px 20px 150px;
+
+    z-index: 10;
 }
+
+
+/* =====================================================
+   FRAME
+===================================================== */
 
 .frame {
-    width: min(1100px, 100%);
-    min-height: 650px;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 30px;
-    background: rgba(8,7,20,0.55);
+    position: relative;
+
+    width: 100%;
+
+    padding: 26px 30px;
+
+    border: 1px solid rgba(255,255,255,.075);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(10,11,25,.7),
+            rgba(3,4,10,.62)
+        );
+
     backdrop-filter: blur(20px);
+
     box-shadow:
-        0 30px 100px rgba(0,0,0,0.55),
-        inset 0 0 50px rgba(120,110,255,0.03);
-    display: grid;
-    grid-template-columns: 0.9fr 1.4fr;
+        0 40px 120px rgba(0,0,0,.65),
+        inset 0 1px rgba(255,255,255,.035);
+
     overflow: hidden;
 }
 
-/* =========================
-   LEFT
-========================= */
 
-.left {
-    padding: 70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-right: 1px solid rgba(255,255,255,0.06);
+.frame::before {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 100%;
+
+    top: 0;
+    left: -350px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(130,125,255,.035),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    animation:
+        sweep 9s ease-in-out infinite;
 }
 
-.small-title {
-    color: var(--purple-light);
-    letter-spacing: 4px;
-    font-size: 12px;
+@keyframes sweep {
+
+    0%,
+    65% {
+        left: -350px;
+    }
+
+    85% {
+        left: 110%;
+    }
+
+    100% {
+        left: 110%;
+    }
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+    position: relative;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding-bottom: 16px;
+
+    border-bottom: 1px solid rgba(255,255,255,.06);
+
+    z-index: 2;
+}
+
+.logo {
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 5px;
+
+    color: #85869b;
+
     text-transform: uppercase;
 }
 
-.left h1 {
-    margin-top: 25px;
-    font-size: clamp(60px, 8vw, 110px);
-    line-height: 0.82;
-    letter-spacing: -6px;
-    font-weight: 700;
+.status {
+    font-family: Arial, sans-serif;
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+
+    color: #55566a;
+
+    text-transform: uppercase;
 }
 
-.left h1 span {
-    color: var(--purple-light);
+.status::before {
+    content: "";
+
+    display: inline-block;
+
+    width: 5px;
+    height: 5px;
+
+    margin-right: 7px;
+
+    border-radius: 50%;
+
+    background: #7770ff;
+
+    box-shadow:
+        0 0 9px #7770ff;
+
+    animation:
+        pulse 2s infinite;
 }
 
-.description {
-    max-width: 300px;
-    color: rgba(255,255,255,0.35);
-    line-height: 1.8;
-    font-size: 14px;
+@keyframes pulse {
+
+    50% {
+        opacity: .25;
+    }
 }
 
-/* =========================
-   RIGHT PLAYER
-========================= */
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.content {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns: .85fr 1.15fr;
+
+    gap: 70px;
+
+    align-items: center;
+
+    padding: 55px 35px;
+
+    z-index: 2;
+}
+
+
+/* =====================================================
+   LEFT
+===================================================== */
+
+.intro small {
+    display: block;
+
+    margin-bottom: 18px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 8px;
+
+    letter-spacing: 4px;
+
+    color: #55576b;
+
+    text-transform: uppercase;
+}
+
+.intro h1 {
+    font-size: clamp(48px, 6vw, 78px);
+
+    font-weight: normal;
+
+    line-height: .87;
+
+    letter-spacing: -4px;
+}
+
+.intro h1 span {
+    color: #8c87ff;
+
+    text-shadow:
+        0 0 35px rgba(125,120,255,.35);
+}
+
+
+/* =====================================================
+   PLAYER
+===================================================== */
 
 .player {
-    padding: 55px;
+    position: relative;
+
+    padding: 28px;
+
+    border: 1px solid rgba(255,255,255,.065);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.035),
+            rgba(255,255,255,.01)
+        );
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.03),
+        0 25px 60px rgba(0,0,0,.25);
+}
+
+
+/* =====================================================
+   PLAYER TOP
+===================================================== */
+
+.player-top {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
 
-.song-info {
-    margin-bottom: 25px;
-}
+    justify-content: space-between;
 
-.song-info .label {
-    color: var(--purple-light);
-    font-size: 11px;
+    margin-bottom: 20px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 7px;
+
     letter-spacing: 3px;
+
+    color: #505165;
+
     text-transform: uppercase;
 }
 
-.song-info h2 {
-    margin-top: 8px;
-    font-size: 28px;
-    font-weight: 500;
+
+/* =====================================================
+   RECORD
+===================================================== */
+
+.record-wrap {
+    position: relative;
+
+    width: 220px;
+    height: 220px;
+
+    margin: 0 auto 24px;
 }
 
-/* =========================
-   RECORD
-========================= */
+.record-glow {
+    position: absolute;
 
-.record-area {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0 30px;
+    inset: -20px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(105,100,255,.14),
+            transparent 65%
+        );
+
+    filter: blur(13px);
+
+    opacity: .4;
+
+    transition: .6s;
 }
 
 .record {
-    width: 210px;
-    height: 210px;
+    position: relative;
+
+    width: 220px;
+    height: 220px;
+
     border-radius: 50%;
+
     background:
         repeating-radial-gradient(
             circle,
-            #09090d 0px,
-            #09090d 3px,
-            #111116 4px,
-            #08080c 7px
+            #05050a 0px,
+            #05050a 2px,
+            #101019 3px,
+            #05050a 5px
         );
+
+    border: 1px solid #292934;
+
     box-shadow:
-        0 20px 50px rgba(0,0,0,0.5),
-        0 0 30px rgba(120,110,255,0.08);
-    position: relative;
+        0 25px 55px rgba(0,0,0,.65);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    animation:
+        spin 7s linear infinite;
+
+    animation-play-state: paused;
+}
+
+.record.playing {
+    animation-play-state: running;
+}
+
+.record.playing + .record-glow {
+    opacity: 1;
+    transform: scale(1.15);
 }
 
 .record::before {
     content: "";
+
     position: absolute;
-    width: 65px;
-    height: 65px;
+
+    inset: 17px;
+
     border-radius: 50%;
-    background:
-        radial-gradient(circle, #b5b0ff 0 5px, #34305e 6px 18px, #0c0b14 19px);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+
+    border:
+        1px solid rgba(255,255,255,.035);
+
+    box-shadow:
+        inset 0 0 0 12px rgba(255,255,255,.01),
+        inset 0 0 0 25px rgba(255,255,255,.018),
+        inset 0 0 0 40px rgba(255,255,255,.012);
 }
 
-.record.playing {
-    animation: spin 4s linear infinite;
+.record::after {
+    content: "♪";
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 54px;
+    height: 54px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #8580ff,
+            #3f3b98
+        );
+
+    color: white;
+
+    font-size: 23px;
+
+    box-shadow:
+        0 0 25px rgba(120,115,255,.25);
 }
 
 @keyframes spin {
+
     to {
         transform: rotate(360deg);
     }
 }
 
-/* =========================
+
+/* =====================================================
+   SONG
+===================================================== */
+
+.song-name {
+    text-align: center;
+
+    font-size: 20px;
+
+    margin-bottom: 18px;
+}
+
+
+/* =====================================================
    LYRICS
-========================= */
+===================================================== */
 
 .lyrics-box {
     position: relative;
-    height: 190px;
-    overflow: hidden;
-    margin: 5px 0 25px;
+
+    height: 210px;
+
+    margin: 0 0 20px;
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+
+    padding: 18px 14px;
+
+    border-top: 1px solid rgba(255,255,255,.035);
+
+    border-bottom: 1px solid rgba(255,255,255,.035);
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        rgba(120,115,255,.45)
+        transparent;
+
+    direction: rtl;
+
+    scroll-behavior: smooth;
 }
 
-.lyrics-box::before,
-.lyrics-box::after {
+
+/* Chrome / Edge scrollbar */
+
+.lyrics-box::-webkit-scrollbar {
+    width: 4px;
+}
+
+.lyrics-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.lyrics-box::-webkit-scrollbar-thumb {
+    background: rgba(120,115,255,.4);
+
+    border-radius: 10px;
+}
+
+
+/* TOP / BOTTOM FADE */
+
+.lyrics-box::before {
     content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 55px;
-    z-index: 3;
+
+    position: sticky;
+
+    display: block;
+
+    top: -18px;
+
+    height: 25px;
+
+    margin-bottom: -25px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(9,10,24,1),
+            transparent
+        );
+
+    z-index: 5;
+
     pointer-events: none;
 }
 
-.lyrics-box::before {
-    top: 0;
-    background: linear-gradient(
-        to bottom,
-        rgba(8,7,20,1),
-        rgba(8,7,20,0)
-    );
-}
 
 .lyrics-box::after {
-    bottom: 0;
-    background: linear-gradient(
-        to top,
-        rgba(8,7,20,1),
-        rgba(8,7,20,0)
-    );
+    content: "";
+
+    position: sticky;
+
+    display: block;
+
+    bottom: -18px;
+
+    height: 25px;
+
+    margin-top: -25px;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(9,10,24,1),
+            transparent
+        );
+
+    z-index: 5;
+
+    pointer-events: none;
 }
+
 
 .lyrics {
-    height: 100%;
     display: flex;
+
     flex-direction: column;
-    justify-content: center;
-    gap: 15px;
-    text-align: center;
-    transition: transform 0.65s cubic-bezier(.22,.61,.36,1);
+
+    gap: 14px;
+
+    direction: rtl;
+
+    padding: 35px 5px;
 }
+
 
 .lyric-line {
-    color: rgba(235,233,255,0.22);
-    font-size: 15px;
-    line-height: 1.6;
-    transition:
-        color 0.6s ease,
-        opacity 0.6s ease,
-        transform 0.6s ease,
-        text-shadow 0.6s ease,
-        filter 0.6s ease;
     flex-shrink: 0;
+
+    text-align: center;
+
+    color:
+        rgba(238,238,254,.42);
+
+    font-size: 14px;
+
+    line-height: 1.9;
+
+    padding: 4px 8px;
+
+    transition:
+        color .5s ease,
+        opacity .5s ease,
+        transform .5s ease,
+        text-shadow .5s ease;
+
+    cursor: default;
 }
+
+
+.lyric-line:hover {
+    color: rgba(238,238,254,.75);
+}
+
 
 .lyric-line.active {
-    color: #f5f3ff;
+    color: #f2f0ff;
+
     opacity: 1;
-    transform: scale(1.04);
+
+    transform: scale(1.035);
+
     text-shadow:
-        0 0 15px rgba(130,120,255,0.55),
-        0 0 35px rgba(130,120,255,0.18);
+        0 0 10px rgba(125,120,255,.65),
+        0 0 28px rgba(125,120,255,.25);
 }
+
 
 .lyric-line.near {
-    color: rgba(235,233,255,0.45);
+    color:
+        rgba(238,238,254,.55);
 }
+
 
 .lyric-line.far {
-    opacity: 0.12;
-    filter: blur(1px);
+    color:
+        rgba(238,238,254,.28);
+
+    opacity: .7;
 }
 
-/* =========================
+
+/* =====================================================
+   VISUALIZER
+===================================================== */
+
+.visualizer {
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 3px;
+
+    margin-bottom: 20px;
+}
+
+.bar {
+    width: 3px;
+
+    height: 4px;
+
+    border-radius: 5px;
+
+    background: #8580ff;
+
+    opacity: .5;
+
+    box-shadow:
+        0 0 8px rgba(130,125,255,.45);
+
+    transition:
+        height .08s linear;
+}
+
+
+/* =====================================================
    CONTROLS
-========================= */
+===================================================== */
 
 .controls {
-    margin-top: 5px;
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+.play {
+    flex-shrink: 0;
+
+    width: 47px;
+    height: 47px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(145,140,255,.4);
+
+    background:
+        rgba(110,105,255,.08);
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    transition: .3s;
+}
+
+.play:hover {
+    transform: scale(1.08);
+
+    background:
+        rgba(120,115,255,.18);
+
+    box-shadow:
+        0 0 28px rgba(120,115,255,.25);
+}
+
+.progress-area {
+    flex: 1;
 }
 
 .progress {
     width: 100%;
-    appearance: none;
+
     height: 3px;
-    background: rgba(255,255,255,0.12);
-    border-radius: 10px;
+
+    appearance: none;
+
+    border-radius: 5px;
+
+    background: #292936;
+
     cursor: pointer;
 }
 
 .progress::-webkit-slider-thumb {
     appearance: none;
-    width: 11px;
-    height: 11px;
+
+    width: 10px;
+    height: 10px;
+
     border-radius: 50%;
-    background: var(--purple-light);
-    box-shadow: 0 0 12px var(--purple);
+
+    background: #aaa6ff;
+
+    box-shadow:
+        0 0 12px #7772ff;
 }
 
 .time {
     display: flex;
+
     justify-content: space-between;
+
     margin-top: 8px;
-    color: rgba(255,255,255,0.3);
-    font-size: 11px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 8px;
+
+    color: #4e5060;
 }
 
-.buttons {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
 
-.play-button {
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    border: 1px solid rgba(160,155,255,0.35);
-    background: rgba(120,110,255,0.08);
-    color: white;
-    cursor: pointer;
-    font-size: 18px;
-    transition: 0.3s;
-}
-
-.play-button:hover {
-    background: rgba(120,110,255,0.2);
-    box-shadow: 0 0 30px rgba(120,110,255,0.2);
-    transform: scale(1.05);
-}
-
-/* =========================
-   VISUALIZER
-========================= */
-
-.visualizer {
-    height: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
-    margin-top: 20px;
-}
-
-.bar {
-    width: 3px;
-    height: 8px;
-    border-radius: 10px;
-    background: var(--purple-light);
-    opacity: 0.45;
-    transition: height 0.08s ease;
-}
-
-/* =========================
+/* =====================================================
    FOOTER
-========================= */
+===================================================== */
 
-footer {
-    position: fixed;
-    bottom: 15px;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    z-index: 5;
-    color: rgba(255,255,255,0.25);
-    font-size: 11px;
-    letter-spacing: 2px;
-}
+.footer {
+    position: relative;
 
-/* =========================
-   CURSOR GLOW
-========================= */
+    display: flex;
 
-.cursor-glow {
-    position: fixed;
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    background: radial-gradient(
-        circle,
-        rgba(120,110,255,0.09),
-        transparent 70%
-    );
-    transform: translate(-50%, -50%);
-    pointer-events: none;
+    justify-content: space-between;
+
+    padding: 15px 8px 0;
+
+    border-top: 1px solid rgba(255,255,255,.055);
+
+    font-family: Arial, sans-serif;
+
+    font-size: 7px;
+
+    letter-spacing: 3px;
+
+    color: #414352;
+
+    text-transform: uppercase;
+
     z-index: 2;
 }
 
-/* =========================
-   MOBILE
-========================= */
 
-@media (max-width: 800px) {
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width: 750px) {
+
+    body {
+        overflow-y: auto;
+    }
+
+    .wrapper {
+        width: 94%;
+
+        height: auto;
+
+        min-height: 100vh;
+
+        padding: 25px 0;
+    }
 
     .frame {
+        padding: 22px 16px;
+    }
+
+    .content {
         grid-template-columns: 1fr;
+
+        gap: 35px;
+
+        padding: 42px 8px;
     }
 
-    .left {
-        padding: 45px 35px;
-        min-height: 330px;
-        border-right: none;
-        border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .left h1 {
-        font-size: 70px;
-    }
-
-    .description {
-        display: none;
-    }
-
-    .player {
-        padding: 40px 25px;
-    }
-
-    .record {
-        width: 175px;
-        height: 175px;
-    }
-
-    .lyrics-box {
-        height: 175px;
+    .intro {
+        text-align: center;
     }
 
     .moon {
-        width: 80px;
-        height: 80px;
-        top: 70px;
-        right: 7%;
+        width: 105px;
+        height: 105px;
+
+        right: 2%;
+        top: 5%;
     }
 
     .moon::after {
-        width: 75px;
-        height: 75px;
-        left: 20px;
-        top: -8px;
+        width: 105px;
+        height: 105px;
+
+        left: 27px;
+        top: -10px;
+    }
+
+    .record-wrap,
+    .record {
+        width: 185px;
+        height: 185px;
+    }
+
+    .record::after {
+        width: 48px;
+        height: 48px;
+    }
+
+    .player {
+        padding: 24px;
+    }
+
+    .lyrics-box {
+        height: 250px;
+    }
+
+    .lyric-line {
+        font-size: 13px;
+    }
+
+    .footer {
+        gap: 15px;
+
+        line-height: 1.7;
     }
 }
+
 </style>
 </head>
 
+
 <body>
 
-<!-- STARS -->
-<div class="stars">
-    <div class="star" style="left:5%;top:12%;"></div>
-    <div class="star" style="left:12%;top:30%;"></div>
-    <div class="star" style="left:18%;top:8%;"></div>
-    <div class="star" style="left:25%;top:22%;"></div>
-    <div class="star" style="left:31%;top:14%;"></div>
-    <div class="star" style="left:38%;top:35%;"></div>
-    <div class="star" style="left:44%;top:10%;"></div>
-    <div class="star" style="left:51%;top:27%;"></div>
-    <div class="star" style="left:58%;top:15%;"></div>
-    <div class="star" style="left:65%;top:35%;"></div>
-    <div class="star" style="left:72%;top:8%;"></div>
-    <div class="star" style="left:82%;top:27%;"></div>
-    <div class="star" style="left:90%;top:15%;"></div>
-    <div class="star" style="left:96%;top:38%;"></div>
+
+<!-- MOUSE -->
+
+<div
+    class="cursor-glow"
+    id="cursorGlow">
 </div>
 
-<div class="shooting-star"></div>
+
+<!-- SKY -->
+
+<div class="sky">
+
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+
+    <span class="bright-star one"></span>
+    <span class="bright-star two"></span>
+    <span class="bright-star three"></span>
+
+</div>
+
+
+<!-- MOON -->
 
 <div class="moon"></div>
 
-<div class="cursor-glow" id="cursorGlow"></div>
 
-<header>
-    <div class="logo">mahdi's night</div>
-    <div class="header-dot"></div>
-</header>
+<!-- SHOOTING STARS -->
 
-<main>
-
-<div class="frame">
-
-    <!-- LEFT -->
-    <section class="left">
-
-        <div>
-            <div class="small-title">Music / Night</div>
-
-            <h1>
-                Song<br>
-                <span>Night.</span>
-            </h1>
-        </div>
-
-        <div class="description">
-            A little piece of music,
-            somewhere between the night
-            and the memories.
-        </div>
-
-    </section>
+<div class="shooting"></div>
+<div class="shooting two"></div>
 
 
-    <!-- PLAYER -->
-    <section class="player">
+<!-- AMBIENT -->
 
-        <div class="song-info">
-            <div class="label">Now Playing</div>
-            <h2>My Favorite Song</h2>
-        </div>
+<div class="ambient"></div>
+<div class="horizon"></div>
 
 
-        <div class="record-area">
-            <div class="record" id="record"></div>
-        </div>
+<!-- CITY -->
 
+<div class="city">
 
-        <!-- LYRICS -->
-        <div class="lyrics-box">
-            <div class="lyrics" id="lyrics"></div>
-        </div>
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
 
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
 
-        <!-- CONTROLS -->
-        <div class="controls">
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
 
-            <input
-                type="range"
-                id="progress"
-                class="progress"
-                min="0"
-                max="100"
-                value="0"
-            >
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
 
-            <div class="time">
-                <span id="currentTime">0:00</span>
-                <span id="duration">0:00</span>
-            </div>
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
 
-            <div class="buttons">
-                <button class="play-button" id="playButton">
-                    ▶
-                </button>
-            </div>
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
 
-        </div>
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
 
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
 
-        <!-- VISUALIZER -->
-        <div class="visualizer" id="visualizer">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
 
-    </section>
+    <div class="building">
+        <span class="window"></span>
+        <span class="window"></span>
+        <span class="window"></span>
+    </div>
 
 </div>
 
-</main>
 
-<footer>
-    © Mahdi &nbsp; ✦ &nbsp; night / music &nbsp; ✦
-</footer>
+<!-- MAIN -->
+
+<div class="wrapper">
+
+    <div class="frame">
 
 
-<audio id="audio" src="./song.mp3"></audio>
+        <!-- HEADER -->
+
+        <header class="header">
+
+            <div class="logo">
+                mahdi's night
+            </div>
+
+            <div class="status">
+                listening
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+
+        <main class="content">
+
+
+            <!-- LEFT -->
+
+            <section class="intro">
+
+                <small>
+                    personal space
+                </small>
+
+                <h1>
+                    Song<br>
+                    <span>Night.</span>
+                </h1>
+
+            </section>
+
+
+            <!-- PLAYER -->
+
+            <section class="player">
+
+                <div class="player-top">
+
+                    <span>
+                        now playing
+                    </span>
+
+                    <span>
+                        01
+                    </span>
+
+                </div>
+
+
+                <div class="record-wrap">
+
+                    <div class="record-glow"></div>
+
+                    <div
+                        class="record"
+                        id="record">
+                    </div>
+
+                </div>
+
+
+                <div class="song-name">
+                    My Favorite Song
+                </div>
+
+
+                <!-- LYRICS -->
+
+                <div
+                    class="lyrics-box"
+                    id="lyricsBox">
+
+                    <div
+                        class="lyrics"
+                        id="lyrics">
+                    </div>
+
+                </div>
+
+
+                <!-- VISUALIZER -->
+
+                <div
+                    class="visualizer"
+                    id="visualizer">
+
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+
+                </div>
+
+
+                <!-- CONTROLS -->
+
+                <div class="controls">
+
+                    <button
+                        class="play"
+                        id="playButton">
+                        ▶
+                    </button>
+
+                    <div class="progress-area">
+
+                        <input
+                            class="progress"
+                            id="progress"
+                            type="range"
+                            min="0"
+                            max="100"
+                            value="0">
+
+                        <div class="time">
+
+                            <span id="currentTime">
+                                0:00
+                            </span>
+
+                            <span id="duration">
+                                0:00
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <!-- FOOTER -->
+
+        <footer class="footer">
+
+            <span>
+                © Mahdi
+            </span>
+
+            <span>
+                ✦ night / music ✦
+            </span>
+
+        </footer>
+
+
+    </div>
+
+</div>
+
+
+<!-- AUDIO -->
+
+<audio id="audio">
+
+    <source
+        src="./song.mp3"
+        type="audio/mpeg">
+
+</audio>
 
 
 <script>
 
-/* =========================
-   AUDIO
-========================= */
 
-const audio = document.getElementById("audio");
-const playButton = document.getElementById("playButton");
-const progress = document.getElementById("progress");
-const record = document.getElementById("record");
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
-const currentTimeElement =
+const audio =
+    document.getElementById("audio");
+
+const playButton =
+    document.getElementById("playButton");
+
+const progress =
+    document.getElementById("progress");
+
+const record =
+    document.getElementById("record");
+
+const currentTime =
     document.getElementById("currentTime");
 
-const durationElement =
+const duration =
     document.getElementById("duration");
 
+const bars =
+    document.querySelectorAll(".bar");
 
-/* =========================
+const cursorGlow =
+    document.getElementById("cursorGlow");
+
+const lyricsBox =
+    document.getElementById("lyricsBox");
+
+const lyricsContainer =
+    document.getElementById("lyrics");
+
+
+/* =====================================================
    LYRICS
-========================= */
+===================================================== */
 
 const lyricsData = [
 
@@ -893,201 +1851,176 @@ const lyricsData = [
 ];
 
 
-/* =========================
+/* =====================================================
    CREATE LYRICS
-========================= */
+===================================================== */
 
-const lyricsContainer =
-    document.getElementById("lyrics");
+lyricsData.forEach(
+    (line, index) => {
 
-lyricsData.forEach((line, index) => {
+        const element =
+            document.createElement("div");
 
-    const element = document.createElement("div");
+        element.className =
+            "lyric-line";
 
-    element.className = "lyric-line";
+        element.dataset.index =
+            index;
 
-    element.dataset.index = index;
+        element.textContent =
+            line.text;
 
-    element.textContent = line.text;
+        lyricsContainer.appendChild(
+            element
+        );
 
-    lyricsContainer.appendChild(element);
-
-});
+    }
+);
 
 
 const lyricElements =
-    document.querySelectorAll(".lyric-line");
+    document.querySelectorAll(
+        ".lyric-line"
+    );
 
 let activeLyric = -1;
 
 
-/* =========================
-   UPDATE LYRICS
-========================= */
+/* =====================================================
+   UPDATE ACTIVE LYRIC
+===================================================== */
 
 function updateLyrics() {
 
-    const time = audio.currentTime;
+    const time =
+        audio.currentTime;
 
     let index = 0;
 
-    for (let i = 0; i < lyricsData.length; i++) {
+    for (
+        let i = 0;
+        i < lyricsData.length;
+        i++
+    ) {
 
-        if (time >= lyricsData[i].time) {
+        if (
+            time >= lyricsData[i].time
+        ) {
+
             index = i;
+
         } else {
+
             break;
+
         }
 
     }
 
-    if (index === activeLyric) {
+
+    if (
+        index === activeLyric
+    ) {
+
         return;
+
     }
+
 
     activeLyric = index;
 
 
-    lyricElements.forEach((line, i) => {
+    lyricElements.forEach(
+        (line, i) => {
 
-        line.classList.remove(
-            "active",
-            "near",
-            "far"
-        );
+            line.classList.remove(
+                "active",
+                "near",
+                "far"
+            );
 
-        if (i === index) {
 
-            line.classList.add("active");
+            if (i === index) {
 
-        } else if (
-            i === index - 1 ||
-            i === index + 1
-        ) {
+                line.classList.add(
+                    "active"
+                );
 
-            line.classList.add("near");
+            }
 
-        } else {
+            else if (
+                i === index - 1 ||
+                i === index + 1
+            ) {
 
-            line.classList.add("far");
+                line.classList.add(
+                    "near"
+                );
+
+            }
+
+            else {
+
+                line.classList.add(
+                    "far"
+                );
+
+            }
 
         }
-
-    });
+    );
 
 
     /*
-       Move the lyrics so the active
-       sentence stays in the middle.
+       Auto-scroll to current lyric.
+       The user can still manually scroll
+       through the entire lyrics.
     */
 
     const activeElement =
         lyricElements[index];
 
-    const offset =
-        activeElement.offsetTop -
-        (lyricsContainer.clientHeight / 2) +
-        (activeElement.clientHeight / 2);
+    if (activeElement) {
 
-    lyricsContainer.style.transform =
-        `translateY(${-offset}px)`;
+        const boxHeight =
+            lyricsBox.clientHeight;
+
+        const elementTop =
+            activeElement.offsetTop;
+
+        const elementHeight =
+            activeElement.offsetHeight;
+
+
+        const target =
+            elementTop -
+            (boxHeight / 2) +
+            (elementHeight / 2);
+
+
+        lyricsBox.scrollTo({
+
+            top: target,
+
+            behavior: "smooth"
+
+        });
+
+    }
 
 }
 
 
-/* =========================
-   PLAY / PAUSE
-========================= */
-
-playButton.addEventListener("click", async () => {
-
-    if (audio.paused) {
-
-        await audio.play();
-
-    } else {
-
-        audio.pause();
-
-    }
-
-});
-
-
-audio.addEventListener("play", () => {
-
-    playButton.textContent = "Ⅱ";
-
-    record.classList.add("playing");
-
-});
-
-
-audio.addEventListener("pause", () => {
-
-    playButton.textContent = "▶";
-
-    record.classList.remove("playing");
-
-});
-
-
-audio.addEventListener("ended", () => {
-
-    playButton.textContent = "▶";
-
-    record.classList.remove("playing");
-
-});
-
-
-/* =========================
-   PROGRESS
-========================= */
-
-audio.addEventListener("loadedmetadata", () => {
-
-    durationElement.textContent =
-        formatTime(audio.duration);
-
-});
-
-
-audio.addEventListener("timeupdate", () => {
-
-    if (!audio.duration) return;
-
-    progress.value =
-        (audio.currentTime / audio.duration) * 100;
-
-    currentTimeElement.textContent =
-        formatTime(audio.currentTime);
-
-    updateLyrics();
-
-});
-
-
-progress.addEventListener("input", () => {
-
-    if (!audio.duration) return;
-
-    audio.currentTime =
-        (progress.value / 100) * audio.duration;
-
-    updateLyrics();
-
-});
-
-
-/* =========================
-   TIME FORMAT
-========================= */
+/* =====================================================
+   TIME
+===================================================== */
 
 function formatTime(seconds) {
 
-    if (!Number.isFinite(seconds)) {
+    if (isNaN(seconds)) {
+
         return "0:00";
+
     }
 
     const minutes =
@@ -1103,102 +2036,321 @@ function formatTime(seconds) {
 }
 
 
-/* =========================
-   VISUALIZER
-========================= */
+/* =====================================================
+   PLAY
+===================================================== */
 
-const bars =
-    document.querySelectorAll(".bar");
+playButton.addEventListener(
+    "click",
+    async () => {
+
+        if (audio.paused) {
+
+            try {
+
+                await audio.play();
+
+                playButton.textContent =
+                    "Ⅱ";
+
+                record.classList.add(
+                    "playing"
+                );
+
+            }
+
+            catch (error) {
+
+                console.log(error);
+
+            }
+
+        }
+
+        else {
+
+            audio.pause();
+
+            playButton.textContent =
+                "▶";
+
+            record.classList.remove(
+                "playing"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   METADATA
+===================================================== */
+
+audio.addEventListener(
+    "loadedmetadata",
+    () => {
+
+        duration.textContent =
+            formatTime(
+                audio.duration
+            );
+
+    }
+);
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+audio.addEventListener(
+    "timeupdate",
+    () => {
+
+        if (!audio.duration) {
+
+            return;
+
+        }
+
+
+        progress.value =
+            (
+                audio.currentTime /
+                audio.duration
+            ) * 100;
+
+
+        currentTime.textContent =
+            formatTime(
+                audio.currentTime
+            );
+
+
+        updateLyrics();
+
+    }
+);
+
+
+/* =====================================================
+   SEEK
+===================================================== */
+
+progress.addEventListener(
+    "input",
+    () => {
+
+        if (!audio.duration) {
+
+            return;
+
+        }
+
+
+        audio.currentTime =
+            (
+                progress.value /
+                100
+            ) * audio.duration;
+
+
+        updateLyrics();
+
+    }
+);
+
+
+/* =====================================================
+   END
+===================================================== */
+
+audio.addEventListener(
+    "ended",
+    () => {
+
+        playButton.textContent =
+            "▶";
+
+        record.classList.remove(
+            "playing"
+        );
+
+        progress.value = 0;
+
+        activeLyric = -1;
+
+        updateLyrics();
+
+    }
+);
+
+
+/* =====================================================
+   AUDIO VISUALIZER
+===================================================== */
 
 let audioContext;
 let analyser;
 let source;
+let dataArray;
 let visualizerStarted = false;
 
 
-async function startVisualizer() {
+function startVisualizer() {
 
-    if (visualizerStarted) return;
+    if (visualizerStarted) {
+
+        return;
+
+    }
 
     visualizerStarted = true;
 
+
     audioContext =
-        new (window.AudioContext ||
-        window.webkitAudioContext)();
+        new (
+            window.AudioContext ||
+            window.webkitAudioContext
+        )();
+
 
     analyser =
         audioContext.createAnalyser();
 
+
     analyser.fftSize = 64;
 
+
     source =
-        audioContext.createMediaElementSource(audio);
+        audioContext.createMediaElementSource(
+            audio
+        );
+
 
     source.connect(analyser);
 
-    analyser.connect(audioContext.destination);
+    analyser.connect(
+        audioContext.destination
+    );
 
-    const data =
-        new Uint8Array(analyser.frequencyBinCount);
+
+    dataArray =
+        new Uint8Array(
+            analyser.frequencyBinCount
+        );
 
 
-    function animate() {
-
-        requestAnimationFrame(animate);
-
-        analyser.getByteFrequencyData(data);
-
-        bars.forEach((bar, index) => {
-
-            const value =
-                data[index] || 0;
-
-            const height =
-                Math.max(
-                    6,
-                    (value / 255) * 35
-                );
-
-            bar.style.height =
-                `${height}px`;
-
-        });
-
-    }
-
-    animate();
+    animateVisualizer();
 
 }
 
 
-audio.addEventListener("play", () => {
+function animateVisualizer() {
 
-    startVisualizer();
-
-});
-
-
-/* =========================
-   CURSOR GLOW
-========================= */
-
-const cursorGlow =
-    document.getElementById("cursorGlow");
-
-document.addEventListener("mousemove", (event) => {
-
-    cursorGlow.style.left =
-        `${event.clientX}px`;
-
-    cursorGlow.style.top =
-        `${event.clientY}px`;
-
-});
+    requestAnimationFrame(
+        animateVisualizer
+    );
 
 
-/* =========================
-   INITIAL LYRIC
-========================= */
+    if (!analyser) {
+
+        return;
+
+    }
+
+
+    analyser.getByteFrequencyData(
+        dataArray
+    );
+
+
+    bars.forEach(
+        (bar, index) => {
+
+            const value =
+                dataArray[index] || 0;
+
+
+            const height =
+                4 +
+                (value / 255) * 34;
+
+
+            bar.style.height =
+                height + "px";
+
+
+            bar.style.opacity =
+                .3 +
+                (value / 255) * .7;
+
+        }
+    );
+
+}
+
+
+audio.addEventListener(
+    "play",
+    () => {
+
+        startVisualizer();
+
+
+        if (
+            audioContext &&
+            audioContext.state ===
+            "suspended"
+        ) {
+
+            audioContext.resume();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   MOUSE LIGHT
+===================================================== */
+
+document.addEventListener(
+    "mousemove",
+    (event) => {
+
+        cursorGlow.style.left =
+            event.clientX + "px";
+
+        cursorGlow.style.top =
+            event.clientY + "px";
+
+    }
+);
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+if (
+    window.matchMedia(
+        "(pointer: coarse)"
+    ).matches
+) {
+
+    cursorGlow.style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   INITIAL LYRICS
+===================================================== */
 
 updateLyrics();
 
