@@ -1,1108 +1,875 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mahdi's Night</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 50% 25%, #17233d 0%, #090d18 35%, #03050a 75%);
+            color: #fff;
+            font-family: "Segoe UI", Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           BACKGROUND
+        ========================= */
+
+        .night {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .stars {
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle, rgba(255,255,255,.9) 1px, transparent 1.5px),
+                radial-gradient(circle, rgba(150,190,255,.7) 1px, transparent 1.5px),
+                radial-gradient(circle, rgba(255,255,255,.5) 1px, transparent 1.5px);
+            background-size: 95px 95px, 150px 150px, 220px 220px;
+            background-position: 10px 20px, 40px 70px, 90px 30px;
+            opacity: .55;
+            animation: starsMove 35s linear infinite;
+        }
+
+        @keyframes starsMove {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-80px);
+            }
+        }
+
+        .moon {
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            border-radius: 50%;
+            top: 9%;
+            right: 11%;
+
+            background:
+                radial-gradient(circle at 35% 30%,
+                #ffffff 0%,
+                #dfe8ff 42%,
+                #9caecc 75%,
+                #66738d 100%);
+
+            box-shadow:
+                0 0 25px rgba(180,210,255,.25),
+                0 0 80px rgba(130,165,255,.12);
+
+            opacity: .8;
+        }
+
+        .moon::after {
+            content: "";
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            border-radius: 50%;
+            background: #060912;
+            left: 65px;
+            top: -10px;
+        }
+
+        .glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: rgba(55, 90, 170, .08);
+            filter: blur(70px);
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .page {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            padding: 45px 20px;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            width: min(1050px, 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 0 5px;
+            margin-bottom: 70px;
+        }
+
+        .logo {
+            font-size: 17px;
+            letter-spacing: 5px;
+            color: #dbe6ff;
+            font-weight: 600;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            color: #71809e;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #6dffb0;
+            box-shadow: 0 0 12px rgba(109,255,176,.8);
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            text-align: center;
+            margin-bottom: 42px;
+        }
+
+        .hero small {
+            display: block;
+            color: #697895;
+            font-size: 11px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 17px;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 7vw, 78px);
+            font-weight: 300;
+            letter-spacing: -2px;
+            line-height: 1;
+
+            background: linear-gradient(
+                180deg,
+                #ffffff,
+                #aebbd4
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            text-shadow: 0 0 35px rgba(150,180,255,.12);
+        }
+
+        .hero p {
+            margin-top: 18px;
+            color: #626f89;
+            font-size: 13px;
+            letter-spacing: 2px;
+        }
+
+        /* =========================
+           PLAYER
+        ========================= */
+
+        .player {
+            width: min(480px, 100%);
+
+            padding: 27px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(24,32,52,.88),
+                    rgba(7,11,20,.94)
+                );
+
+            border: 1px solid rgba(150,175,220,.13);
+            border-radius: 22px;
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,.55),
+                inset 0 1px rgba(255,255,255,.035);
+
+            backdrop-filter: blur(15px);
+        }
+
+        /* =========================
+           COVER
+        ========================= */
+
+        .cover {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+
+            border-radius: 15px;
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 50% 42%,
+                    #34486e,
+                    #151e32 35%,
+                    #080c15 70%
+                );
+
+            box-shadow:
+                0 18px 50px rgba(0,0,0,.45);
+
+            margin-bottom: 25px;
+        }
+
+        .cover::before {
+            content: "♪";
+
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 110px;
+            font-weight: 200;
+
+            color: rgba(220,230,255,.13);
+
+            text-shadow:
+                0 0 35px rgba(170,200,255,.2);
+        }
+
+        .cover::after {
+            content: "";
+
+            position: absolute;
+            width: 150px;
+            height: 150px;
+
+            border-radius: 50%;
+
+            background: rgba(160,190,255,.08);
+
+            filter: blur(30px);
+
+            top: 25%;
+            left: 30%;
+        }
+
+        /* =========================
+           SONG INFO
+        ========================= */
+
+        .song-info {
+            margin-bottom: 22px;
+        }
+
+        .song-title {
+            font-size: 22px;
+            font-weight: 500;
+            letter-spacing: .5px;
+        }
+
+        .artist {
+            margin-top: 6px;
+            color: #687691;
+            font-size: 13px;
+        }
+
+        /* =========================
+           PROGRESS
+        ========================= */
+
+        .progress-area {
+            margin-bottom: 8px;
+        }
+
+        .progress {
+            width: 100%;
+            height: 4px;
+
+            appearance: none;
+            -webkit-appearance: none;
+
+            background: #202a3d;
+            border-radius: 20px;
+            outline: none;
 
-<title>Mahdi — Night</title>
+            cursor: pointer;
+        }
 
-<style>
+        .progress::-webkit-slider-thumb {
+            appearance: none;
+            width: 12px;
+            height: 12px;
 
-/* =====================================================
-   RESET
-===================================================== */
+            border-radius: 50%;
+            background: #dce7ff;
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+            box-shadow:
+                0 0 12px rgba(190,215,255,.5);
 
-html,
-body {
-    width: 100%;
-    height: 100%;
-}
+            cursor: pointer;
+        }
 
-body {
-    overflow: hidden;
-    background: #02030b;
-    color: white;
-    font-family: Georgia, "Times New Roman", serif;
-}
+        .progress::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
 
+            border: none;
+            border-radius: 50%;
+            background: #dce7ff;
 
-/* =====================================================
-   SKY
-===================================================== */
+            cursor: pointer;
+        }
 
-.sky {
-    position: fixed;
-    inset: 0;
+        .time {
+            display: flex;
+            justify-content: space-between;
 
-    overflow: hidden;
+            color: #536078;
+            font-size: 10px;
+            margin-top: 8px;
+        }
 
-    background:
-        radial-gradient(
-            ellipse at 50% 45%,
-            #151a3d 0%,
-            #0b1029 28%,
-            #050817 58%,
-            #010208 100%
-        );
-}
+        /* =========================
+           CONTROLS
+        ========================= */
 
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-/* subtle blue atmosphere */
+            gap: 28px;
 
-.sky::before {
-    content: "";
+            margin-top: 20px;
+        }
 
-    position: absolute;
-    width: 900px;
-    height: 900px;
+        .control {
+            border: none;
+            background: transparent;
 
-    left: 50%;
-    top: 45%;
+            color: #8997b2;
 
-    transform: translate(-50%, -50%);
+            font-size: 18px;
 
-    border-radius: 50%;
+            cursor: pointer;
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(85, 104, 220, .13),
-            transparent 68%
-        );
+            transition:
+                transform .2s ease,
+                color .2s ease;
+        }
 
-    filter: blur(45px);
-}
+        .control:hover {
+            color: #ffffff;
+            transform: scale(1.15);
+        }
 
+        .play {
+            width: 58px;
+            height: 58px;
 
-/* =====================================================
-   STARS
-===================================================== */
+            border-radius: 50%;
 
-.stars {
-    position: absolute;
-    inset: 0;
-}
+            border: 1px solid rgba(220,230,255,.25);
 
-.star {
-    position: absolute;
+            background:
+                linear-gradient(
+                    145deg,
+                    #dce7ff,
+                    #8999b8
+                );
 
-    width: 2px;
-    height: 2px;
+            color: #080c15;
 
-    border-radius: 50%;
+            font-size: 20px;
 
-    background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-    box-shadow:
-        0 0 5px rgba(255,255,255,.9);
+            cursor: pointer;
 
-    animation:
-        twinkle var(--speed) ease-in-out infinite;
-}
+            box-shadow:
+                0 8px 30px rgba(120,150,210,.22);
 
-@keyframes twinkle {
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease;
+        }
 
-    0%,
-    100% {
-        opacity: .15;
-        transform: scale(.7);
-    }
+        .play:hover {
+            transform: scale(1.08);
 
-    50% {
-        opacity: 1;
-        transform: scale(1.5);
-    }
-}
+            box-shadow:
+                0 10px 40px rgba(140,175,240,.35);
+        }
 
+        /* =========================
+           VOLUME
+        ========================= */
 
-/* larger stars */
+        .volume {
+            display: flex;
+            align-items: center;
+            gap: 10px;
 
-.big-star {
-    width: 4px;
-    height: 4px;
+            margin-top: 25px;
 
-    box-shadow:
-        0 0 7px white,
-        0 0 18px rgba(150,165,255,.9);
-}
+            color: #56647d;
+        }
 
+        .volume span {
+            font-size: 13px;
+        }
 
-/* =====================================================
-   MOON
-===================================================== */
+        .volume input {
+            flex: 1;
+            height: 3px;
+            appearance: none;
+            -webkit-appearance: none;
 
-.moon {
-    position: absolute;
+            background: #202a3d;
+            border-radius: 10px;
+        }
 
-    width: 230px;
-    height: 230px;
+        .volume input::-webkit-slider-thumb {
+            appearance: none;
 
-    right: 12%;
-    top: 12%;
+            width: 9px;
+            height: 9px;
 
-    border-radius: 50%;
+            border-radius: 50%;
 
-    background:
-        radial-gradient(
-            circle at 34% 30%,
-            #fffef2 0%,
-            #fff7ce 48%,
-            #ded69d 100%
-        );
+            background: #9aaaca;
+        }
 
-    box-shadow:
-        0 0 30px rgba(255,247,205,.65),
-        0 0 90px rgba(255,240,190,.27),
-        0 0 170px rgba(145,160,255,.13);
+        /* =========================
+           FOOTER
+        ========================= */
 
-    animation:
-        moonGlow 6s ease-in-out infinite;
-}
+        footer {
+            margin-top: 60px;
 
-@keyframes moonGlow {
+            color: #39445a;
 
-    0%,
-    100% {
-        box-shadow:
-            0 0 30px rgba(255,247,205,.65),
-            0 0 90px rgba(255,240,190,.27),
-            0 0 170px rgba(145,160,255,.13);
-    }
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
 
-    50% {
-        box-shadow:
-            0 0 40px rgba(255,247,205,.8),
-            0 0 110px rgba(255,240,190,.34),
-            0 0 190px rgba(145,160,255,.16);
-    }
-}
+        /* =========================
+           MOBILE
+        ========================= */
 
+        @media (max-width: 600px) {
 
-/* moon craters */
+            .page {
+                padding: 28px 16px;
+            }
 
-.moon::before {
-    content: "";
+            header {
+                margin-bottom: 55px;
+            }
 
-    position: absolute;
-    inset: 0;
+            .logo {
+                font-size: 13px;
+                letter-spacing: 3px;
+            }
 
-    border-radius: 50%;
+            .status {
+                font-size: 9px;
+            }
 
-    background:
-        radial-gradient(circle at 25% 28%,
-            rgba(120,110,75,.14) 0 12px,
-            transparent 13px),
+            .moon {
+                width: 150px;
+                height: 150px;
 
-        radial-gradient(circle at 67% 27%,
-            rgba(120,110,75,.12) 0 18px,
-            transparent 19px),
+                top: 8%;
+                right: -35px;
+            }
 
-        radial-gradient(circle at 47% 62%,
-            rgba(120,110,75,.14) 0 13px,
-            transparent 14px),
+            .moon::after {
+                width: 150px;
+                height: 150px;
+                left: 40px;
+            }
 
-        radial-gradient(circle at 72% 67%,
-            rgba(120,110,75,.1) 0 9px,
-            transparent 10px);
-}
+            .hero h1 {
+                font-size: 48px;
+            }
 
+            .hero p {
+                font-size: 10px;
+            }
 
-/* =====================================================
-   CLOUDS
-===================================================== */
+            .player {
+                padding: 20px;
+                border-radius: 18px;
+            }
 
-.clouds {
-    position: absolute;
-    inset: 0;
+            .controls {
+                gap: 23px;
+            }
 
-    pointer-events: none;
-}
-
-.cloud {
-    position: absolute;
-
-    width: 480px;
-    height: 100px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            ellipse,
-            rgba(90,100,145,.14),
-            transparent 70%
-        );
-
-    filter: blur(18px);
-
-    opacity: .65;
-
-    animation: cloudMove linear infinite;
-}
-
-.cloud:nth-child(1) {
-    top: 24%;
-    left: -500px;
-    animation-duration: 75s;
-}
-
-.cloud:nth-child(2) {
-    top: 38%;
-    left: -600px;
-    width: 650px;
-    animation-duration: 105s;
-    animation-delay: -35s;
-}
-
-.cloud:nth-child(3) {
-    top: 15%;
-    left: -700px;
-    width: 350px;
-    animation-duration: 120s;
-    animation-delay: -60s;
-}
-
-@keyframes cloudMove {
-
-    from {
-        transform: translateX(0);
-    }
-
-    to {
-        transform: translateX(calc(100vw + 800px));
-    }
-}
-
-
-/* =====================================================
-   SHOOTING STARS
-===================================================== */
-
-.shooting {
-    position: absolute;
-
-    width: 140px;
-    height: 2px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.25),
-            white
-        );
-
-    transform: rotate(-25deg);
-
-    filter:
-        drop-shadow(0 0 5px white)
-        drop-shadow(0 0 12px #9da8ff);
-
-    opacity: 0;
-}
-
-.shooting.one {
-    top: 20%;
-    left: -180px;
-
-    animation: shootingOne 11s linear infinite;
-}
-
-.shooting.two {
-    top: 32%;
-    left: -200px;
-
-    animation: shootingTwo 15s linear infinite;
-    animation-delay: 6s;
-}
-
-@keyframes shootingOne {
-
-    0%,
-    68% {
-        opacity: 0;
-        transform: translate(0,0) rotate(-25deg);
-    }
-
-    70% {
-        opacity: 1;
-    }
-
-    80% {
-        opacity: 0;
-        transform: translate(120vw, 48vh) rotate(-25deg);
-    }
-
-    100% {
-        opacity: 0;
-    }
-}
-
-@keyframes shootingTwo {
-
-    0%,
-    72% {
-        opacity: 0;
-    }
-
-    74% {
-        opacity: 1;
-    }
-
-    84% {
-        opacity: 0;
-        transform: translate(120vw, 42vh) rotate(-25deg);
-    }
-
-    100% {
-        opacity: 0;
-    }
-}
-
-
-/* =====================================================
-   DISTANT HILLS
-===================================================== */
-
-.horizon {
-    position: absolute;
-
-    bottom: 0;
-    left: 0;
-
-    width: 100%;
-    height: 24%;
-
-    background:
-        linear-gradient(
-            160deg,
-            transparent 0 18%,
-            #050713 18% 100%
-        );
-
-    clip-path:
-        polygon(
-            0 55%,
-            8% 45%,
-            15% 53%,
-            24% 28%,
-            32% 49%,
-            42% 35%,
-            51% 55%,
-            60% 30%,
-            70% 48%,
-            78% 25%,
-            88% 50%,
-            100% 34%,
-            100% 100%,
-            0 100%
-        );
-
-    z-index: 4;
-}
-
-
-/* second darker layer */
-
-.horizon::after {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    background: #02030a;
-
-    clip-path:
-        polygon(
-            0 70%,
-            12% 53%,
-            22% 67%,
-            33% 48%,
-            43% 69%,
-            54% 52%,
-            66% 71%,
-            77% 48%,
-            88% 65%,
-            100% 50%,
-            100% 100%,
-            0 100%
-        );
-}
-
-
-/* =====================================================
-   MAIN CONTENT
-===================================================== */
-
-.content {
-    position: absolute;
-
-    z-index: 10;
-
-    left: 50%;
-    top: 53%;
-
-    transform: translate(-50%, -50%);
-
-    width: min(900px, 90%);
-
-    text-align: center;
-}
-
-
-/* tiny label */
-
-.label {
-    font-family: Arial, sans-serif;
-
-    font-size: 10px;
-
-    letter-spacing: 6px;
-
-    text-transform: uppercase;
-
-    color: rgba(210,215,255,.48);
-
-    margin-bottom: 25px;
-
-    opacity: 0;
-
-    animation: appear 2s ease forwards;
-}
-
-
-/* main title */
-
-.title {
-    font-size: clamp(55px, 10vw, 115px);
-
-    font-weight: normal;
-
-    letter-spacing: -5px;
-
-    line-height: .9;
-
-    color: #f4f3ff;
-
-    text-shadow:
-        0 0 35px rgba(180,185,255,.12);
-
-    opacity: 0;
-
-    animation:
-        titleAppear 2s cubic-bezier(.2,.7,.2,1) .3s forwards;
-}
-
-.title span {
-    color: #aaa7ff;
-
-    font-style: italic;
-
-    text-shadow:
-        0 0 35px rgba(130,125,255,.35);
-}
-
-
-@keyframes titleAppear {
-
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-        filter: blur(8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0);
-    }
-}
-
-@keyframes appear {
-
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-
-/* subtitle */
-
-.subtitle {
-    margin-top: 25px;
-
-    font-size: 14px;
-
-    color: rgba(220,222,245,.52);
-
-    letter-spacing: 1px;
-
-    opacity: 0;
-
-    animation:
-        appear 2s ease 1s forwards;
-}
-
-
-/* =====================================================
-   MUSIC PLAYER
-===================================================== */
-
-.music {
-    display: flex;
-
-    align-items: center;
-
-    gap: 18px;
-
-    width: min(420px, 90%);
-
-    margin: 45px auto 0;
-
-    padding: 13px 17px;
-
-    border-radius: 50px;
-
-    background:
-        rgba(5,6,16,.58);
-
-    border:
-        1px solid rgba(210,215,255,.11);
-
-    box-shadow:
-        0 15px 50px rgba(0,0,0,.25),
-        inset 0 1px rgba(255,255,255,.035);
-
-    backdrop-filter: blur(15px);
-
-    opacity: 0;
-
-    animation:
-        appear 2s ease 1.3s forwards;
-}
-
-
-/* play button */
-
-.play {
-    flex-shrink: 0;
-
-    width: 42px;
-    height: 42px;
-
-    border: 1px solid rgba(180,180,255,.3);
-
-    border-radius: 50%;
-
-    background: rgba(120,120,220,.1);
-
-    color: white;
-
-    cursor: pointer;
-
-    font-size: 13px;
-
-    transition: .3s;
-}
-
-.play:hover {
-    background: rgba(140,135,255,.2);
-
-    box-shadow:
-        0 0 25px rgba(130,125,255,.25);
-
-    transform: scale(1.06);
-}
-
-
-/* song section */
-
-.song {
-    flex: 1;
-
-    min-width: 0;
-
-    text-align: left;
-}
-
-.song-title {
-    font-family: Arial, sans-serif;
-
-    font-size: 11px;
-
-    letter-spacing: 1px;
-
-    color: #d7d6e7;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-}
-
-.song-subtitle {
-    margin-top: 5px;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 9px;
-
-    color: #656579;
-}
-
-
-/* progress */
-
-.progress {
-    width: 100%;
-
-    height: 2px;
-
-    margin-top: 8px;
-
-    appearance: none;
-
-    background: rgba(255,255,255,.1);
-
-    cursor: pointer;
-}
-
-.progress::-webkit-slider-thumb {
-    appearance: none;
-
-    width: 7px;
-    height: 7px;
-
-    border-radius: 50%;
-
-    background: #aaa7ff;
-
-    box-shadow:
-        0 0 8px #8985ff;
-}
-
-
-/* time */
-
-.time {
-    font-family: Arial, sans-serif;
-
-    font-size: 8px;
-
-    color: #555568;
-
-    min-width: 30px;
-}
-
-
-/* =====================================================
-   BOTTOM TEXT
-===================================================== */
-
-.bottom {
-    position: fixed;
-
-    z-index: 20;
-
-    left: 50%;
-    bottom: 25px;
-
-    transform: translateX(-50%);
-
-    font-family: Arial, sans-serif;
-
-    font-size: 9px;
-
-    letter-spacing: 3px;
-
-    color: rgba(190,195,230,.25);
-
-    text-transform: uppercase;
-
-    white-space: nowrap;
-}
-
-
-/* =====================================================
-   PLAYING ATMOSPHERE
-===================================================== */
-
-body.playing .moon {
-    animation-duration: 3s;
-}
-
-body.playing .ambient {
-    opacity: 1;
-}
-
-body.playing .title span {
-    text-shadow:
-        0 0 45px rgba(130,125,255,.5);
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 700px) {
-
-    .moon {
-        width: 130px;
-        height: 130px;
-
-        right: 8%;
-        top: 10%;
-    }
-
-    .content {
-        top: 55%;
-    }
-
-    .title {
-        font-size: 65px;
-
-        letter-spacing: -3px;
-    }
-
-    .subtitle {
-        font-size: 12px;
-        max-width: 280px;
-        margin-left: auto;
-        margin-right: auto;
-        line-height: 1.7;
-    }
-
-    .music {
-        margin-top: 35px;
-    }
-
-    .horizon {
-        height: 20%;
-    }
-
-    .bottom {
-        bottom: 15px;
-        font-size: 7px;
-    }
-}
-
-@media (max-width: 430px) {
-
-    .moon {
-        width: 105px;
-        height: 105px;
-    }
-
-    .title {
-        font-size: 54px;
-    }
-
-    .music {
-        padding: 10px 12px;
-        gap: 11px;
-    }
-
-    .play {
-        width: 38px;
-        height: 38px;
-    }
-}
-
-</style>
+            footer {
+                margin-top: 45px;
+            }
+        }
+    </style>
 </head>
-
 
 <body>
 
+    <!-- =========================
+         NIGHT BACKGROUND
+    ========================= -->
 
-<!-- ==================================================
-     SKY
-================================================== -->
-
-<div class="sky">
-
-    <div class="stars">
-
-        <span class="star big-star"
-              style="left:8%;top:17%;--speed:3.4s"></span>
-
-        <span class="star"
-              style="left:15%;top:32%;--speed:4.2s"></span>
-
-        <span class="star"
-              style="left:22%;top:11%;--speed:5s"></span>
-
-        <span class="star big-star"
-              style="left:30%;top:23%;--speed:3.1s"></span>
-
-        <span class="star"
-              style="left:38%;top:9%;--speed:4.7s"></span>
-
-        <span class="star"
-              style="left:45%;top:28%;--speed:3.8s"></span>
-
-        <span class="star big-star"
-              style="left:53%;top:13%;--speed:4.4s"></span>
-
-        <span class="star"
-              style="left:61%;top:31%;--speed:5.2s"></span>
-
-        <span class="star"
-              style="left:70%;top:8%;--speed:3.6s"></span>
-
-        <span class="star big-star"
-              style="left:79%;top:26%;--speed:4.8s"></span>
-
-        <span class="star"
-              style="left:87%;top:15%;--speed:3.2s"></span>
-
-        <span class="star"
-              style="left:93%;top:39%;--speed:5.5s"></span>
-
-        <span class="star"
-              style="left:11%;top:55%;--speed:4.1s"></span>
-
-        <span class="star"
-              style="left:27%;top:48%;--speed:5.1s"></span>
-
-        <span class="star big-star"
-              style="left:41%;top:55%;--speed:3.7s"></span>
-
-        <span class="star"
-              style="left:58%;top:47%;--speed:4.5s"></span>
-
-        <span class="star"
-              style="left:76%;top:53%;--speed:3.3s"></span>
-
-        <span class="star"
-              style="left:91%;top:58%;--speed:4.9s"></span>
-
+    <div class="night">
+        <div class="stars"></div>
+        <div class="moon"></div>
+        <div class="glow"></div>
     </div>
 
 
-    <!-- moon -->
+    <!-- =========================
+         PAGE
+    ========================= -->
 
-    <div class="moon"></div>
+    <main class="page">
 
+        <header>
 
-    <!-- clouds -->
-
-    <div class="clouds">
-
-        <div class="cloud"></div>
-        <div class="cloud"></div>
-        <div class="cloud"></div>
-
-    </div>
-
-
-    <!-- shooting stars -->
-
-    <div class="shooting one"></div>
-    <div class="shooting two"></div>
-
-
-    <!-- distant landscape -->
-
-    <div class="horizon"></div>
-
-</div>
-
-
-<!-- ==================================================
-     MAIN
-================================================== -->
-
-<main class="content">
-
-    <div class="label">
-        somewhere under the night sky
-    </div>
-
-
-    <h1 class="title">
-        Mahdi's <span>Night</span>
-    </h1>
-
-
-    <p class="subtitle">
-        Put on your headphones and stay here for a while.
-    </p>
-
-
-    <!-- MUSIC -->
-
-    <div class="music">
-
-        <button class="play" id="play">
-            ▶
-        </button>
-
-
-        <div class="song">
-
-            <div class="song-title">
-                Mahdi's Favorite Song
+            <div class="logo">
+                MAHDI'S NIGHT
             </div>
 
-            <div class="song-subtitle">
-                playing under the moonlight
+            <div class="status">
+                <span class="status-dot"></span>
+                listening
             </div>
 
-            <input
-                id="progress"
-                class="progress"
-                type="range"
-                min="0"
-                max="100"
-                value="0"
-            >
-
-        </div>
+        </header>
 
 
-        <div class="time" id="time">
-            0:00
-        </div>
+        <!-- =========================
+             HERO
+        ========================= -->
 
-    </div>
+        <section class="hero">
 
-</main>
+            <small>late night music</small>
 
+            <h1>Lost in Music</h1>
 
-<div class="bottom">
-    ✦ listen to the night ✦
-</div>
+            <p>put your headphones on.</p>
 
-
-<!-- ==================================================
-     AUDIO
-================================================== -->
-
-<audio id="audio">
-
-    <source
-        src="./song.mp3"
-        type="audio/mpeg">
-
-</audio>
+        </section>
 
 
-<script>
+        <!-- =========================
+             MUSIC PLAYER
+        ========================= -->
 
-const audio =
-    document.getElementById("audio");
+        <section class="player">
 
-const play =
-    document.getElementById("play");
-
-const progress =
-    document.getElementById("progress");
-
-const time =
-    document.getElementById("time");
+            <div class="cover"></div>
 
 
-function formatTime(seconds) {
+            <div class="song-info">
 
-    if (!isFinite(seconds)) {
-        return "0:00";
-    }
+                <div class="song-title">
+                    Your Favorite Song
+                </div>
 
-    const minutes =
-        Math.floor(seconds / 60);
+                <div class="artist">
+                    Mahdi
+                </div>
 
-    const secs =
-        Math.floor(seconds % 60)
-        .toString()
-        .padStart(2, "0");
-
-    return minutes + ":" + secs;
-}
+            </div>
 
 
-play.addEventListener("click", () => {
+            <div class="progress-area">
 
-    if (audio.paused) {
+                <input
+                    type="range"
+                    class="progress"
+                    id="progress"
+                    value="0"
+                    min="0"
+                    step="0.1"
+                >
 
-        audio.play();
+                <div class="time">
 
-        play.textContent = "Ⅱ";
+                    <span id="currentTime">
+                        0:00
+                    </span>
 
-        document.body.classList.add("playing");
+                    <span id="duration">
+                        0:00
+                    </span>
 
-    } else {
+                </div>
 
-        audio.pause();
-
-        play.textContent = "▶";
-
-        document.body.classList.remove("playing");
-
-    }
-
-});
-
-
-audio.addEventListener("loadedmetadata", () => {
-
-    time.textContent =
-        formatTime(audio.duration);
-
-});
+            </div>
 
 
-audio.addEventListener("timeupdate", () => {
+            <div class="controls">
 
-    if (!audio.duration) return;
-
-    progress.value =
-        (audio.currentTime / audio.duration) * 100;
-
-    time.textContent =
-        formatTime(audio.currentTime);
-
-});
+                <button
+                    class="control"
+                    id="backBtn"
+                >
+                    ↶
+                </button>
 
 
-progress.addEventListener("input", () => {
-
-    if (!audio.duration) return;
-
-    audio.currentTime =
-        (progress.value / 100) *
-        audio.duration;
-
-});
+                <button
+                    class="play"
+                    id="playBtn"
+                >
+                    ▶
+                </button>
 
 
-audio.addEventListener("ended", () => {
+                <button
+                    class="control"
+                    id="forwardBtn"
+                >
+                    ↷
+                </button>
 
-    play.textContent = "▶";
+            </div>
 
-    document.body.classList.remove("playing");
 
-    progress.value = 0;
+            <div class="volume">
 
-    time.textContent = "0:00";
+                <span>♪</span>
 
-});
+                <input
+                    type="range"
+                    id="volume"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="0.7"
+                >
 
-</script>
+            </div>
+
+        </section>
+
+
+        <footer>
+            made for quiet nights
+        </footer>
+
+    </main>
+
+
+    <!-- =========================
+         AUDIO
+    ========================= -->
+
+    <audio id="audio" src="song.mp3"></audio>
+
+
+    <script>
+
+        const audio = document.getElementById("audio");
+
+        const playBtn = document.getElementById("playBtn");
+
+        const progress = document.getElementById("progress");
+
+        const volume = document.getElementById("volume");
+
+        const currentTime = document.getElementById("currentTime");
+
+        const duration = document.getElementById("duration");
+
+        const backBtn = document.getElementById("backBtn");
+
+        const forwardBtn = document.getElementById("forwardBtn");
+
+
+        /* =========================
+           PLAY / PAUSE
+        ========================= */
+
+        playBtn.addEventListener("click", () => {
+
+            if (audio.paused) {
+
+                audio.play();
+
+                playBtn.textContent = "Ⅱ";
+
+            } else {
+
+                audio.pause();
+
+                playBtn.textContent = "▶";
+
+            }
+
+        });
+
+
+        /* =========================
+           AUDIO LOADED
+        ========================= */
+
+        audio.addEventListener("loadedmetadata", () => {
+
+            progress.max = audio.duration;
+
+            duration.textContent =
+                formatTime(audio.duration);
+
+        });
+
+
+        /* =========================
+           PROGRESS UPDATE
+        ========================= */
+
+        audio.addEventListener("timeupdate", () => {
+
+            progress.value = audio.currentTime;
+
+            currentTime.textContent =
+                formatTime(audio.currentTime);
+
+        });
+
+
+        /* =========================
+           SEEK
+        ========================= */
+
+        progress.addEventListener("input", () => {
+
+            audio.currentTime = progress.value;
+
+        });
+
+
+        /* =========================
+           VOLUME
+        ========================= */
+
+        volume.addEventListener("input", () => {
+
+            audio.volume = volume.value;
+
+        });
+
+
+        audio.volume = 0.7;
+
+
+        /* =========================
+           BACK 10 SEC
+        ========================= */
+
+        backBtn.addEventListener("click", () => {
+
+            audio.currentTime =
+                Math.max(0, audio.currentTime - 10);
+
+        });
+
+
+        /* =========================
+           FORWARD 10 SEC
+        ========================= */
+
+        forwardBtn.addEventListener("click", () => {
+
+            audio.currentTime =
+                Math.min(
+                    audio.duration,
+                    audio.currentTime + 10
+                );
+
+        });
+
+
+        /* =========================
+           SONG ENDED
+        ========================= */
+
+        audio.addEventListener("ended", () => {
+
+            playBtn.textContent = "▶";
+
+            progress.value = 0;
+
+        });
+
+
+        /* =========================
+           TIME FORMAT
+        ========================= */
+
+        function formatTime(seconds) {
+
+            if (!isFinite(seconds)) {
+                return "0:00";
+            }
+
+            const minutes =
+                Math.floor(seconds / 60);
+
+            const secs =
+                Math.floor(seconds % 60)
+                .toString()
+                .padStart(2, "0");
+
+            return `${minutes}:${secs}`;
+
+        }
+
+    </script>
 
 </body>
 </html>
-```
