@@ -569,6 +569,51 @@ body {
         rgba(130,120,255,.12);
 }
 
+
+
+/* =========================
+   PARTY EMOJIS BESIDE LYRICS
+========================= */
+.lyrics > .lyric-line.lyric-decorated {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    column-gap: 5px;
+    row-gap: 1px;
+    white-space: normal;
+    padding: 5px 4px;
+    line-height: 2.15;
+}
+
+.lyric-words {
+    display: inline;
+    white-space: pre-wrap;
+}
+
+.lyric-emoji {
+    display: inline-block;
+    flex: 0 0 auto;
+    font-size: 1.05em;
+    line-height: 1;
+    transform-origin: center;
+    animation: lyricEmojiDance .72s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 5px rgba(255, 100, 240, .45));
+}
+
+.lyric-emoji:nth-child(3n) { animation-delay: .18s; }
+.lyric-emoji:nth-child(4n) { animation-delay: .32s; }
+.lyric-emoji:nth-child(5n) { animation-delay: .08s; }
+
+@keyframes lyricEmojiDance {
+    from { transform: translateY(1px) rotate(-13deg) scale(.9); }
+    to   { transform: translateY(-4px) rotate(13deg) scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lyric-emoji { animation: none; }
+}
+
 /* =========================
    VISUALIZER
 ========================= */
@@ -944,23 +989,56 @@ body {
 
                     <div class="lyric-line">
 
-تو نگو که خیال محاله رفتنت واسه این دل تنها
-یه سواله بی جوابه مثه خوابه یه عذابه
-نمیدونی چه تیره و تاره حال قلبی که از تو و دوریت
-بیقراره بیقراره نگو دیره که میمیره
-آخرین نفسامه و بی تو دارم حس میکنم که میمیرم
-لااقل بذار این دم آخر از چشات همه چی رو بگیرم
-توی لحظه ی خسته ی دلخوشی که تو بی نفسی منو میکشی
-کاش بهم دل خستمو پس بدی یا به قلب یخی تو نفس بدی
-همه باور و ترسم از اینه که بیاد روبرومو بشینه
-غمو درد چشامو ببینه بگه حالا روالش همینه
-گاهی میگذرن از همه دنیا مثه قایقی از دل دریا
-که یه لحظه چشاتو ببندی بخندی بخندی
-آخرین نفسامه و بی تو دارم حس میکنم که میمیرم
-لااقل بذار این دم آخر از چشات همه چی رو بگیرم
-توی لحظه ی خسته ی دلخوشی که تو بی نفسی منو میکشی
-کاش بهم دل خستمو پس بدی یا به قلب یخی تو نفس بدی
-به قلب یخی تو نفس بدی
+با اون قند لباش وقتی میخنده
+------------**##**------------
+با اون قند لباش وقتی میخنده
+------------**##**------------
+زبونم بند میاد لبامو میبنده
+------------**##**------------
+زبونم بند بند بند میاد و لبامو میبنده
+------------**##**------------
+با اون نازو اداش وقتی میرقصه
+------------**##**------------
+با اون نازو اداش وقتی میرقصه
+------------**##**------------
+دلم ضعف میره دلم ضعف میره دستو پام میلرزه
+------------**##**------------
+دلم ضعف میره دلم ضعف میره یهو دستو پام میلرزه
+------------**##**------------
+با اون قند لباش قند لباش وقتی میخنده
+------------**##**------------
+با اون قند لباش قند لباش وقتی میخنده
+------------**##**------------
+زبونم بند میاد لبامو میبنده
+------------**##**------------
+زبونم بند بند بند میاد و لبامو میبنده
+رنگ موهاش شرابیه رنگ لباش اناریه
+------------**##**------------
+رنگ موهاش شرابیه رنگ لباش اناریه
+------------**##**------------
+آبی رودخونه ها رنگ چشمای اونه
+------------**##**------------
+شادیه من بخدا به تماشای اونه
+------------**##**------------
+آبی رودخونه ها رنگ چشمای اونه
+------------**##**------------
+شادیه من بخدا به تماشای اونه وقتی اون ناز میکنه
+------------**##**------------
+نازش دوست داشتنیهاخماشو وا میکنه
+------------**##**------------
+خیلی دوست داشتنیه دادو دعوا میکنه
+------------**##**------------
+بازم دوست داشتنیه عشوه آغاز میکنه
+------------**##**------------
+وای که دوست داشتنیه وای که دوست داشتنیه
+------------**##**------------
+آره دوست داشتنی دوست داشتنی دوست داشتنیه
+------------**##**------------
+آره دوست داشتنی دوست داشتنی دوست داشتنیه
+------------**##**------------
+آره دوست داشتنی دوست داشتنی دوست داشتنیه
+------------**##**------------
+آره دوست داشتنی دوست داشتنی دوست داشتنیه
 
                     </div>
 
@@ -1266,6 +1344,57 @@ document.addEventListener(
 
     }
 );
+
+
+
+// Add animated party emojis beside every existing lyric line.
+// The original lyrics are kept exactly as written in the HTML.
+(() => {
+    const lyricsContainer = document.querySelector(".lyrics > .lyric-line");
+    if (!lyricsContainer) return;
+
+    const originalLyrics = lyricsContainer.textContent
+        .replace(/\r/g, "")
+        .split("\n")
+        .map(line => line.trim())
+        .filter(line => line.length > 0);
+
+    const emojiSets = [
+        ["🎉", "✨", "🪩", "🎊", "💃", "🕺", "🎆", "🥳", "🎇", "💖", "🌟", "🎈"],
+        ["🪩", "🎉", "💃", "✨", "🎊", "🕺", "🎇", "🌈", "🥳", "🎆", "💫", "🎈"]
+    ];
+
+    const makeEmoji = (emoji, index) => {
+        const span = document.createElement("span");
+        span.className = "lyric-emoji";
+        span.textContent = emoji;
+        span.setAttribute("aria-hidden", "true");
+        span.style.animationDelay = `${(index % 6) * 0.09}s`;
+        return span;
+    };
+
+    const fragment = document.createDocumentFragment();
+    originalLyrics.forEach((line, lineIndex) => {
+        const row = document.createElement("div");
+        row.className = "lyric-line lyric-decorated";
+
+        const words = document.createElement("span");
+        words.className = "lyric-words";
+        words.textContent = line;
+
+        const set = emojiSets[lineIndex % emojiSets.length];
+        const left = [set[(lineIndex + 0) % set.length]];
+        const right = [set[(lineIndex + 2) % set.length]];
+
+        left.forEach((emoji, i) => row.appendChild(makeEmoji(emoji, i + lineIndex)));
+        row.appendChild(words);
+        right.forEach((emoji, i) => row.appendChild(makeEmoji(emoji, i + lineIndex + 3)));
+        fragment.appendChild(row);
+    });
+
+    lyricsContainer.replaceWith(fragment);
+})();
+
 
 </script>
 
