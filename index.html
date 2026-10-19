@@ -572,15 +572,14 @@ body {
 
 
 /* =========================
-   PARTY EMOJIS BESIDE LYRICS
+   MOON DECORATION BESIDE LYRICS
 ========================= */
 .lyrics > .lyric-line.lyric-decorated {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    flex-wrap: nowrap;
+    align-items: baseline;
     justify-content: center;
-    column-gap: 5px;
-    row-gap: 1px;
+    column-gap: 10px;
     white-space: normal;
     padding: 5px 4px;
     line-height: 2.15;
@@ -589,29 +588,58 @@ body {
 .lyric-words {
     display: inline;
     white-space: pre-wrap;
+    min-width: 0;
 }
 
-.lyric-emoji {
+.lyric-moon {
     display: inline-block;
     flex: 0 0 auto;
-    font-size: 1.05em;
+    font-size: .9em;
     line-height: 1;
+    color: #c8c2ff;
+    filter: drop-shadow(0 0 5px rgba(155, 149, 255, .35));
     transform-origin: center;
-    animation: lyricEmojiDance .72s ease-in-out infinite alternate;
-    filter: drop-shadow(0 0 5px rgba(255, 100, 240, .45));
+    animation: moonFloat 1.8s ease-in-out infinite alternate;
 }
 
-.lyric-emoji:nth-child(3n) { animation-delay: .18s; }
-.lyric-emoji:nth-child(4n) { animation-delay: .32s; }
-.lyric-emoji:nth-child(5n) { animation-delay: .08s; }
+/* دو هلال کنار هر خط شعر، با حرکت نرم و نور بنفش */
+.lyric-moon:first-child {
+    animation-delay: -.9s;
+}
 
-@keyframes lyricEmojiDance {
-    from { transform: translateY(1px) rotate(-13deg) scale(.9); }
-    to   { transform: translateY(-4px) rotate(13deg) scale(1.15); }
+.lyric-moon:last-child {
+    animation-delay: 0s;
+    animation-direction: alternate-reverse;
+}
+
+@keyframes moonFloat {
+    from {
+        transform: translateY(2px) rotate(-12deg) scale(.92);
+        filter: drop-shadow(0 0 3px rgba(155, 149, 255, .25));
+    }
+    to {
+        transform: translateY(-3px) rotate(12deg) scale(1.12);
+        filter: drop-shadow(0 0 9px rgba(185, 175, 255, .8));
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .lyric-emoji { animation: none; }
+    .lyric-moon {
+        animation: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .lyrics > .lyric-line.lyric-decorated {
+        column-gap: 6px;
+        padding-inline: 0;
+    }
+    .lyric-words {
+        overflow-wrap: anywhere;
+    }
+    .lyric-moon {
+        font-size: .8em;
+    }
 }
 
 /* =========================
@@ -989,71 +1017,50 @@ body {
 
                     <div class="lyric-line">
 
+ﻣﮕﻪ ﺗﻮ ﻧﮕﻔﺘﻪ ﺑﻮدی
+ﻋﺸﻖ و زﻧﺪﮔﻰ ﻗﺸﻨﮕﻪ
+وﻟﻰ ﺧﺐ ﻧﮕﻔﺘﻪ ﺑﻮدی
+ﻛﻪ ﻫﻤﻪ اش ﺑﻰ آب و رﻧﮕﻪ
+ﺗﻮ ﻫﻤﻴﺸﻪ ﮔﻔﺘﻪ ﺑﻮدی
+وﻗﺘﻰ ﻋﺎﺷﻖ ﻣﻴﺸﻰ اﻧﮕﺎر
+دل درﻳﺎ رو ﮔﺮﻓﺘﻰ
+ﺗﻮی دﺳﺘﺎی ﺳﭙﻴﺪار
+ﻣﮕﻪ ﻧﺮخ ﺧﻮﺑﻰ ﭼﻨﺪه
+ﻛﻪ ﺗﻮ ﺑﺮﮔﺎی ﺑﺮﻧﺪه
+ﺗﻮ ﺑﻪ اﻳﻦ راﺣﺘﻰ ﺳﻮﺧﺘﻰ
+ﻣﮕﻪ ﺗﻮ ﻧﮕﻔﺘﻪ ﺑﻮدی
+ﻣﻦ ﺗﻮ درﻳﺎی ﺟﻨﻮﻧﺖ
+دل دادم ﺑﻪ آﺳﻤﻮﻧﺖ
+ﺑﺎدﺑﻮﻧﺎﻣﻮ ﺳﭙﺮدم
+ﺑﻪ ﻧﮕﺎه ﻣﻬﺮﺑﻮﻧﺖ
+ﮔﻢ ﺷﺪم ﺗﻮ دل ﺑﺎرون
+ﺑﺎ ﻳﮏ ﺣﺎل ﻋﺎﺷﻘﻮﻧﻪ
+ﺗﻮ ﻛﻪ ﮔﻔﺘﻰ ﻧﻤﻴﺪوﻧﻰ
+ﭘﺲ ﺑﮕﻮ آخ ﻛﻰ ﻣﻴﺪوﻧﻪ
+ﻣﮕﻪ ﻧﺮخ ﺧﻮﺑﻰ ﭼﻨﺪه
+ﻛﻪ ﺗﻮ ﺑﺮﮔﺎی ﺑﺮﻧﺪه
+ﺗﻮ ﺑﻪ اﻳﻦ راﺣﺘﻰ ﺳﻮﺧﺘﻰ
+ﻣﮕﻪ ﺗﻮ ﻧﮕﻔﺘﻪ ﺑﻮدی
+ﻣﮕﻪ ﻣﻦ دوﺳﺖ ﻧﺪاﺷﺘﻢ
+ﻣﮕﻪ ﻋﺎﺷﻘﻢ ﻧﺒﻮدی
+ﻣﮕﻪ آﺧﺮﻳﻦ ﺑﻬﺎﻧﻪ
+واﺳﻪ دﻟﻢ ﻧﺒﻮدی
+ﻣﺜﻞ ﮔﻞ ﻣﺜﻞ ﻳﻪ ﺳﺎﻳﻪ
+ﻣﺜﻞ ﺑﻰ ﻛﺮان درﻳﺎ
+ﻣﺜﻞ ﻳﻪ ﺣﺲ ﻋﺠﻴﺒﻰ
+ﺗﻮی ﺻﻨﺪوﻗﭽﻪ روﻳﺎ
+ﻣﻦ ﺗﻮ درﻳﺎی ﺟﻨﻮﻧﺖ
+دل دادم ﺑﻪ آﺳﻤﻮﻧﺖ
+ﺑﺎدﺑﻮﻧﺎﻣﻮ ﺳﭙﺮدم
+ﺑﻪ ﻧﮕﺎه ﻣﻬﺮﺑﻮﻧﺖ
+ﮔﻢ ﺷﺪم ﺗﻮ دل ﺑﺎرون
+ﺑﺎ ﻳﻪ ﺣﺎل ﻋﺎﺷﻘﻮﻧﻪ
+ﺗﻮ ﻛﻪ ﮔﻔﺘﻰ ﻧﻤﻴﺪوﻧﻰ
+ﭘﺲ ﺑﮕﻮ آخ ﻛﻰ ﻣﻴﺪوﻧﻪ
+ﻣﮕﻪ ﻧﺮخ ﺧﻮﺑﻰ ﭼﻨﺪه
+ﻛﻪ ﺗﻮ ﺑﺮﮔﺎی ﺑﺮﻧﺪه
+ﺗﻮ ﺑﻪ اﻳﻦ راﺣﺘﻰ ﺳﻮﺧﺘﻰ
 
----
-
-با اون قند لباش (قند لباش)
-وقتی می‌خنده با اون قند لباش (قند لباش)
-زبونم بند میاد (بند میاد)
-لبامو می‌بنده
-
-زبونم بند بند بند میاد
-و لبامو می‌بنده
-
-با اون ناز و اداش (ناز و ادا)
-وقتی می‌رقصه
-با اون ناز و اداش (ناز و ادا)
-وقتی می‌رقصه
-
-دلم ضعف میره (دلم ضعف میره)
-دلم ضعف میره، دست و پام می‌لرزه
-دلم ضعف میره، دلم ضعف میره (دلم ضعف میره)
-یهو دست و پام می‌لرزه
-
-
-
-با اون قند لباش، قند لباش، وقتی می‌خنده
-با اون قند لباش، قند لباش، وقتی می‌خنده
-زبونم بند میاد (بند میاد)
-لبامو می‌بنده
-
-زبونم بند بند بند میاد
-و لبامو می‌بنده
-
----
-
-رنگ موهاش شرابیه
-رنگ لباش اناری
-رنگ موهاش شرابیه
-رنگ لباش اناریه
-
-آبی رودخونه‌ها رنگ چشمای اونه
-شادیه من به خدا به تماشای اونه
-آبی رودخونه‌ها رنگ چشمای اونه
-شادیه من به خدا به تماشای اونه
-
----
-
-وقتی اون ناز می‌کنه
-نازش دوست‌داشتنیه
-اخماشو وا می‌کنه
-خیلی دوست‌داشتنیه
-
-داد و دعوا می‌کنه
-بازم دوست‌داشتنیه
-عشوه آغاز می‌کنه
-وای که دوست‌داشتنیه!
-
-وای که دوست‌داشتنیه!
-
-🎶 **دوست‌داشتنی**
-
-آره دوست‌داشتنی، دوست‌داشتنی، دوست‌داشتنیه
-آره دوست‌داشتنی، دوست‌داشتنی، دوست‌داشتنیه
-آره دوست‌داشتنی، دوست‌داشتنی، دوست‌داشتنیه
-آره دوست‌داشتنی، دوست‌داشتنی، دوست‌داشتنیه
-
----
 
 
 
@@ -1217,6 +1224,7 @@ audio.addEventListener(
 
         duration.textContent =
             formatTime(audio.duration);
+        progress.value = 0;
 
     }
 );
@@ -1229,58 +1237,47 @@ audio.addEventListener(
         currentTime.textContent =
             formatTime(audio.currentTime);
 
-        if (audio.duration) {
-
-            progress.value =
-                (audio.currentTime /
-                audio.duration) * 100;
-
+        if (Number.isFinite(audio.duration) && audio.duration > 0) {
+            progress.value = (audio.currentTime / audio.duration) * 100;
         }
 
     }
 );
 
 
-playBtn.addEventListener(
-    "click",
-    () => {
-
-        if (audio.paused) {
-
-            audio.play();
-
-            playBtn.textContent = "Ⅱ";
-
-            record.classList.add("playing");
-
-            visualizer.classList.add("playing");
-
-        } else {
-
-            audio.pause();
-
-            playBtn.textContent = "▶";
-
-            record.classList.remove("playing");
-
-            visualizer.classList.remove("playing");
-
+playBtn.addEventListener("click", async () => {
+    if (audio.paused) {
+        try {
+            await audio.play();
+        } catch (error) {
+            // Keep the interface paused if the file is missing or playback is blocked.
+            syncPlayerState();
+            console.error("پخش آهنگ انجام نشد:", error);
         }
-
+    } else {
+        audio.pause();
     }
-);
+});
+
+function syncPlayerState() {
+    const isPlaying = !audio.paused && !audio.ended;
+    playBtn.textContent = isPlaying ? "Ⅱ" : "▶";
+    playBtn.setAttribute("aria-label", isPlaying ? "توقف موقت آهنگ" : "پخش آهنگ");
+    record.classList.toggle("playing", isPlaying);
+    visualizer.classList.toggle("playing", isPlaying);
+}
+
+audio.addEventListener("play", syncPlayerState);
+audio.addEventListener("pause", syncPlayerState);
+audio.addEventListener("ended", syncPlayerState);
 
 
 progress.addEventListener(
     "input",
     () => {
 
-        if (audio.duration) {
-
-            audio.currentTime =
-                (progress.value / 100) *
-                audio.duration;
-
+        if (Number.isFinite(audio.duration) && audio.duration > 0) {
+            audio.currentTime = (Number(progress.value) / 100) * audio.duration;
         }
 
     }
@@ -1315,20 +1312,11 @@ forward.addEventListener(
 );
 
 
-audio.addEventListener(
-    "ended",
-    () => {
-
-        playBtn.textContent = "▶";
-
-        record.classList.remove("playing");
-
-        visualizer.classList.remove("playing");
-
-        progress.value = 0;
-
-    }
-);
+audio.addEventListener("ended", () => {
+    progress.value = 0;
+    currentTime.textContent = "0:00";
+    syncPlayerState();
+});
 
 
 /* =========================
@@ -1373,54 +1361,43 @@ document.addEventListener(
 
 
 
-// Add animated party emojis beside every existing lyric line.
-// The original lyrics are kept exactly as written in the HTML.
+// Add exactly two static crescent moons beside each lyric line.
 (() => {
     const lyricsContainer = document.querySelector(".lyrics > .lyric-line");
     if (!lyricsContainer) return;
 
     const originalLyrics = lyricsContainer.textContent
-        .replace(/\r/g, "")
-        .split("\n")
+        .replace(/\\r/g, "")
+        .split("\\n")
         .map(line => line.trim())
-        .filter(line => line.length > 0);
-
-    const emojiSets = [
-        ["🎉", "✨", "🪩", "🎊", "💃", "🕺", "🎆", "🥳", "🎇", "💖", "🌟", "🎈"],
-        ["🪩", "🎉", "💃", "✨", "🎊", "🕺", "🎇", "🌈", "🥳", "🎆", "💫", "🎈"]
-    ];
-
-    const makeEmoji = (emoji, index) => {
-        const span = document.createElement("span");
-        span.className = "lyric-emoji";
-        span.textContent = emoji;
-        span.setAttribute("aria-hidden", "true");
-        span.style.animationDelay = `${(index % 6) * 0.09}s`;
-        return span;
-    };
+        .filter(line => line.length > 0 && line !== "---");
 
     const fragment = document.createDocumentFragment();
-    originalLyrics.forEach((line, lineIndex) => {
+
+    originalLyrics.forEach((line) => {
         const row = document.createElement("div");
         row.className = "lyric-line lyric-decorated";
+
+        const leftMoon = document.createElement("span");
+        leftMoon.className = "lyric-moon";
+        leftMoon.textContent = "☾";
+        leftMoon.setAttribute("aria-hidden", "true");
 
         const words = document.createElement("span");
         words.className = "lyric-words";
         words.textContent = line;
 
-        const set = emojiSets[lineIndex % emojiSets.length];
-        const left = [set[(lineIndex + 0) % set.length]];
-        const right = [set[(lineIndex + 2) % set.length]];
+        const rightMoon = document.createElement("span");
+        rightMoon.className = "lyric-moon";
+        rightMoon.textContent = "☽";
+        rightMoon.setAttribute("aria-hidden", "true");
 
-        left.forEach((emoji, i) => row.appendChild(makeEmoji(emoji, i + lineIndex)));
-        row.appendChild(words);
-        right.forEach((emoji, i) => row.appendChild(makeEmoji(emoji, i + lineIndex + 3)));
+        row.append(leftMoon, words, rightMoon);
         fragment.appendChild(row);
     });
 
     lyricsContainer.replaceWith(fragment);
 })();
-
 
 </script>
 
