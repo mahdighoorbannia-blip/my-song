@@ -15,9 +15,9 @@
 }
 
 :root {
-    --bg: #020208;
-    --purple: #7770ff;
-    --purple-soft: #9b95ff;
+    --bg: #090704;
+    --purple: #d88a32;
+    --purple-soft: #f2b65d;
     --white: #eeeeff;
 }
 
@@ -46,7 +46,7 @@ body {
     background:
         radial-gradient(
             circle at 50% 25%,
-            rgba(80,70,180,.13),
+            rgba(181,91,25,.16),
             transparent 35%
         ),
         linear-gradient(
@@ -92,8 +92,8 @@ body {
     background: #eeeefe;
 
     box-shadow:
-        0 0 25px rgba(170,160,255,.35),
-        0 0 80px rgba(120,110,255,.12);
+        0 0 25px rgba(255,178,83,.34),
+        0 0 80px rgba(255,145,45,.12);
 }
 
 .moon::after {
@@ -106,7 +106,7 @@ body {
 
     border-radius: 50%;
 
-    background: #03030c;
+    background: #100b07;
 
     left: 30px;
     top: -12px;
@@ -190,7 +190,8 @@ body {
     align-items: flex-end;
     gap: 4px;
 
-    opacity: .45;
+    opacity: .52;
+    filter: drop-shadow(0 -3px 12px rgba(189, 93, 29, .08));
 }
 
 .building {
@@ -275,17 +276,17 @@ body {
 
     border:
         1px solid
-        rgba(150,140,255,.18);
+        rgba(232,158,75,.22);
 
     background:
-        rgba(5,5,15,.72);
+        rgba(18,12,7,.78);
 
     backdrop-filter: blur(18px);
 
     box-shadow:
-        0 0 60px rgba(90,80,255,.08),
+        0 0 60px rgba(214,115,35,.09),
         inset 0 0 50px
-        rgba(100,90,255,.025);
+        rgba(230,145,55,.025);
 
     display: flex;
     flex-direction: column;
@@ -451,7 +452,7 @@ body {
 
     box-shadow:
         0 0 35px
-        rgba(100,90,255,.15),
+        rgba(224,139,53,.18),
 
         inset 0 0 15px
         rgba(255,255,255,.05);
@@ -479,11 +480,11 @@ body {
 
     border:
         5px solid
-        #7770ff;
+        #e8a044;
 
     box-shadow:
         0 0 15px
-        rgba(120,110,255,.35);
+        rgba(255,173,76,.38);
 }
 
 .record.playing {
@@ -566,7 +567,7 @@ body {
 
     text-shadow:
         0 0 12px
-        rgba(130,120,255,.12);
+        rgba(255,177,88,.16);
 }
 
 
@@ -596,8 +597,8 @@ body {
     flex: 0 0 auto;
     font-size: .9em;
     line-height: 1;
-    color: #c8c2ff;
-    filter: drop-shadow(0 0 5px rgba(155, 149, 255, .35));
+    color: #f5c477;
+    filter: drop-shadow(0 0 5px rgba(255, 185, 92, .35));
     transform-origin: center;
     animation: moonFloat 1.8s ease-in-out infinite alternate;
 }
@@ -615,11 +616,11 @@ body {
 @keyframes moonFloat {
     from {
         transform: translateY(2px) rotate(-12deg) scale(.92);
-        filter: drop-shadow(0 0 3px rgba(155, 149, 255, .25));
+        filter: drop-shadow(0 0 3px rgba(255, 185, 92, .25));
     }
     to {
         transform: translateY(-3px) rotate(12deg) scale(1.12);
-        filter: drop-shadow(0 0 9px rgba(185, 175, 255, .8));
+        filter: drop-shadow(0 0 9px rgba(255, 202, 124, .75));
     }
 }
 
@@ -664,7 +665,7 @@ body {
     height: 8px;
 
     background:
-        rgba(130,120,255,.65);
+        rgba(238,163,74,.72);
 
     border-radius: 5px;
 }
@@ -751,7 +752,7 @@ body {
 
     border-radius: 50%;
 
-    background: #9b95ff;
+    background: #f2b65d;
 }
 
 .time {
@@ -808,7 +809,7 @@ body {
 
 .control:hover {
     border-color:
-        rgba(150,140,255,.4);
+        rgba(255,178,83,.5);
 
     color: #fff;
 }
@@ -818,9 +819,9 @@ body {
     height: 48px;
 
     border-color:
-        rgba(150,140,255,.35);
+        rgba(255,178,83,.4);
 
-    color: #aaa5ff;
+    color: #ffd18a;
 }
 
 /* =========================
@@ -890,10 +891,99 @@ body {
 
 }
 
+
+/* =========================
+   AUTUMN ATMOSPHERE
+========================= */
+.sky {
+    background:
+        radial-gradient(ellipse at 18% 78%, rgba(177, 76, 20, .12), transparent 34%),
+        radial-gradient(ellipse at 82% 35%, rgba(214, 133, 39, .10), transparent 30%),
+        radial-gradient(circle at 50% 25%, rgba(130, 75, 25, .12), transparent 38%),
+        linear-gradient(180deg, #100b07 0%, #080604 100%);
+}
+.frame {
+    border-color: rgba(224, 157, 77, .22);
+    box-shadow: 0 0 65px rgba(175, 89, 25, .08), inset 0 0 50px rgba(230, 145, 55, .025);
+}
+.logo { color: #f6d7a5; }
+.now-playing { color: #e9ad5c; }
+.record::before { border-color: #d88a32; }
+.lyric-line { text-shadow: 0 0 12px rgba(255, 174, 77, .10); }
+.lyric-moon { color: #f5c477; }
+.control:hover { border-color: rgba(255, 178, 83, .45); }
+.progress::-webkit-slider-thumb { background: #f2b65d; }
+.bar { background: rgba(238, 163, 74, .72); }
+
+.autumn-leaves {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 6;
+}
+.autumn-leaf {
+    position: absolute;
+    top: -12vh;
+    left: var(--left);
+    width: var(--size);
+    height: calc(var(--size) * .68);
+    border-radius: 0 90% 0 90%;
+    background: var(--leaf-color);
+    opacity: var(--leaf-opacity, .78);
+    transform: rotate(var(--tilt, 25deg));
+    filter: drop-shadow(0 3px 4px rgba(0,0,0,.22));
+    animation: leafFall var(--duration) linear var(--delay) infinite;
+}
+.autumn-leaf::after {
+    content: "";
+    position: absolute;
+    left: 12%;
+    top: 48%;
+    width: 80%;
+    height: 1px;
+    background: rgba(255, 225, 163, .45);
+    transform: rotate(-18deg);
+    transform-origin: left center;
+}
+@keyframes leafFall {
+    0% { transform: translate3d(0, -5vh, 0) rotate(var(--tilt, 25deg)); }
+    25% { transform: translate3d(34px, 25vh, 0) rotate(115deg); }
+    50% { transform: translate3d(-18px, 52vh, 0) rotate(210deg); }
+    75% { transform: translate3d(42px, 78vh, 0) rotate(290deg); }
+    100% { transform: translate3d(-12px, 112vh, 0) rotate(390deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .autumn-leaf { animation: none; display: none; }
+}
+@media (max-width: 600px) {
+    .autumn-leaf { opacity: .58; }
+}
+
 </style>
 </head>
 
 <body>
+
+<div class="autumn-leaves" aria-hidden="true">
+    <span class="autumn-leaf" style="--left:7%;--size:17px;--leaf-color:#d97828;--duration:13s;--delay:-2s;--tilt:18deg;--leaf-opacity:.75;"></span>
+    <span class="autumn-leaf" style="--left:16%;--size:12px;--leaf-color:#e9a83b;--duration:17s;--delay:-9s;--tilt:-25deg;--leaf-opacity:.72;"></span>
+    <span class="autumn-leaf" style="--left:28%;--size:20px;--leaf-color:#b94e20;--duration:15s;--delay:-5s;--tilt:40deg;--leaf-opacity:.70;"></span>
+    <span class="autumn-leaf" style="--left:39%;--size:14px;--leaf-color:#f0bd50;--duration:19s;--delay:-13s;--tilt:-10deg;--leaf-opacity:.78;"></span>
+    <span class="autumn-leaf" style="--left:52%;--size:18px;--leaf-color:#d9822c;--duration:14s;--delay:-7s;--tilt:55deg;--leaf-opacity:.70;"></span>
+    <span class="autumn-leaf" style="--left:63%;--size:11px;--leaf-color:#f2b843;--duration:18s;--delay:-3s;--tilt:5deg;--leaf-opacity:.72;"></span>
+    <span class="autumn-leaf" style="--left:74%;--size:21px;--leaf-color:#b95b25;--duration:16s;--delay:-11s;--tilt:-35deg;--leaf-opacity:.68;"></span>
+    <span class="autumn-leaf" style="--left:88%;--size:15px;--leaf-color:#e8a03a;--duration:20s;--delay:-6s;--tilt:28deg;--leaf-opacity:.74;"></span>
+    <span class="autumn-leaf" style="--left:95%;--size:10px;--leaf-color:#f4c45a;--duration:13s;--delay:-10s;--tilt:-15deg;--leaf-opacity:.65;"></span>
+    <span class="autumn-leaf" style="--left:4%;--size:13px;--leaf-color:#e8a03a;--duration:21s;--delay:-15s;--tilt:30deg;--leaf-opacity:.62;"></span>
+    <span class="autumn-leaf" style="--left:22%;--size:9px;--leaf-color:#f2b843;--duration:16s;--delay:-4s;--tilt:-40deg;--leaf-opacity:.60;"></span>
+    <span class="autumn-leaf" style="--left:34%;--size:16px;--leaf-color:#c75c22;--duration:22s;--delay:-17s;--tilt:12deg;--leaf-opacity:.66;"></span>
+    <span class="autumn-leaf" style="--left:47%;--size:10px;--leaf-color:#f0bd50;--duration:15s;--delay:-8s;--tilt:-20deg;--leaf-opacity:.60;"></span>
+    <span class="autumn-leaf" style="--left:59%;--size:13px;--leaf-color:#d97828;--duration:19s;--delay:-1s;--tilt:42deg;--leaf-opacity:.64;"></span>
+    <span class="autumn-leaf" style="--left:81%;--size:12px;--leaf-color:#f0bd50;--duration:17s;--delay:-12s;--tilt:-18deg;--leaf-opacity:.68;"></span>
+    <span class="autumn-leaf" style="--left:91%;--size:19px;--leaf-color:#c75c22;--duration:23s;--delay:-14s;--tilt:35deg;--leaf-opacity:.62;"></span>
+</div>
+
 
 <div class="sky">
 
@@ -1016,50 +1106,22 @@ body {
                 <div class="lyrics">
 
                     <div class="lyric-line">
-
-ﻣﮕﻪ ﺗﻮ ﻧﮕﻔﺘﻪ ﺑﻮدی
-ﻋﺸﻖ و زﻧﺪﮔﻰ ﻗﺸﻨﮕﻪ
-وﻟﻰ ﺧﺐ ﻧﮕﻔﺘﻪ ﺑﻮدی
-ﻛﻪ ﻫﻤﻪ اش ﺑﻰ آب و رﻧﮕﻪ
-ﺗﻮ ﻫﻤﻴﺸﻪ ﮔﻔﺘﻪ ﺑﻮدی
-وﻗﺘﻰ ﻋﺎﺷﻖ ﻣﻴﺸﻰ اﻧﮕﺎر
-دل درﻳﺎ رو ﮔﺮﻓﺘﻰ
-ﺗﻮی دﺳﺘﺎی ﺳﭙﻴﺪار
-ﻣﮕﻪ ﻧﺮخ ﺧﻮﺑﻰ ﭼﻨﺪه
-ﻛﻪ ﺗﻮ ﺑﺮﮔﺎی ﺑﺮﻧﺪه
-ﺗﻮ ﺑﻪ اﻳﻦ راﺣﺘﻰ ﺳﻮﺧﺘﻰ
-ﻣﮕﻪ ﺗﻮ ﻧﮕﻔﺘﻪ ﺑﻮدی
-ﻣﻦ ﺗﻮ درﻳﺎی ﺟﻨﻮﻧﺖ
-دل دادم ﺑﻪ آﺳﻤﻮﻧﺖ
-ﺑﺎدﺑﻮﻧﺎﻣﻮ ﺳﭙﺮدم
-ﺑﻪ ﻧﮕﺎه ﻣﻬﺮﺑﻮﻧﺖ
-ﮔﻢ ﺷﺪم ﺗﻮ دل ﺑﺎرون
-ﺑﺎ ﻳﮏ ﺣﺎل ﻋﺎﺷﻘﻮﻧﻪ
-ﺗﻮ ﻛﻪ ﮔﻔﺘﻰ ﻧﻤﻴﺪوﻧﻰ
-ﭘﺲ ﺑﮕﻮ آخ ﻛﻰ ﻣﻴﺪوﻧﻪ
-ﻣﮕﻪ ﻧﺮخ ﺧﻮﺑﻰ ﭼﻨﺪه
-ﻛﻪ ﺗﻮ ﺑﺮﮔﺎی ﺑﺮﻧﺪه
-ﺗﻮ ﺑﻪ اﻳﻦ راﺣﺘﻰ ﺳﻮﺧﺘﻰ
-ﻣﮕﻪ ﺗﻮ ﻧﮕﻔﺘﻪ ﺑﻮدی
-ﻣﮕﻪ ﻣﻦ دوﺳﺖ ﻧﺪاﺷﺘﻢ
-ﻣﮕﻪ ﻋﺎﺷﻘﻢ ﻧﺒﻮدی
-ﻣﮕﻪ آﺧﺮﻳﻦ ﺑﻬﺎﻧﻪ
-واﺳﻪ دﻟﻢ ﻧﺒﻮدی
-ﻣﺜﻞ ﮔﻞ ﻣﺜﻞ ﻳﻪ ﺳﺎﻳﻪ
-ﻣﺜﻞ ﺑﻰ ﻛﺮان درﻳﺎ
-ﻣﺜﻞ ﻳﻪ ﺣﺲ ﻋﺠﻴﺒﻰ
-ﺗﻮی ﺻﻨﺪوﻗﭽﻪ روﻳﺎ
-ﻣﻦ ﺗﻮ درﻳﺎی ﺟﻨﻮﻧﺖ
-دل دادم ﺑﻪ آﺳﻤﻮﻧﺖ
-ﺑﺎدﺑﻮﻧﺎﻣﻮ ﺳﭙﺮدم
-ﺑﻪ ﻧﮕﺎه ﻣﻬﺮﺑﻮﻧﺖ
-ﮔﻢ ﺷﺪم ﺗﻮ دل ﺑﺎرون
-ﺑﺎ ﻳﻪ ﺣﺎل ﻋﺎﺷﻘﻮﻧﻪ
-ﺗﻮ ﻛﻪ ﮔﻔﺘﻰ ﻧﻤﻴﺪوﻧﻰ
-ﭘﺲ ﺑﮕﻮ آخ ﻛﻰ ﻣﻴﺪوﻧﻪ
-ﻣﮕﻪ ﻧﺮخ ﺧﻮﺑﻰ ﭼﻨﺪه
-ﻛﻪ ﺗﻮ ﺑﺮﮔﺎی ﺑﺮﻧﺪه
-ﺗﻮ ﺑﻪ اﻳﻦ راﺣﺘﻰ ﺳﻮﺧﺘﻰ
+ﻣﺜﻞ ﺑﺎد ﺳﺮد ﭘﺎﻳﻴﺰ
+ﻏﻢ ﻟﻌﻨﺘﻰ ﺑﻪ ﻣﻦ زد
+ﺣﺘﻰ ﺑﺎﻏﺒﻮن ﻧﻔﻬﻤﻴﺪ
+ﻛﻪ ﭼﻪ آﻓﺘﻰ ﺑﻪ ﻣﻦ زد
+رگ و رﻳﺸﻪ ﻫﺎم ﺳﻴﺎه ﺷﺪ
+ﺗﻮ ﺗﻨﻢ ﺟﻮوﻧﻪ ﺧﺸﻜﻴﺪ
+اﻣﺎ اﻳﻦ دل ﺻﺒﻮرم
+ﺑﻪ ﻏﻢ زﻣﻮﻧﻪ ﺧﻨﺪﻳﺪ
+آﺳﻤﻮن ﻣﺴﺖ ﺟﻨﻮﻧﻰ
+آﺳﻤﻮن ﺗﺸﻨﻪ ی ﺧﻮﻧﻰ
+آﺳﻤﻮن ﻣﺴﺖ ﮔﻨﺎﻫﻰ
+آﺳﻤﻮن ﭼﻪ روﺳﻴﺎﻫﻰ
+اﮔﻪ زﻧﺪﮔﻰ ﻋﺬاﺑﻪ
+ﻳﻪ ﺣﺒﺎب روی آﺑﻪ
+ﻣﻦ ﺑﻪ ﮔﺮﻳﻪ ﻫﺎ ﻣﻰ ﺧﻨﺪم
+ﻣﻰ ﮔﻢ اﻳﻦ ﻫﻤﺶ ﻳﻪ ﺧﻮاﺑﻪ
 
 
 
@@ -1339,7 +1401,7 @@ cursorGlow.style.transform =
     "translate(-50%, -50%)";
 
 cursorGlow.style.background =
-    "radial-gradient(circle, rgba(100,90,255,.08), transparent 70%)";
+    "radial-gradient(circle, rgba(235,145,50,.09), transparent 70%)";
 
 cursorGlow.style.zIndex = "2";
 
