@@ -919,7 +919,7 @@ body {
 
 
 /* =========================
-   WORD-BY-WORD KARAOKE
+   SENTENCE-BY-SENTENCE KARAOKE
 ========================= */
 .lyrics-box {
     max-height: 310px;
@@ -1378,47 +1378,40 @@ document.addEventListener(
 
 
 
-// Word-level karaoke timestamps (seconds, based on the supplied SRT).
-const karaokeCues = [[30.35,32.31,"دلخوری"],[32.31,32.496,"از"],[32.496,32.88,"بغض"],[32.88,33.472,"پری"],[33.472,34.09,"می"],[34.09,36.1,"فهمم"],[37.229,38.969,"ناراحتی"],[38.969,39.728,"غصه"],[39.728,40.311,"داری"],[40.311,40.969,"می"],[40.969,43.03,"فهمم"],[44.07,45.451,"دلواپس"],[45.451,46.567,"فردای"],[46.567,47.149,"با"],[47.149,47.624,"من"],[47.624,50.109,"بودنی"],[50.899,52.121,"دلگیری"],[52.121,52.317,"از"],[52.317,53.56,"من"],[53.56,53.826,"اما"],[53.826,54.857,"درگیر"],[54.857,55.42,"منی"],[56.728,57.423,"داری"],[57.423,58.122,"دل"],[58.122,58.515,"می"],[58.515,59.17,"زنی"],[59.17,59.847,"دل"],[59.847,60.219,"می"],[60.219,60.89,"کنی"],[60.89,61.488,"تو"],[61.488,61.99,"کم"],[61.99,63.069,"کم"],[63.564,63.923,"من"],[63.923,64.825,"بهت"],[64.825,67.724,"حق"],[67.724,73.484,"میدم"],[73.484,78.545,"من"],[78.545,81.483,"حالتو"],[81.483,82.027,"می"],[82.027,83.224,"فهمم"],[91.225,101.346,"داری"],[101.346,116.346,"دل"],[120.025,135.026,"می"],[157.466,171.006,"زنی"],[171.006,178.705,"دل"],[178.705,187.066,"می"],[187.066,189.436,"کنی"],[189.436,189.979,"تو"],[189.979,191.626,"کم"],[191.626,193.126,"کم"],[202.409,202.8,"من"],[202.8,203.219,"بهت"],[203.219,203.888,"حق"],[203.888,204.879,"میدم"],[204.879,205.604,"من"],[205.604,206.639,"حالتو"],[206.639,207.199,"می"],[207.199,208.789,"فهمم"],[209.05,209.568,"نبض"],[209.568,211.352,"احساستو"],[211.352,211.78,"می"],[211.78,212.96,"گیرم"],[212.96,213.056,"و"],[213.056,214.195,"حالت"],[214.195,214.68,"خوش"],[214.68,215.879,"نیست"],[216.21,216.52,"این"],[216.52,216.948,"دفعه"],[216.948,218.192,"نیت"],[218.192,218.584,"من"],[218.584,219.65,"خیره"],[219.65,219.948,"تو"],[219.948,221.012,"فالت"],[221.012,221.5,"خوش"],[221.5,222.599,"نیست"],[223.009,223.747,"دارم"],[223.747,224.37,"می"],[224.37,225.683,"بازمت"],[225.683,226.104,"ای"],[226.104,226.771,"داد"],[226.771,228.46,"بیداد"],[229.87,230.592,"خودم"],[230.592,231.659,"کردم"],[231.659,231.895,"که"],[231.895,233.008,"لعنت"],[233.008,233.4,"بر"],[233.4,234.252,"خودم"],[234.252,235.719,"باد"],[236.719,237.484,"دارم"],[237.484,238.11,"می"],[238.11,239.424,"بازمت"],[239.424,239.795,"ای"],[239.795,240.472,"داد"],[240.472,242.84,"بیداد"],[243.61,244.324,"خودم"],[244.324,245.419,"کردم"],[245.419,245.656,"که"],[245.656,246.743,"لعنت"],[246.743,247.12,"بر"],[247.12,247.987,"خودم"],[247.987,249.069,"باد"]];
+// Sentence-by-sentence karaoke timestamps (seconds, based on the supplied timecodes).
+const karaokeCues = [[30.35, 37.23, "دلخوری از بغض پری می فهمم"], [37.23, 44.07, "ناراحتی غصه داری می فهمم"], [44.07, 50.9, "دلواپس فردای با من بودنی"], [50.9, 56.73, "دلگیری از من اما درگیر منی"], [56.73, 63.56, "داری دل می زنی دل می کنی تو کم کم"], [63.56, 70.0, "من بهت حق میدم من حالتو می فهمم"], [70.0, 77.0, "داری دل می زنی دل می کنی تو کم کم"], [77.0, 83.0, "من بهت حق میدم من حالتو می فهمم"], [83.0, 91.0, "نبض احساستو می گیرم و حالت خوش نیست"], [91.0, 97.01, "این دفعه نیت من خیره تو فالت خوش نیست"], [97.01, 105.0, "دارم می بازمت ای داد بیداد"], [105.0, 112.0, "خودم کردم که لعنت بر خودم باد"], [112.0, 118.61, "دارم می بازمت ای داد بیداد"], [118.61, 124.61, "خودم کردم که لعنت بر خودم باد"]];
 const lyricsElement = document.getElementById("lyrics");
 const karaokeWords = [];
-let currentRow = null;
-let previousEnd = null;
 
 karaokeCues.forEach(([start, end, text]) => {
-    if (!currentRow || (previousEnd !== null && start - previousEnd > 0.65)) {
-        currentRow = document.createElement("div");
-        currentRow.className = "karaoke-row";
-        const leftMoon = document.createElement("span");
-        leftMoon.className = "lyric-moon";
-        leftMoon.textContent = "☾";
-        leftMoon.setAttribute("aria-hidden", "true");
-        currentRow.appendChild(leftMoon);
-        lyricsElement.appendChild(currentRow);
-    }
+    const row = document.createElement("div");
+    row.className = "karaoke-row";
 
-    const word = document.createElement("span");
-    word.className = "karaoke-word";
-    word.textContent = text;
-    word.dataset.start = start;
-    word.dataset.end = end;
-    currentRow.appendChild(word);
-    karaokeWords.push({ start, end, element: word });
-    previousEnd = end;
+    const leftMoon = document.createElement("span");
+    leftMoon.className = "lyric-moon";
+    leftMoon.textContent = "☾";
+    leftMoon.setAttribute("aria-hidden", "true");
+    row.appendChild(leftMoon);
 
-    const nextCue = karaokeCues[karaokeWords.length];
-    if (!nextCue || nextCue[0] - end > 0.65) {
-        const rightMoon = document.createElement("span");
-        rightMoon.className = "lyric-moon";
-        rightMoon.textContent = "☽";
-        rightMoon.setAttribute("aria-hidden", "true");
-        currentRow.appendChild(rightMoon);
-    }
+    const sentence = document.createElement("span");
+    sentence.className = "karaoke-word";
+    sentence.textContent = text;
+    sentence.dataset.start = start;
+    sentence.dataset.end = end;
+    row.appendChild(sentence);
+
+    const rightMoon = document.createElement("span");
+    rightMoon.className = "lyric-moon";
+    rightMoon.textContent = "☽";
+    rightMoon.setAttribute("aria-hidden", "true");
+    row.appendChild(rightMoon);
+
+    lyricsElement.appendChild(row);
+    karaokeWords.push({ start, end, element: sentence });
 });
 
 let activeCueIndex = -1;
 function updateKaraoke(time) {
-    // Find the cue whose time range contains the current playback position.
     let low = 0;
     let high = karaokeWords.length - 1;
     let found = -1;
