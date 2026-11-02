@@ -915,75 +915,63 @@ body {
 .progress::-webkit-slider-thumb { background: #f2b65d; }
 .bar { background: rgba(238, 163, 74, .72); }
 
-.autumn-leaves {
-    position: fixed;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 6;
+
+
+
+/* =========================
+   WORD-BY-WORD KARAOKE
+========================= */
+.lyrics-box {
+    max-height: 310px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(242,182,93,.35) transparent;
 }
-.autumn-leaf {
-    position: absolute;
-    top: -12vh;
-    left: var(--left);
-    width: var(--size);
-    height: calc(var(--size) * .68);
-    border-radius: 0 90% 0 90%;
-    background: var(--leaf-color);
-    opacity: var(--leaf-opacity, .78);
-    transform: rotate(var(--tilt, 25deg));
-    filter: drop-shadow(0 3px 4px rgba(0,0,0,.22));
-    animation: leafFall var(--duration) linear var(--delay) infinite;
+.lyrics {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    direction: rtl;
+    padding: 12px 5px;
 }
-.autumn-leaf::after {
-    content: "";
-    position: absolute;
-    left: 12%;
-    top: 48%;
-    width: 80%;
-    height: 1px;
-    background: rgba(255, 225, 163, .45);
-    transform: rotate(-18deg);
-    transform-origin: left center;
+.karaoke-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    gap: 5px;
+    direction: rtl;
+    text-align: center;
+    line-height: 2.1;
+    width: 100%;
 }
-@keyframes leafFall {
-    0% { transform: translate3d(0, -5vh, 0) rotate(var(--tilt, 25deg)); }
-    25% { transform: translate3d(34px, 25vh, 0) rotate(115deg); }
-    50% { transform: translate3d(-18px, 52vh, 0) rotate(210deg); }
-    75% { transform: translate3d(42px, 78vh, 0) rotate(290deg); }
-    100% { transform: translate3d(-12px, 112vh, 0) rotate(390deg); }
+.karaoke-word {
+    display: inline-block;
+    color: rgba(225,222,255,.62);
+    font-size: 15px;
+    font-weight: 400;
+    padding: 1px 2px;
+    border-radius: 5px;
+    transition: color .12s ease, text-shadow .12s ease, transform .12s ease;
 }
-@media (prefers-reduced-motion: reduce) {
-    .autumn-leaf { animation: none; display: none; }
+.karaoke-word.active {
+    color: #ffd18a;
+    font-weight: 800;
+    text-shadow: 0 0 7px rgba(255,184,91,.85), 0 0 19px rgba(255,153,48,.45);
+    transform: scale(1.08);
 }
-@media (max-width: 600px) {
-    .autumn-leaf { opacity: .58; }
+.karaoke-word.past { color: rgba(242,182,93,.88); }
+.karaoke-row .lyric-moon { margin: 0 3px; }
+@media (max-width: 480px) {
+    .lyrics-box { max-height: 280px; }
+    .karaoke-word { font-size: 14px; }
 }
 
 </style>
 </head>
 
 <body>
-
-<div class="autumn-leaves" aria-hidden="true">
-    <span class="autumn-leaf" style="--left:7%;--size:17px;--leaf-color:#d97828;--duration:13s;--delay:-2s;--tilt:18deg;--leaf-opacity:.75;"></span>
-    <span class="autumn-leaf" style="--left:16%;--size:12px;--leaf-color:#e9a83b;--duration:17s;--delay:-9s;--tilt:-25deg;--leaf-opacity:.72;"></span>
-    <span class="autumn-leaf" style="--left:28%;--size:20px;--leaf-color:#b94e20;--duration:15s;--delay:-5s;--tilt:40deg;--leaf-opacity:.70;"></span>
-    <span class="autumn-leaf" style="--left:39%;--size:14px;--leaf-color:#f0bd50;--duration:19s;--delay:-13s;--tilt:-10deg;--leaf-opacity:.78;"></span>
-    <span class="autumn-leaf" style="--left:52%;--size:18px;--leaf-color:#d9822c;--duration:14s;--delay:-7s;--tilt:55deg;--leaf-opacity:.70;"></span>
-    <span class="autumn-leaf" style="--left:63%;--size:11px;--leaf-color:#f2b843;--duration:18s;--delay:-3s;--tilt:5deg;--leaf-opacity:.72;"></span>
-    <span class="autumn-leaf" style="--left:74%;--size:21px;--leaf-color:#b95b25;--duration:16s;--delay:-11s;--tilt:-35deg;--leaf-opacity:.68;"></span>
-    <span class="autumn-leaf" style="--left:88%;--size:15px;--leaf-color:#e8a03a;--duration:20s;--delay:-6s;--tilt:28deg;--leaf-opacity:.74;"></span>
-    <span class="autumn-leaf" style="--left:95%;--size:10px;--leaf-color:#f4c45a;--duration:13s;--delay:-10s;--tilt:-15deg;--leaf-opacity:.65;"></span>
-    <span class="autumn-leaf" style="--left:4%;--size:13px;--leaf-color:#e8a03a;--duration:21s;--delay:-15s;--tilt:30deg;--leaf-opacity:.62;"></span>
-    <span class="autumn-leaf" style="--left:22%;--size:9px;--leaf-color:#f2b843;--duration:16s;--delay:-4s;--tilt:-40deg;--leaf-opacity:.60;"></span>
-    <span class="autumn-leaf" style="--left:34%;--size:16px;--leaf-color:#c75c22;--duration:22s;--delay:-17s;--tilt:12deg;--leaf-opacity:.66;"></span>
-    <span class="autumn-leaf" style="--left:47%;--size:10px;--leaf-color:#f0bd50;--duration:15s;--delay:-8s;--tilt:-20deg;--leaf-opacity:.60;"></span>
-    <span class="autumn-leaf" style="--left:59%;--size:13px;--leaf-color:#d97828;--duration:19s;--delay:-1s;--tilt:42deg;--leaf-opacity:.64;"></span>
-    <span class="autumn-leaf" style="--left:81%;--size:12px;--leaf-color:#f0bd50;--duration:17s;--delay:-12s;--tilt:-18deg;--leaf-opacity:.68;"></span>
-    <span class="autumn-leaf" style="--left:91%;--size:19px;--leaf-color:#c75c22;--duration:23s;--delay:-14s;--tilt:35deg;--leaf-opacity:.62;"></span>
-</div>
-
 
 <div class="sky">
 
@@ -1102,42 +1090,413 @@ body {
                  ========================================= -->
 
             <div class="lyrics-box">
+                1
+00:00:30,350 --> 00:00:32,310
+دلخوری
 
-                <div class="lyrics">
+2
+00:00:32,310 --> 00:00:32,496
+از
 
-                    <div class="lyric-line">
-ﻣﺜﻞ ﺑﺎد ﺳﺮد ﭘﺎﻳﻴﺰ
-ﻏﻢ ﻟﻌﻨﺘﻰ ﺑﻪ ﻣﻦ زد
-ﺣﺘﻰ ﺑﺎﻏﺒﻮن ﻧﻔﻬﻤﻴﺪ
-ﻛﻪ ﭼﻪ آﻓﺘﻰ ﺑﻪ ﻣﻦ زد
-رگ و رﻳﺸﻪ ﻫﺎم ﺳﻴﺎه ﺷﺪ
-ﺗﻮ ﺗﻨﻢ ﺟﻮوﻧﻪ ﺧﺸﻜﻴﺪ
-اﻣﺎ اﻳﻦ دل ﺻﺒﻮرم
-ﺑﻪ ﻏﻢ زﻣﻮﻧﻪ ﺧﻨﺪﻳﺪ
-آﺳﻤﻮن ﻣﺴﺖ ﺟﻨﻮﻧﻰ
-آﺳﻤﻮن ﺗﺸﻨﻪ ی ﺧﻮﻧﻰ
-آﺳﻤﻮن ﻣﺴﺖ ﮔﻨﺎﻫﻰ
-آﺳﻤﻮن ﭼﻪ روﺳﻴﺎﻫﻰ
-اﮔﻪ زﻧﺪﮔﻰ ﻋﺬاﺑﻪ
-ﻳﻪ ﺣﺒﺎب روی آﺑﻪ
-ﻣﻦ ﺑﻪ ﮔﺮﻳﻪ ﻫﺎ ﻣﻰ ﺧﻨﺪم
-ﻣﻰ ﮔﻢ اﻳﻦ ﻫﻤﺶ ﻳﻪ ﺧﻮاﺑﻪ
+3
+00:00:32,496 --> 00:00:32,880
+بغض
+
+4
+00:00:32,880 --> 00:00:33,472
+پری
+
+5
+00:00:33,472 --> 00:00:34,090
+می
+
+6
+00:00:34,090 --> 00:00:36,100
+فهمم
+
+7
+00:00:37,229 --> 00:00:38,969
+ناراحتی
+
+8
+00:00:38,969 --> 00:00:39,728
+غصه
+
+9
+00:00:39,728 --> 00:00:40,311
+داری
+
+10
+00:00:40,311 --> 00:00:40,969
+می
+
+11
+00:00:40,969 --> 00:00:43,030
+فهمم
+
+12
+00:00:44,070 --> 00:00:45,451
+دلواپس
+
+13
+00:00:45,451 --> 00:00:46,567
+فردای
+
+14
+00:00:46,567 --> 00:00:47,149
+با
+
+15
+00:00:47,149 --> 00:00:47,624
+من
+
+16
+00:00:47,624 --> 00:00:50,109
+بودنی
+
+17
+00:00:50,899 --> 00:00:52,121
+دلگیری
+
+18
+00:00:52,121 --> 00:00:52,317
+از
+
+19
+00:00:52,317 --> 00:00:53,560
+من
+
+20
+00:00:53,560 --> 00:00:53,826
+اما
+
+21
+00:00:53,826 --> 00:00:54,857
+درگیر
+
+22
+00:00:54,857 --> 00:00:55,420
+منی
+
+23
+00:00:56,728 --> 00:00:57,423
+داری
+
+24
+00:00:57,423 --> 00:00:58,122
+دل
+
+25
+00:00:58,122 --> 00:00:58,515
+می
+
+26
+00:00:58,515 --> 00:00:59,170
+زنی
+
+27
+00:00:59,170 --> 00:00:59,847
+دل
+
+28
+00:00:59,847 --> 00:01:00,219
+می
+
+29
+00:01:00,219 --> 00:01:00,890
+کنی
+
+30
+00:01:00,890 --> 00:01:01,488
+تو
+
+31
+00:01:01,488 --> 00:01:01,990
+کم
+
+32
+00:01:01,990 --> 00:01:03,069
+کم
+
+33
+00:01:03,564 --> 00:01:03,923
+من
+
+34
+00:01:03,923 --> 00:01:04,825
+بهت
+
+35
+00:01:04,825 --> 00:01:07,724
+حق
+
+36
+00:01:07,724 --> 00:01:13,484
+میدم
+
+37
+00:01:13,484 --> 00:01:18,545
+من
+
+38
+00:01:18,545 --> 00:01:21,483
+حالتو
+
+39
+00:01:21,483 --> 00:01:22,027
+می
+
+40
+00:01:22,027 --> 00:01:23,224
+فهمم
+
+41
+00:01:31,225 --> 00:01:41,346
+داری
+
+42
+00:01:41,346 --> 00:01:56,346
+دل
+
+43
+00:02:00,025 --> 00:02:15,026
+می
+
+44
+00:02:37,466 --> 00:02:51,006
+زنی
+
+45
+00:02:51,006 --> 00:02:58,705
+دل
+
+46
+00:02:58,705 --> 00:03:07,066
+می
+
+47
+00:03:07,066 --> 00:03:09,436
+کنی
+
+48
+00:03:09,436 --> 00:03:09,979
+تو
+
+49
+00:03:09,979 --> 00:03:11,626
+کم
+
+50
+00:03:11,626 --> 00:03:13,126
+کم
+
+51
+00:03:22,409 --> 00:03:22,800
+من
+
+52
+00:03:22,800 --> 00:03:23,219
+بهت
+
+53
+00:03:23,219 --> 00:03:23,888
+حق
+
+54
+00:03:23,888 --> 00:03:24,879
+میدم
+
+55
+00:03:24,879 --> 00:03:25,604
+من
+
+56
+00:03:25,604 --> 00:03:26,639
+حالتو
+
+57
+00:03:26,639 --> 00:03:27,199
+می
+
+58
+00:03:27,199 --> 00:03:28,789
+فهمم
+
+59
+00:03:29,050 --> 00:03:29,568
+نبض
+
+60
+00:03:29,568 --> 00:03:31,352
+احساستو
+
+61
+00:03:31,352 --> 00:03:31,780
+می
+
+62
+00:03:31,780 --> 00:03:32,960
+گیرم
+
+63
+00:03:32,960 --> 00:03:33,056
+و
+
+64
+00:03:33,056 --> 00:03:34,195
+حالت
+
+65
+00:03:34,195 --> 00:03:34,680
+خوش
+
+66
+00:03:34,680 --> 00:03:35,879
+نیست
+
+67
+00:03:36,210 --> 00:03:36,520
+این
+
+68
+00:03:36,520 --> 00:03:36,948
+دفعه
+
+69
+00:03:36,948 --> 00:03:38,192
+نیت
+
+70
+00:03:38,192 --> 00:03:38,584
+من
+
+71
+00:03:38,584 --> 00:03:39,650
+خیره
+
+72
+00:03:39,650 --> 00:03:39,948
+تو
+
+73
+00:03:39,948 --> 00:03:41,012
+فالت
+
+74
+00:03:41,012 --> 00:03:41,500
+خوش
+
+75
+00:03:41,500 --> 00:03:42,599
+نیست
+
+76
+00:03:43,009 --> 00:03:43,747
+دارم
+
+77
+00:03:43,747 --> 00:03:44,370
+می
+
+78
+00:03:44,370 --> 00:03:45,683
+بازمت
+
+79
+00:03:45,683 --> 00:03:46,104
+ای
+
+80
+00:03:46,104 --> 00:03:46,771
+داد
+
+81
+00:03:46,771 --> 00:03:48,460
+بیداد
+
+82
+00:03:49,870 --> 00:03:50,592
+خودم
+
+83
+00:03:50,592 --> 00:03:51,659
+کردم
+
+84
+00:03:51,659 --> 00:03:51,895
+که
+
+85
+00:03:51,895 --> 00:03:53,008
+لعنت
+
+86
+00:03:53,008 --> 00:03:53,400
+بر
+
+87
+00:03:53,400 --> 00:03:54,252
+خودم
+
+88
+00:03:54,252 --> 00:03:55,719
+باد
+
+89
+00:03:56,719 --> 00:03:57,484
+دارم
+
+90
+00:03:57,484 --> 00:03:58,110
+می
+
+91
+00:03:58,110 --> 00:03:59,424
+بازمت
+
+92
+00:03:59,424 --> 00:03:59,795
+ای
+
+93
+00:03:59,795 --> 00:04:00,472
+داد
+
+94
+00:04:00,472 --> 00:04:02,840
+بیداد
+
+95
+00:04:03,610 --> 00:04:04,324
+خودم
+
+96
+00:04:04,324 --> 00:04:05,419
+کردم
+
+97
+00:04:05,419 --> 00:04:05,656
+که
+
+98
+00:04:05,656 --> 00:04:06,743
+لعنت
+
+99
+00:04:06,743 --> 00:04:07,120
+بر
+
+100
+00:04:07,120 --> 00:04:07,987
+خودم
+
+101
+00:04:07,987 --> 00:04:09,069
+باد
 
 
 
-
-
-
-
-
-
-
-
-
-
-                    </div>
-
-                </div>
+                <div class="lyrics" id="lyrics" aria-label="متن آهنگ"></div>
 
             </div>
 
@@ -1375,6 +1734,7 @@ forward.addEventListener(
 
 
 audio.addEventListener("ended", () => {
+    updateKaraoke(0);
     progress.value = 0;
     currentTime.textContent = "0:00";
     syncPlayerState();
@@ -1423,43 +1783,77 @@ document.addEventListener(
 
 
 
-// Add exactly two static crescent moons beside each lyric line.
-(() => {
-    const lyricsContainer = document.querySelector(".lyrics > .lyric-line");
-    if (!lyricsContainer) return;
+// Word-level karaoke timestamps (seconds, based on the supplied SRT).
+const karaokeCues = [[30.35,32.31,"دلخوری"],[32.31,32.496,"از"],[32.496,32.88,"بغض"],[32.88,33.472,"پری"],[33.472,34.09,"می"],[34.09,36.1,"فهمم"],[37.229,38.969,"ناراحتی"],[38.969,39.728,"غصه"],[39.728,40.311,"داری"],[40.311,40.969,"می"],[40.969,43.03,"فهمم"],[44.07,45.451,"دلواپس"],[45.451,46.567,"فردای"],[46.567,47.149,"با"],[47.149,47.624,"من"],[47.624,50.109,"بودنی"],[50.899,52.121,"دلگیری"],[52.121,52.317,"از"],[52.317,53.56,"من"],[53.56,53.826,"اما"],[53.826,54.857,"درگیر"],[54.857,55.42,"منی"],[56.728,57.423,"داری"],[57.423,58.122,"دل"],[58.122,58.515,"می"],[58.515,59.17,"زنی"],[59.17,59.847,"دل"],[59.847,60.219,"می"],[60.219,60.89,"کنی"],[60.89,61.488,"تو"],[61.488,61.99,"کم"],[61.99,63.069,"کم"],[63.564,63.923,"من"],[63.923,64.825,"بهت"],[64.825,67.724,"حق"],[67.724,73.484,"میدم"],[73.484,78.545,"من"],[78.545,81.483,"حالتو"],[81.483,82.027,"می"],[82.027,83.224,"فهمم"],[91.225,101.346,"داری"],[101.346,116.346,"دل"],[120.025,135.026,"می"],[157.466,171.006,"زنی"],[171.006,178.705,"دل"],[178.705,187.066,"می"],[187.066,189.436,"کنی"],[189.436,189.979,"تو"],[189.979,191.626,"کم"],[191.626,193.126,"کم"],[202.409,202.8,"من"],[202.8,203.219,"بهت"],[203.219,203.888,"حق"],[203.888,204.879,"میدم"],[204.879,205.604,"من"],[205.604,206.639,"حالتو"],[206.639,207.199,"می"],[207.199,208.789,"فهمم"],[209.05,209.568,"نبض"],[209.568,211.352,"احساستو"],[211.352,211.78,"می"],[211.78,212.96,"گیرم"],[212.96,213.056,"و"],[213.056,214.195,"حالت"],[214.195,214.68,"خوش"],[214.68,215.879,"نیست"],[216.21,216.52,"این"],[216.52,216.948,"دفعه"],[216.948,218.192,"نیت"],[218.192,218.584,"من"],[218.584,219.65,"خیره"],[219.65,219.948,"تو"],[219.948,221.012,"فالت"],[221.012,221.5,"خوش"],[221.5,222.599,"نیست"],[223.009,223.747,"دارم"],[223.747,224.37,"می"],[224.37,225.683,"بازمت"],[225.683,226.104,"ای"],[226.104,226.771,"داد"],[226.771,228.46,"بیداد"],[229.87,230.592,"خودم"],[230.592,231.659,"کردم"],[231.659,231.895,"که"],[231.895,233.008,"لعنت"],[233.008,233.4,"بر"],[233.4,234.252,"خودم"],[234.252,235.719,"باد"],[236.719,237.484,"دارم"],[237.484,238.11,"می"],[238.11,239.424,"بازمت"],[239.424,239.795,"ای"],[239.795,240.472,"داد"],[240.472,242.84,"بیداد"],[243.61,244.324,"خودم"],[244.324,245.419,"کردم"],[245.419,245.656,"که"],[245.656,246.743,"لعنت"],[246.743,247.12,"بر"],[247.12,247.987,"خودم"],[247.987,249.069,"باد"]];
+const lyricsElement = document.getElementById("lyrics");
+const karaokeWords = [];
+let currentRow = null;
+let previousEnd = null;
 
-    const originalLyrics = lyricsContainer.textContent
-        .replace(/\\r/g, "")
-        .split("\\n")
-        .map(line => line.trim())
-        .filter(line => line.length > 0 && line !== "---");
-
-    const fragment = document.createDocumentFragment();
-
-    originalLyrics.forEach((line) => {
-        const row = document.createElement("div");
-        row.className = "lyric-line lyric-decorated";
-
+karaokeCues.forEach(([start, end, text]) => {
+    if (!currentRow || (previousEnd !== null && start - previousEnd > 0.65)) {
+        currentRow = document.createElement("div");
+        currentRow.className = "karaoke-row";
         const leftMoon = document.createElement("span");
         leftMoon.className = "lyric-moon";
         leftMoon.textContent = "☾";
         leftMoon.setAttribute("aria-hidden", "true");
+        currentRow.appendChild(leftMoon);
+        lyricsElement.appendChild(currentRow);
+    }
 
-        const words = document.createElement("span");
-        words.className = "lyric-words";
-        words.textContent = line;
+    const word = document.createElement("span");
+    word.className = "karaoke-word";
+    word.textContent = text;
+    word.dataset.start = start;
+    word.dataset.end = end;
+    currentRow.appendChild(word);
+    karaokeWords.push({ start, end, element: word });
+    previousEnd = end;
 
+    const nextCue = karaokeCues[karaokeWords.length];
+    if (!nextCue || nextCue[0] - end > 0.65) {
         const rightMoon = document.createElement("span");
         rightMoon.className = "lyric-moon";
         rightMoon.textContent = "☽";
         rightMoon.setAttribute("aria-hidden", "true");
+        currentRow.appendChild(rightMoon);
+    }
+});
 
-        row.append(leftMoon, words, rightMoon);
-        fragment.appendChild(row);
+let activeCueIndex = -1;
+function updateKaraoke(time) {
+    // Find the cue whose time range contains the current playback position.
+    let low = 0;
+    let high = karaokeWords.length - 1;
+    let found = -1;
+    while (low <= high) {
+        const mid = (low + high) >> 1;
+        const cue = karaokeWords[mid];
+        if (time < cue.start) high = mid - 1;
+        else if (time >= cue.end) low = mid + 1;
+        else { found = mid; break; }
+    }
+    if (found === activeCueIndex) return;
+    activeCueIndex = found;
+    karaokeWords.forEach((cue, index) => {
+        cue.element.classList.toggle("active", index === found);
+        cue.element.classList.toggle("past", found >= 0 && index < found);
     });
+    if (found >= 0) {
+        const row = karaokeWords[found].element.parentElement;
+        const box = document.querySelector(".lyrics-box");
+        const rowTop = row.offsetTop;
+        const rowBottom = rowTop + row.offsetHeight;
+        if (rowTop < box.scrollTop || rowBottom > box.scrollTop + box.clientHeight) {
+            row.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+    }
+}
 
-    lyricsContainer.replaceWith(fragment);
-})();
+audio.addEventListener("timeupdate", () => updateKaraoke(audio.currentTime));
+audio.addEventListener("seeked", () => updateKaraoke(audio.currentTime));
+
 
 </script>
 
