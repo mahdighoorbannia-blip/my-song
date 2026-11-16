@@ -919,15 +919,11 @@ body {
 
 
 /* =========================
-   WORD-BY-WORD KARAOKE — NATURAL SCROLL
+   SENTENCE-BY-SENTENCE KARAOKE
 ========================= */
 .lyrics-box {
-    height: 310px;
-    max-height: 42vh;
-    min-height: 190px;
+    max-height: 310px;
     overflow-y: auto;
-    overscroll-behavior: contain;
-    scroll-behavior: smooth;
     scrollbar-width: thin;
     scrollbar-color: rgba(242,182,93,.35) transparent;
 }
@@ -935,9 +931,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 11px;
+    gap: 8px;
     direction: rtl;
-    padding: 95px 5px;
+    padding: 12px 5px;
 }
 .karaoke-row {
     display: flex;
@@ -947,18 +943,9 @@ body {
     gap: 5px;
     direction: rtl;
     text-align: center;
-    line-height: 2.2;
+    line-height: 2.1;
     width: 100%;
-    padding: 5px 3px;
-    opacity: .58;
-    transform: translateY(3px);
-    transition: opacity .35s ease, transform .35s ease, filter .35s ease;
 }
-.karaoke-row.current-line {
-    opacity: 1;
-    transform: translateY(0);
-}
-.karaoke-row.completed-line { opacity: .72; }
 .karaoke-word {
     display: inline-block;
     color: rgba(225,222,255,.62);
@@ -966,25 +953,19 @@ body {
     font-weight: 400;
     padding: 1px 2px;
     border-radius: 5px;
-    transform-origin: center;
-    transition: color .22s ease, text-shadow .22s ease, transform .22s ease, opacity .22s ease;
+    transition: color .12s ease, text-shadow .12s ease, transform .12s ease;
 }
 .karaoke-word.active {
     color: #ffd18a;
     font-weight: 800;
-    text-shadow: 0 0 7px rgba(255,184,91,.75), 0 0 17px rgba(255,153,48,.35);
-    transform: scale(1.07);
+    text-shadow: 0 0 7px rgba(255,184,91,.85), 0 0 19px rgba(255,153,48,.45);
+    transform: scale(1.08);
 }
 .karaoke-word.past { color: rgba(242,182,93,.88); }
 .karaoke-row .lyric-moon { margin: 0 3px; }
 @media (max-width: 480px) {
-    .lyrics-box { height: 280px; max-height: 40vh; }
-    .lyrics { padding-block: 82px; }
+    .lyrics-box { max-height: 280px; }
     .karaoke-word { font-size: 14px; }
-}
-@media (prefers-reduced-motion: reduce) {
-    .karaoke-row, .karaoke-word { transition: none !important; }
-    .lyrics-box { scroll-behavior: auto; }
 }
 
 </style>
@@ -1397,192 +1378,69 @@ document.addEventListener(
 
 
 
-    // Sentence timestamps already present in the original song data.
-    // Word-level timestamps are estimated automatically inside each sentence.
-    // This is a timing estimate, not true speech recognition/forced alignment.
-    const karaokeCues = [
-        [19.06, 23.63, "بغضم گرفته وقتشه ببارم"],
-        [23.63, 27.16, "چه بی هوا هوای گریه دارم"],
-        [27.16, 31.46, "باز کاغذام با تو خط خطی شد"],
-        [31.46, 35.09, "خدا این حس و حال و دوست ندارم"],
-        [35.09, 38.73, "باز دور پنجره قفس کشیدم"],
-        [38.73, 42.62, "دوباره عطرتو نفس کشیدم"],
-        [42.62, 46.70, "قلم تو دست من پر از سکوته"],
-        [46.70, 50.62, "دوباره از ترانه دست کشیدم"],
-        [50.62, 55.56, "باز خاطرات توهمین حوالیه"],
-        [55.56, 63.78, "حالم همینویه چند سالیه خالیه"],
-        [63.78, 68.85, "جز تو تمام شهر میدونن حالمو"],
-        [68.85, 76.78, "مثل کبوترم که سنگ آدما شکسته بالمو"],
-        [76.78, 80.75, "این قلب بی قرار و از تو دارم"],
-        [80.75, 84.60, "این حس انتظارو از تو دارم"],
-        [84.60, 88.66, "اسمت هنوز دور گردنم هست"],
-        [88.66, 92.41, "من این طناب دار و از تو دارم"],
-        [92.41, 95.94, "اسمت نوشته رو بخار شیشه"],
-        [95.94, 99.62, "دلی که بی تو باشه دل نمیشه"],
-        [99.62, 103.79, "من موندمو یه سایه توی خونه"],
-        [103.79, 999, "میترسم اون هم حتی رفتنی شه"]
-    ];
+// Sentence-by-sentence karaoke timestamps (seconds, based on the supplied timecodes).
+const karaokeCues = [[30.35, 37.23, "دلخوری از بغض پری می فهمم"], [37.23, 44.07, "ناراحتی غصه داری می فهمم"], [44.07, 50.9, "دلواپس فردای با من بودنی"], [50.9, 56.73, "دلگیری از من اما درگیر منی"], [56.73, 63.56, "داری دل می زنی دل می کنی تو کم کم"], [63.56, 70.0, "من بهت حق میدم من حالتو می فهمم"], [70.0, 77.0, "داری دل می زنی دل می کنی تو کم کم"], [77.0, 83.0, "من بهت حق میدم من حالتو می فهمم"], [83.0, 91.0, "نبض احساستو می گیرم و حالت خوش نیست"], [91.0, 97.01, "این دفعه نیت من خیره تو فالت خوش نیست"], [97.01, 105.0, "دارم می بازمت ای داد بیداد"], [105.0, 112.0, "خودم کردم که لعنت بر خودم باد"], [112.0, 118.61, "دارم می بازمت ای داد بیداد"], [118.61, 124.61, "خودم کردم که لعنت بر خودم باد"]];
+const lyricsElement = document.getElementById("lyrics");
+const karaokeWords = [];
 
-    const lyricsElement = document.getElementById("lyrics");
-    const lyricsBox = document.querySelector(".lyrics-box");
-    let wordCues = [];
-    let activeWordIndex = -1;
-    let activeLineIndex = -1;
+karaokeCues.forEach(([start, end, text]) => {
+    const row = document.createElement("div");
+    row.className = "karaoke-row";
 
-    // Give longer words a little more of the sentence duration.
-    // A small pause is reserved after punctuation when possible.
-    function estimateWordTimings(start, end, sentence) {
-        const words = sentence.trim().split(/\s+/).filter(Boolean);
-        if (!words.length || !Number.isFinite(start) || !Number.isFinite(end) || end <= start) return [];
+    const leftMoon = document.createElement("span");
+    leftMoon.className = "lyric-moon";
+    leftMoon.textContent = "☾";
+    leftMoon.setAttribute("aria-hidden", "true");
+    row.appendChild(leftMoon);
 
-        const weights = words.map(word => {
-            const letters = [...word.replace(/[،؛.!؟,:]/g, "")].length;
-            return Math.max(1.25, Math.sqrt(letters) + letters * 0.12);
-        });
-        const pauses = words.map((word, index) => {
-            if (index === words.length - 1) return 0;
-            if (/[.!؟؛]/.test(word)) return 0.16;
-            if (/[،,:]/.test(word)) return 0.09;
-            return 0;
-        });
+    const sentence = document.createElement("span");
+    sentence.className = "karaoke-word";
+    sentence.textContent = text;
+    sentence.dataset.start = start;
+    sentence.dataset.end = end;
+    row.appendChild(sentence);
 
-        const duration = end - start;
-        const totalPause = pauses.reduce((sum, value) => sum + value, 0);
-        const usableDuration = Math.max(duration * 0.65, duration - totalPause);
-        const totalWeight = weights.reduce((sum, value) => sum + value, 0);
-        let cursor = start;
+    const rightMoon = document.createElement("span");
+    rightMoon.className = "lyric-moon";
+    rightMoon.textContent = "☽";
+    rightMoon.setAttribute("aria-hidden", "true");
+    row.appendChild(rightMoon);
 
-        return words.map((word, index) => {
-            const wordDuration = usableDuration * (weights[index] / totalWeight);
-            const cue = {
-                word,
-                start: cursor,
-                end: Math.min(end, cursor + wordDuration),
-                lineIndex: -1,
-                element: null
-            };
-            cursor = cue.end + pauses[index];
-            return cue;
-        }).map((cue, index, list) => {
-            // Keep the last word ending exactly at the sentence boundary.
-            if (index === list.length - 1) cue.end = end;
-            return cue;
-        });
+    lyricsElement.appendChild(row);
+    karaokeWords.push({ start, end, element: sentence });
+});
+
+let activeCueIndex = -1;
+function updateKaraoke(time) {
+    let low = 0;
+    let high = karaokeWords.length - 1;
+    let found = -1;
+    while (low <= high) {
+        const mid = (low + high) >> 1;
+        const cue = karaokeWords[mid];
+        if (time < cue.start) high = mid - 1;
+        else if (time >= cue.end) low = mid + 1;
+        else { found = mid; break; }
     }
-
-    function buildKaraoke() {
-        lyricsElement.replaceChildren();
-        wordCues = [];
-        activeWordIndex = -1;
-        activeLineIndex = -1;
-
-        karaokeCues.forEach(([start, end, sentenceText], lineIndex) => {
-            const row = document.createElement("div");
-            row.className = "karaoke-row";
-            row.dataset.lineIndex = lineIndex;
-
-            const leftMoon = document.createElement("span");
-            leftMoon.className = "lyric-moon";
-            leftMoon.textContent = "☾";
-            leftMoon.setAttribute("aria-hidden", "true");
-            row.appendChild(leftMoon);
-
-            const words = estimateWordTimings(start, end, sentenceText);
-            words.forEach(wordCue => {
-                const wordElement = document.createElement("span");
-                wordElement.className = "karaoke-word";
-                wordElement.textContent = wordCue.word;
-                wordElement.dir = "rtl";
-                wordElement.dataset.start = wordCue.start.toFixed(3);
-                wordElement.dataset.end = wordCue.end.toFixed(3);
-                row.appendChild(wordElement);
-
-                wordCue.lineIndex = lineIndex;
-                wordCue.element = wordElement;
-                wordCues.push(wordCue);
-            });
-
-            const rightMoon = document.createElement("span");
-            rightMoon.className = "lyric-moon";
-            rightMoon.textContent = "☽";
-            rightMoon.setAttribute("aria-hidden", "true");
-            row.appendChild(rightMoon);
-            lyricsElement.appendChild(row);
-        });
-    }
-
-    // Scroll only the lyrics panel, and only when the active line leaves
-    // its comfortable viewing area. The page itself will not jump.
-    function keepActiveLineInView(row) {
-        if (!row || !lyricsBox) return;
-        const boxRect = lyricsBox.getBoundingClientRect();
-        const rowRect = row.getBoundingClientRect();
-        const topComfort = boxRect.top + 48;
-        const bottomComfort = boxRect.bottom - 48;
-
-        if (rowRect.top < topComfort || rowRect.bottom > bottomComfort) {
-            const rowCenterInContent = rowRect.top - boxRect.top + lyricsBox.scrollTop + rowRect.height / 2;
-            const target = rowCenterInContent - lyricsBox.clientHeight / 2;
-            lyricsBox.scrollTo({
-                top: Math.max(0, target),
-                behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
-            });
-        }
-    }
-
-    function updateKaraoke(time) {
-        if (!wordCues.length) return;
-
-        // Binary search for the word that contains the current audio time.
-        let low = 0;
-        let high = wordCues.length - 1;
-        let found = -1;
-        while (low <= high) {
-            const mid = (low + high) >> 1;
-            const cue = wordCues[mid];
-            if (time < cue.start) high = mid - 1;
-            else if (time >= cue.end) low = mid + 1;
-            else { found = mid; break; }
-        }
-
-        const nextLineIndex = found >= 0 ? wordCues[found].lineIndex : -1;
-        if (found === activeWordIndex && nextLineIndex === activeLineIndex) return;
-
-        const previousLineIndex = activeLineIndex;
-        activeWordIndex = found;
-        activeLineIndex = nextLineIndex;
-
-        wordCues.forEach((cue, index) => {
-            cue.element.classList.toggle("active", index === found);
-            cue.element.classList.toggle("past", found >= 0 && index < found);
-        });
-
-        const rows = lyricsElement.querySelectorAll(".karaoke-row");
-        rows.forEach((row, index) => {
-            row.classList.toggle("current-line", index === nextLineIndex);
-            row.classList.toggle("completed-line", nextLineIndex >= 0 && index < nextLineIndex);
-        });
-
-        if (nextLineIndex >= 0 && nextLineIndex !== previousLineIndex) {
-            keepActiveLineInView(rows[nextLineIndex]);
-        }
-    }
-
-    // The final cue originally has an open-ended 999s boundary.
-    // Replace it with the real track duration when metadata becomes available.
-    audio.addEventListener("loadedmetadata", () => {
-        const lastCue = karaokeCues[karaokeCues.length - 1];
-        if (Number.isFinite(audio.duration) && audio.duration > lastCue[0]) {
-            lastCue[1] = audio.duration;
-            buildKaraoke();
-            updateKaraoke(audio.currentTime || 0);
-        }
+    if (found === activeCueIndex) return;
+    activeCueIndex = found;
+    karaokeWords.forEach((cue, index) => {
+        cue.element.classList.toggle("active", index === found);
+        cue.element.classList.toggle("past", found >= 0 && index < found);
     });
+    if (found >= 0) {
+        const row = karaokeWords[found].element.parentElement;
+        const box = document.querySelector(".lyrics-box");
+        const rowTop = row.offsetTop;
+        const rowBottom = rowTop + row.offsetHeight;
+        if (rowTop < box.scrollTop || rowBottom > box.scrollTop + box.clientHeight) {
+            row.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+    }
+}
 
-    buildKaraoke();
-    audio.addEventListener("timeupdate", () => updateKaraoke(audio.currentTime));
-    audio.addEventListener("seeked", () => updateKaraoke(audio.currentTime));
-    audio.addEventListener("ended", () => updateKaraoke(0));
+audio.addEventListener("timeupdate", () => updateKaraoke(audio.currentTime));
+audio.addEventListener("seeked", () => updateKaraoke(audio.currentTime));
 
 
 </script>
