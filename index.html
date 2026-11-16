@@ -946,21 +946,25 @@ body {
 
 
 /* =========================
-   SENTENCE-BY-SENTENCE KARAOKE
+   WORD-BY-WORD KARAOKE — GROUPED INTO LYRIC ROWS
 ========================= */
 .lyrics-box {
-    max-height: 310px;
+    height: 310px;
+    max-height: 42vh;
+    min-height: 190px;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
     scrollbar-width: thin;
     scrollbar-color: rgba(242,182,93,.35) transparent;
 }
 .lyrics {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 8px;
+    align-items: stretch;
+    gap: 10px;
     direction: rtl;
-    padding: 12px 5px;
+    padding: 30px 7px;
 }
 .karaoke-row {
     display: flex;
@@ -970,32 +974,38 @@ body {
     gap: 5px;
     direction: rtl;
     text-align: center;
-    line-height: 2.1;
+    line-height: 2.2;
     width: 100%;
+    padding: 5px 4px;
+    border-radius: 9px;
+    opacity: .52;
+    transition: opacity .25s ease, background .25s ease;
 }
-.karaoke-line {
-    width: 100%;
-    direction: rtl;
-    text-align: center;
-    color: rgba(225,222,255,.62);
+.karaoke-row.current-line { opacity: 1; background: rgba(255,184,91,.055); }
+.karaoke-row.completed-line { opacity: .72; }
+.karaoke-word {
+    display: inline-block;
+    color: rgba(225,222,255,.66);
     font-size: 15px;
     font-weight: 400;
-    line-height: 2.15;
-    padding: 5px 8px;
-    border-radius: 8px;
-    transition: color .2s ease, text-shadow .2s ease, background .2s ease;
+    padding: 1px 2px;
+    border-radius: 5px;
+    transition: color .16s ease, text-shadow .16s ease, transform .16s ease;
 }
-.karaoke-line.active {
+.karaoke-word.active {
     color: #ffd18a;
     font-weight: 800;
-    background: rgba(255, 184, 91, .055);
-    text-shadow: 0 0 7px rgba(255,184,91,.75), 0 0 19px rgba(255,153,48,.35);
+    text-shadow: 0 0 7px rgba(255,184,91,.8), 0 0 17px rgba(255,153,48,.38);
+    transform: scale(1.08);
 }
-.karaoke-line.past { color: rgba(242,182,93,.72); }
-.karaoke-row .lyric-moon { margin: 0 3px; }
+.karaoke-word.past { color: rgba(242,182,93,.9); }
 @media (max-width: 480px) {
-    .lyrics-box { max-height: 280px; }
-    .karaoke-line { font-size: 14px; }
+    .lyrics-box { height: 280px; max-height: 40vh; }
+    .karaoke-word { font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .karaoke-row, .karaoke-word { transition: none !important; }
+    .lyrics-box { scroll-behavior: auto; }
 }
 
 </style>
@@ -1412,104 +1422,278 @@ document.addEventListener(
 
 
 
-// Line-by-line karaoke timestamps (seconds).
-// The original audio player and its controls are kept unchanged.
+// Word timestamps displayed as separate, right-to-left lyric rows.
 const karaokeCues = [
-    [20.19, "اگه عاشق منی ...... منو با خودت ببر"],
-    [24.69, "بنویس تو آسمون ...... عشقمونو با قلم"],
-    [29.57, "یا اگه می خوای بری ...... فقط اینو یادت باشه"],
-    [34.27, "هیچ کسی برای تو ...... برای تو، من نمیشه"],
-    [38.55, "من اومدم تا بهت بگم ...... چقدر دوست دارم"],
-    [43.50, "کاش بدونی توی قلبم ...... تو رو من کم میارم"],
-    [48.30, "من اومدم تا بهم بگی ...... هنوز راهی داره"],
-    [53.09, "من اومدم بگی عشـــققققممم ."],
-    [59.05, "تو دلت جایی داره"],
-    [80.12, "همیشه یادت بمونه ...... تا نفس دارم برات میمونم"],
-    [89.55, "هرجای دنیا که باشم ...... به تو دل بستم، بی تو دیوونم"],
-    [99.08, "تو با اون نگاه معصوم ...... من پر از خواب و خیالم"],
-    [108.78, "منو از خودم رها کن ...... بی تو دنبال فرارم"],
-    [117.86, "من اومدم تا بهت بگم ...... چقدر دوست دارم"],
-    [122.68, "کاش بدونی توی قلبم ...... تو رو من کم میارم"],
-    [127.48, "من اومدم تا بهم بگی ...... هنوز راهی داره"],
-    [132.32, "من اومدم بگی عشقم ...... تو دلت جایی داره"],
-    [156.72, "تو مثل نور یه فانوس ...... توی تاریکی من می شینی"],
-    [166.25, "همه ی نگفته هامو ...... از تو آینه چشمام می بینی"],
-    [175.83, "تو با اون نگاه معصوم ...... من پر از خواب و خیالم"],
-    [203.29, "منو از خودم رها کن ...... بی تو دنبال فرارم"]
+    [20.19, "اگه"],
+    [20.66, "عاشق"],
+    [21.14, "منی......"],
+    [22.46, "منو"],
+    [22.76, "با"],
+    [23.04, "خودت"],
+    [23.52, "ببر"],
+    [24.92, "بنویس"],
+    [25.48, "تو"],
+    [25.92, "آسمون......"],
+    [27.44, "عشقمونو"],
+    [28.08, "با"],
+    [28.36, "قلم"],
+    [29.66, "یا"],
+    [30.00, "اگه"],
+    [30.24, "می"],
+    [30.42, "خوای"],
+    [30.74, "بری......"],
+    [31.78, "فقط"],
+    [32.30, "اینو"],
+    [32.66, "یادت"],
+    [33.12, "باشه"],
+    [34.36, "هیچ"],
+    [34.62, "کسی"],
+    [35.18, "برای"],
+    [35.76, "تو......"],
+    [36.56, "برای"],
+    [37.16, "تو،"],
+    [37.48, "من"],
+    [37.78, "نمیشه"],
+    [38.70, "من"],
+    [39.36, "اومدم"],
+    [40.56, "تا"],
+    [40.66, "بهت"],
+    [41.10, "بگم......"],
+    [41.70, "چقدر"],
+    [42.26, "دوست"],
+    [43.00, "دارم"],
+    [43.50, "کاش"],
+    [44.00, "بدونی"],
+    [45.38, "توی"],
+    [45.58, "قلبم......"],
+    [46.50, "تو"],
+    [46.66, "رو"],
+    [46.80, "من"],
+    [47.06, "کم"],
+    [47.70, "میارم"],
+    [48.30, "من"],
+    [48.92, "اومدم"],
+    [50.12, "تا"],
+    [50.22, "بهم"],
+    [50.68, "بگی......"],
+    [51.28, "هنوز"],
+    [52.02, "راهی"],
+    [52.66, "داره"],
+    [53.10, "من"],
+    [53.64, "اومدم"],
+    [54.90, "بگی"],
+    [55.38, "عشـــققققممم."],
+    [59.62, "تو"],
+    [59.80, "دلت"],
+    [60.24, "جایی"],
+    [61.04, "داره"],
+    [80.12, "همیشه"],
+    [80.68, "یادت"],
+    [81.44, "بمونه......"],
+    [84.86, "تا"],
+    [85.02, "نفس"],
+    [85.48, "دارم"],
+    [86.06, "برات"],
+    [86.70, "میمونم"],
+    [89.64, "هرجای"],
+    [90.26, "دنیا"],
+    [91.04, "که"],
+    [91.22, "باشم......"],
+    [92.56, "به"],
+    [94.60, "تو"],
+    [94.78, "دل"],
+    [95.08, "بستم،"],
+    [95.84, "بی"],
+    [95.98, "تو"],
+    [96.32, "دیوونم"],
+    [99.27, "تو"],
+    [99.44, "با"],
+    [99.52, "اون"],
+    [99.88, "نگاه"],
+    [100.66, "معصوم......"],
+    [104.06, "من"],
+    [104.24, "پر"],
+    [104.58, "از"],
+    [104.66, "خواب"],
+    [105.22, "و"],
+    [105.40, "خیالم"],
+    [108.88, "منو"],
+    [109.36, "از"],
+    [109.46, "خودم"],
+    [110.12, "رها"],
+    [110.68, "کن......"],
+    [113.66, "بی"],
+    [113.80, "تو"],
+    [113.96, "دنبال"],
+    [115.02, "فرارم"],
+    [117.88, "من"],
+    [118.44, "اومدم"],
+    [119.64, "تا"],
+    [119.84, "بهت"],
+    [120.28, "بگم......"],
+    [120.90, "چقدر"],
+    [121.50, "دوست"],
+    [122.10, "دارم"],
+    [122.68, "کاش"],
+    [123.18, "بدونی"],
+    [124.46, "توی"],
+    [124.78, "قلبم......"],
+    [125.64, "تو"],
+    [125.82, "رو"],
+    [125.96, "من"],
+    [126.24, "کم"],
+    [126.92, "میارم"],
+    [127.48, "من"],
+    [128.02, "اومدم"],
+    [129.22, "تا"],
+    [129.42, "بهم"],
+    [129.86, "بگی......"],
+    [130.50, "هنوز"],
+    [131.10, "راهی"],
+    [131.84, "داره"],
+    [132.32, "من"],
+    [132.84, "اومدم"],
+    [134.10, "بگی"],
+    [134.58, "عشقم......"],
+    [135.26, "تو"],
+    [135.42, "دلت"],
+    [135.82, "جایی"],
+    [136.62, "داره"],
+    [156.88, "تو"],
+    [157.00, "مثل"],
+    [157.50, "نور"],
+    [158.20, "یه"],
+    [158.40, "فانوس......"],
+    [161.64, "توی"],
+    [161.96, "تاریکی"],
+    [163.16, "من"],
+    [163.44, "می"],
+    [163.90, "شینی"],
+    [166.46, "همه"],
+    [166.76, "ی"],
+    [167.06, "نگفته"],
+    [167.84, "هامو......"],
+    [171.38, "از"],
+    [171.44, "تو"],
+    [171.64, "آینه"],
+    [172.44, "چشمام"],
+    [173.12, "می"],
+    [173.58, "بینی"],
+    [176.04, "تو"],
+    [176.26, "با"],
+    [176.50, "اون"],
+    [176.70, "نگاه"],
+    [177.46, "معصوم......"],
+    [180.86, "من"],
+    [181.02, "پر"],
+    [181.38, "از"],
+    [181.48, "خواب"],
+    [182.02, "و"],
+    [182.22, "خیالم"],
+    [203.62, "منو"],
+    [207.82, "از"],
+    [211.02, "خودم"],
+    [237.46, "رها"],
+    [237.84, "کن......"],
+    [245.10, "بی"],
+    [246.24, "تو"],
+    [250.66, "دنبال"],
+    [264.84, "فرارم"]
+];
+
+const lyricRows = [
+    { start: 20.19, text: 'اگه عاشق منی ...... منو با خودت ببر' },
+    { start: 24.69, text: 'بنویس تو آسمون ...... عشقمونو با قلم' },
+    { start: 29.57, text: 'یا اگه می خوای بری ...... فقط اینو یادت باشه' },
+    { start: 34.27, text: 'هیچ کسی برای تو ...... برای تو، من نمیشه' },
+    { start: 38.55, text: 'من اومدم تا بهت بگم ...... چقدر دوست دارم' },
+    { start: 43.5, text: 'کاش بدونی توی قلبم ...... تو رو من کم میارم' },
+    { start: 48.3, text: 'من اومدم تا بهم بگی ...... هنوز راهی داره' },
+    { start: 53.09, text: 'من اومدم بگی عشـــققققممم .' },
+    { start: 59.05, text: 'تو دلت جایی داره' },
+    { start: 80.12, text: 'همیشه یادت بمونه ...... تا نفس دارم برات میمونم' },
+    { start: 89.55, text: 'هرجای دنیا که باشم ...... به تو دل بستم، بی تو دیوونم' },
+    { start: 99.08, text: 'تو با اون نگاه معصوم ...... من پر از خواب و خیالم' },
+    { start: 108.78, text: 'منو از خودم رها کن ...... بی تو دنبال فرارم' },
+    { start: 117.86, text: 'من اومدم تا بهت بگم ...... چقدر دوست دارم' },
+    { start: 122.68, text: 'کاش بدونی توی قلبم ...... تو رو من کم میارم' },
+    { start: 127.48, text: 'من اومدم تا بهم بگی ...... هنوز راهی داره' },
+    { start: 132.32, text: 'من اومدم بگی عشقم ...... تو دلت جایی داره' },
+    { start: 156.72, text: 'تو مثل نور یه فانوس ...... توی تاریکی من می شینی' },
+    { start: 166.25, text: 'همه ی نگفته هامو ...... از تو آینه چشمام می بینی' },
+    { start: 175.83, text: 'تو با اون نگاه معصوم ...... من پر از خواب و خیالم' },
+    { start: 203.29, text: 'منو از خودم رها کن ...... بی تو دنبال فرارم' }
 ];
 
 const lyricsElement = document.getElementById("lyrics");
-const karaokeLines = [];
+const karaokeWords = [];
+const karaokeLineElements = [];
 
-const karaokeRow = document.createElement("div");
-karaokeRow.className = "karaoke-row";
+lyricRows.forEach((line, lineIndex) => {
+    const row = document.createElement("div");
+    row.className = "karaoke-row";
 
-const leftMoon = document.createElement("span");
-leftMoon.className = "lyric-moon";
-leftMoon.textContent = "☾";
-leftMoon.setAttribute("aria-hidden", "true");
-karaokeRow.appendChild(leftMoon);
+    karaokeCues.forEach(([start, text], cueIndex) => {
+        const nextLineStart = lyricRows[lineIndex + 1]?.start ?? Infinity;
+        if (start < line.start || start >= nextLineStart) return;
 
-karaokeCues.forEach(([start, text], index) => {
-    const line = document.createElement("div");
-    line.className = "karaoke-line";
-    line.textContent = text;
-    karaokeRow.appendChild(line);
+        const word = document.createElement("span");
+        word.className = "karaoke-word";
+        word.textContent = text;
+        row.appendChild(word);
 
-    karaokeLines.push({
-        start,
-        end: karaokeCues[index + 1]?.[0] ?? Infinity,
-        element: line
+        karaokeWords.push({
+            start,
+            end: karaokeCues[cueIndex + 1]?.[0] ?? Infinity,
+            element: word,
+            lineIndex
+        });
     });
+
+    karaokeLineElements.push(row);
+    lyricsElement.appendChild(row);
 });
 
-const rightMoon = document.createElement("span");
-rightMoon.className = "lyric-moon";
-rightMoon.textContent = "☽";
-rightMoon.setAttribute("aria-hidden", "true");
-karaokeRow.appendChild(rightMoon);
-
-lyricsElement.appendChild(karaokeRow);
-
 let activeCueIndex = -1;
+let activeLineIndex = -1;
 
 function updateKaraoke(time) {
     let low = 0;
-    let high = karaokeLines.length - 1;
+    let high = karaokeWords.length - 1;
     let found = -1;
 
     while (low <= high) {
         const mid = (low + high) >> 1;
-        const cue = karaokeLines[mid];
-
+        const cue = karaokeWords[mid];
         if (time < cue.start) high = mid - 1;
         else if (time >= cue.end) low = mid + 1;
-        else {
-            found = mid;
-            break;
-        }
+        else { found = mid; break; }
     }
 
-    if (found === activeCueIndex) return;
-    activeCueIndex = found;
+    if (found !== activeCueIndex) {
+        activeCueIndex = found;
+        karaokeWords.forEach((cue, index) => {
+            cue.element.classList.toggle("active", index === found);
+            cue.element.classList.toggle("past", found >= 0 && index < found);
+        });
+    }
 
-    karaokeLines.forEach((cue, index) => {
-        cue.element.classList.toggle("active", index === found);
-        cue.element.classList.toggle("past", found >= 0 && index < found);
-    });
+    const nextLineIndex = found >= 0 ? karaokeWords[found].lineIndex : -1;
+    if (nextLineIndex !== activeLineIndex) {
+        activeLineIndex = nextLineIndex;
+        karaokeLineElements.forEach((row, index) => {
+            row.classList.toggle("current-line", index === nextLineIndex);
+            row.classList.toggle("completed-line", nextLineIndex >= 0 && index < nextLineIndex);
+        });
 
-    if (found >= 0) {
-        const activeLine = karaokeLines[found].element;
-        const box = document.querySelector(".lyrics-box");
-        const lineRect = activeLine.getBoundingClientRect();
-        const boxRect = box.getBoundingClientRect();
-
-        if (lineRect.top < boxRect.top || lineRect.bottom > boxRect.bottom) {
-            activeLine.scrollIntoView({
-                behavior: "smooth",
-                block: "center",
-                inline: "nearest"
-            });
+        if (nextLineIndex >= 0) {
+            const activeRow = karaokeLineElements[nextLineIndex];
+            const box = document.querySelector(".lyrics-box");
+            const rowRect = activeRow.getBoundingClientRect();
+            const boxRect = box.getBoundingClientRect();
+            if (rowRect.top < boxRect.top || rowRect.bottom > boxRect.bottom) {
+                activeRow.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
         }
     }
 }
